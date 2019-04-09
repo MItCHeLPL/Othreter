@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Controllers\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\PlayerEyesController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\WeaponSwitching.cs" />
+    <Compile Include="Assets\Scripts\Menagers\CameraMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\InputMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\ObjectsMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\SettingMenager.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\UI\EnemyUI.cs" />
     <Compile Include="Assets\Scripts\UI\FPSCounter.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\OverHeadUI.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\UI\RuntimeOnClickControlsAssigner.cs" />
     <Compile Include="Assets\Scripts\UI\RuntimeOnValueChangedControlsAssigner.cs" />
