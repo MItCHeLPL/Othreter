@@ -64,9 +64,10 @@ public class Bow : MonoBehaviour
 			bowCoolDown -= Time.deltaTime;
 		}
 
-		if(Physics.Raycast(RayOrigin, cam.transform.forward, out aimHit, aimDistance, LayersForArrow)) { }
+		//if(Physics.Raycast(RayOrigin, cam.transform.forward, out aimHit, aimDistance, LayersForArrow)) { }
 
-		if(cameraController.aiming == true)
+		//if(cameraController.aiming == true)
+		if(cameraController.aiming == true && Physics.Raycast(RayOrigin, cam.transform.forward, out aimHit, aimDistance, LayersForArrow))
 		{
 			//temp
 			transform.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0.0f, 90.0f);
