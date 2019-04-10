@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 	public float jumpHeight = 8.0f; //jump height
 	public float gravity = 20.0f; //gravitation force (20f is optimal as for earth gravity)
 
-	[Header("Camera FOV")]
+	[Header("Camera")]
 	public float camFov = 60.0f; //normal camera field of view
 	public float camSprintFov = 65.0f; //camera field of view while sprinting
 
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void Update()
-	{ 
+	{
 		//edit binds
 		#region Sprint
 
@@ -267,6 +267,12 @@ public class PlayerController : MonoBehaviour
 
 			#endregion
 
+			//test this
+			if (weaponHolder.ActiveWeaponTag() != "Hands")
+			{
+				speed -= 1.0f;
+			}
+
 			moveDirection = transform.TransformDirection(moveDirection);
 
 			if (controller.isGrounded)//when player is on ground
@@ -296,12 +302,6 @@ public class PlayerController : MonoBehaviour
 			else
 			{
 				jumpVelocity = Vector3.zero;
-			}
-
-			//test this
-			if(weaponHolder.ActiveWeaponTag() == "Bow" || weaponHolder.ActiveWeaponTag() == "Sword")
-			{
-				speed -= 1.5f;
 			}
 		}
 		else

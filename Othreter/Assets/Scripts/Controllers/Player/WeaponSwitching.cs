@@ -116,6 +116,8 @@ public class WeaponSwitching : MonoBehaviour
 
 		StartCoroutine(Cooldown(0.75f));
 
+		cameraController.weaponDistanceChangeDone = false;
+
 		//play anim draw weapon
 	}
 

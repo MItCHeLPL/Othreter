@@ -17,12 +17,16 @@ public class CameraController : MonoBehaviour
 	[Header("Placement Settings")]
 	public float minYAngle = -89.0f; //camera Y angle limitations min
 	public float maxYAngle = 89.0f; //camera Y angle limitations amx
+	public float weaponDistance = 2.5f;
+	private bool weaponPicked = false;
+	public bool changingDistanceEnabled = true;
 	public float maxDistance = 3.5f; //camera distance limitations max 
 	public float minDistance = 1.5f; //camera distance limitations min
 	private float oldMinDistance;
 	public float distance = 2.0f; //camera placement distance
 	public float aimDistance = 1.0f; //camera placement distance
 	private float oldDistance;
+	private float oldDistanceBeforeWeapon;
 	private Vector3 vectorDistance;
 	public float sensitivityX; //Camera sensitivity in x axis
 	public float sensitivityY; //Camera sensitivity in y axis
@@ -47,6 +51,8 @@ public class CameraController : MonoBehaviour
 	private bool camOnPosition = true;
 	private bool distanceOnPosition = true;
 	private bool camShoulder = false; //switches camera beetween left and right shoulder right - false, left - true
+	[HideInInspector]
+	public bool weaponDistanceChangeDone = true;
 
 	[Header("GameObjects")]
 	private GameObject right;  //right shoulder lookatpoint
@@ -73,6 +79,9 @@ public class CameraController : MonoBehaviour
 
 		sensitivityX = InputMenager.input.mouseSensitivityX;
 		sensitivityY = InputMenager.input.mouseSensitivityY;
+
+		oldDistance = distance;
+		oldDistanceBeforeWeapon = distance;
 
 		#region LookAt Points Placements
 
@@ -135,7 +144,7 @@ public class CameraController : MonoBehaviour
 			currentX += Input.GetAxis("Mouse X") * sensitivityX * Time.timeScale; //multiplyes camera movement times sensitivityx
 			currentY -= Input.GetAxis("Mouse Y") * sensitivityY * Time.timeScale; //multiplyes camera movement times sensitivityy  
 
-			if(aiming == false && distanceOnPosition == true)
+			if(aiming == false && distanceOnPosition == true && changingDistanceEnabled && weaponPicked == false)
 			{
 				if (Input.GetAxis("Mouse ScrollWheel") != 0)
 				{
@@ -266,14 +275,27 @@ public class CameraController : MonoBehaviour
 
 		#endregion
 
+		if (weaponHolder.ActiveWeaponTag() != "Hands" && weaponDistanceChangeDone == false && aiming == false)
+		{
+			StartCoroutine(SmoothDistanceBeetweenValues(weaponDistance, 10.0f, true));
+			weaponDistanceChangeDone = true;
+			weaponPicked = true;
+		}
+		else if(weaponHolder.ActiveWeaponTag() == "Hands" && weaponDistanceChangeDone == false)
+		{
+			StartCoroutine(SmoothDistanceBeetweenValues(oldDistanceBeforeWeapon, 10.0f, false));
+			weaponDistanceChangeDone = true;
+			weaponPicked = false;
+		}
+
 		//edit binds
 		#region Aim
-		
+
 			#region Aim Bow
 
-				if (weaponHolder.ActiveWeaponTag() == "Bow")
+			if (weaponHolder.ActiveWeaponTag() == "Bow" && camOnPosition == true && distanceOnPosition == true)
 				{
-					if (Input.GetKeyDown(InputMenager.input.switchShoulder) && camOnPosition == true && aiming == true)//shoulder camera swap key
+					if (Input.GetKeyDown(InputMenager.input.switchShoulder) && aiming == true)//shoulder camera swap key
 					{
 						if (camShoulder == false)//right
 						{
@@ -287,7 +309,7 @@ public class CameraController : MonoBehaviour
 						}
 					}
 
-					if (Input.GetMouseButtonDown(1) && playerController.climbingProcess == false && camOnPosition == true)
+					if (Input.GetMouseButtonDown(1) && playerController.climbingProcess == false)
 					{
 						//bow.FadeAmmoOut();
 
@@ -311,7 +333,7 @@ public class CameraController : MonoBehaviour
 						}
 					}
 
-					if (Input.GetMouseButton(1) && playerController.climbingProcess == false && camOnPosition == true && aiming == true)
+					if (Input.GetMouseButton(1) && playerController.climbingProcess == false && aiming == true)
 					{
 						if (camShoulder == false)//right
 						{
@@ -323,7 +345,7 @@ public class CameraController : MonoBehaviour
 						}
 					}
 
-					if (playerController.climbingProcess == false && camOnPosition == true && aiming == true && (Input.GetMouseButtonUp(1) || Input.GetMouseButton(1) == false))
+					if (playerController.climbingProcess == false && aiming == true && (Input.GetMouseButtonUp(1) || Input.GetMouseButton(1) == false))
 					{
 						if (camShoulder == false)//right
 						{
@@ -344,7 +366,7 @@ public class CameraController : MonoBehaviour
 			
 			#region Aim Sword
 
-				else if (weaponHolder.ActiveWeaponTag() == "Sword" && playerController.inFight == true)
+				else if (weaponHolder.ActiveWeaponTag() == "Sword" && playerController.inFight == true && camOnPosition == true && distanceOnPosition == true)
 				{
 					/*if (Input.GetKeyDown(InputMenager.key.switchShoulder) && camOnPosition == true && aiming == true)//shoulder camera swap key
 					{
@@ -360,7 +382,7 @@ public class CameraController : MonoBehaviour
 						}
 					}*/
 
-					if (Input.GetMouseButtonDown(1) && playerController.climbingProcess == false && camOnPosition == true)
+					if (Input.GetMouseButtonDown(1) && playerController.climbingProcess == false)
 					{
 						/*oldMinDistance = minDistance;
 						oldDistance = distance;
@@ -373,12 +395,12 @@ public class CameraController : MonoBehaviour
 						StartCoroutine(Smooth(cam.gameObject, middleAim.transform.position + rotation * vectorDistance, 15.0f));
 					}		
 
-					if (Input.GetMouseButton(1) && playerController.climbingProcess == false && camOnPosition == true && aiming == true)
+					if (Input.GetMouseButton(1) && playerController.climbingProcess == false && aiming == true)
 					{
 						CameraRotate(middleAim);
 					}
 
-					if (playerController.climbingProcess == false && camOnPosition == true && aiming == true && (Input.GetMouseButtonUp(1) || Input.GetMouseButton(1) == false))
+					if (playerController.climbingProcess == false && aiming == true && (Input.GetMouseButtonUp(1) || Input.GetMouseButton(1) == false))
 					{
 						CancelSwordAim();
 					}
@@ -455,6 +477,25 @@ public class CameraController : MonoBehaviour
 			if (Mathf.Abs(distance - endPoint) < 0.01f)
 			{
 				distance = endPoint;
+				distanceOnPosition = true;
+			}
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
+	private IEnumerator SmoothDistanceBeetweenValues(float value, float speed, bool saveOldDistance)
+	{
+		distanceOnPosition = false;
+		if(saveOldDistance)
+		{
+			oldDistanceBeforeWeapon = distance;
+		}
+		while (distanceOnPosition == false)
+		{
+			distance = Mathf.Lerp(distance, value, speed * Time.deltaTime);
+			if (Mathf.Abs(distance - value) < 0.01f)
+			{
+				distance = value;
 				distanceOnPosition = true;
 			}
 			yield return new WaitForEndOfFrame();
