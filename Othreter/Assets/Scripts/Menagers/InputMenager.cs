@@ -64,43 +64,43 @@ public class InputMenager : MonoBehaviour
 			switch (text.GetChild(0).GetChild(0).GetComponent<Text>().text)
 			{
 				case "jump":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = jump.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(jump);
 					break;
 				case "crouch":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = crouch.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(crouch);
 					break;
 				case "sprint":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = sprint.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(sprint);
 					break;
 				case "switchShoulder":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = switchShoulder.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(switchShoulder);
 					break;
 				case "changeFocus":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = changeFocus.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(changeFocus);
 					break;
 				case "hideWeapon":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = hideWeapon.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(hideWeapon);
 					break;
 				case "lastWeapon":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = lastWeapon.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(lastWeapon);
 					break;
 				case "weaponSlot1":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = weaponSlot1.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot1);
 					break;
 				case "weaponSlot2":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = weaponSlot2.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot2);
 					break;
 				case "weaponSlot3":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = weaponSlot3.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot3);
 					break;
 				case "weaponSlot4":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = weaponSlot4.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot4);
 					break;
 				case "zoomIn":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = zoomIn.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(zoomIn);
 					break;
 				case "zoomOut":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = zoomOut.ToString();
+					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(zoomOut);
 					break;
 				default:
 					break;
@@ -186,6 +186,49 @@ public class InputMenager : MonoBehaviour
 				wait = false;
 			}
 			yield return null;
+		}
+	}
+
+	private string KeyName(KeyCode key)
+	{
+		switch (key)
+		{
+			case KeyCode.Space:
+				return "Space";
+			case KeyCode.LeftControl:
+				return "LCtrl";
+			case KeyCode.LeftShift:
+				return "LShift";
+			case KeyCode.LeftAlt:
+				return "LAlt";
+			case KeyCode.PageUp:
+				return "PgUp";
+			case KeyCode.PageDown:
+				return "PgDown";
+
+			case KeyCode.Alpha0:
+				return "0";
+			case KeyCode.Alpha1:
+				return "1";
+			case KeyCode.Alpha2:
+				return "2";
+			case KeyCode.Alpha3:
+				return "3";
+			case KeyCode.Alpha4:
+				return "4";
+			case KeyCode.Alpha5:
+				return "5";
+			case KeyCode.Alpha6:
+				return "6";
+			case KeyCode.Alpha7:
+				return "7";
+			case KeyCode.Alpha8:
+				return "8";
+			case KeyCode.Alpha9:
+				return "9";
+
+			default:
+				return key.ToString();
 		}
 	}
 
