@@ -37,7 +37,7 @@ public class InputMenager : MonoBehaviour
 	private Event e;
 	private bool waitingForKey = false;
 	private KeyCode newKey;
-	private Text buttonText;
+	private TextMeshProUGUI buttonText;
 	private Slider updateSlider;
 
 	void Awake()
@@ -61,46 +61,46 @@ public class InputMenager : MonoBehaviour
 	{
 		foreach (Transform text in bindButtons.transform)
 		{
-			switch (text.GetChild(0).GetChild(0).GetComponent<Text>().text)
+			switch (text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text)
 			{
 				case "jump":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(jump);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(jump);
 					break;
 				case "crouch":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(crouch);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(crouch);
 					break;
 				case "sprint":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(sprint);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(sprint);
 					break;
 				case "switchShoulder":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(switchShoulder);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(switchShoulder);
 					break;
 				case "changeFocus":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(changeFocus);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(changeFocus);
 					break;
 				case "hideWeapon":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(hideWeapon);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(hideWeapon);
 					break;
 				case "lastWeapon":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(lastWeapon);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(lastWeapon);
 					break;
 				case "weaponSlot1":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot1);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot1);
 					break;
 				case "weaponSlot2":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot2);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot2);
 					break;
 				case "weaponSlot3":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot3);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot3);
 					break;
 				case "weaponSlot4":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(weaponSlot4);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot4);
 					break;
 				case "zoomIn":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(zoomIn);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(zoomIn);
 					break;
 				case "zoomOut":
-					text.GetChild(0).GetChild(0).GetComponent<Text>().text = KeyName(zoomOut);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(zoomOut);
 					break;
 				default:
 					break;
@@ -114,7 +114,7 @@ public class InputMenager : MonoBehaviour
 		StartCoroutine(WaitForKey(action));
 	}
 
-	public void SendText(Text text)
+	public void SendText(TextMeshProUGUI text)
 	{
 		buttonText = text;
 	}
