@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -17,9 +13,17 @@ public class SettingsMenu : MonoBehaviour
 	public GameObject controllsMenu;
 	public GameObject bindButtons;
 
-	public void Start()
+	private void Start()
 	{
 		GameplayButton();
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape) && InputMenager.input.waitingForKey == false && InputMenager.input.wait == false)
+		{
+			BackButton();
+		}
 	}
 
 	public void BackButton()
@@ -67,6 +71,6 @@ public class SettingsMenu : MonoBehaviour
 		controllsMenu.SetActive(true);
 		settingTitle.SetText("Contolls Settings");
 
-		GameObject.FindGameObjectWithTag("GameSettings").GetComponent<InputMenager>().RenameControllButtons(bindButtons);
+		InputMenager.input.RenameControllButtons(bindButtons);
 	}
 }

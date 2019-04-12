@@ -35,10 +35,14 @@ public class InputMenager : MonoBehaviour
 
 	private KeyCode action; //for changing bindings
 	private Event e;
-	private bool waitingForKey = false;
+	[HideInInspector]
+	public bool waitingForKey = false;
+	[HideInInspector]
+	public bool wait = false;
 	private KeyCode newKey;
 	private TextMeshProUGUI buttonText;
 	private Slider updateSlider;
+	private string previousText;
 
 	void Awake()
 	{
@@ -50,7 +54,7 @@ public class InputMenager : MonoBehaviour
 	private void OnGUI()
 	{
 		e = Event.current;
-		if(waitingForKey && e.isKey)
+		if (waitingForKey && e.isKey)
 		{
 			newKey = e.keyCode;
 			waitingForKey = false;
@@ -110,6 +114,9 @@ public class InputMenager : MonoBehaviour
 
 	public void StartChange(string action)
 	{
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+
 		waitingForKey = true;
 		StartCoroutine(WaitForKey(action));
 	}
@@ -117,73 +124,75 @@ public class InputMenager : MonoBehaviour
 	public void SendText(TextMeshProUGUI text)
 	{
 		buttonText = text;
+		previousText = buttonText.text;
+		buttonText.text = "Press key";
 	}
 
 	private IEnumerator WaitForKey(string action)
 	{
-		bool wait = true;
+		wait = true;
 		while (wait == true)
 		{
 			if (Input.anyKeyDown)
 			{
-				switch (action)
+				if (newKey == KeyCode.Escape)
 				{
-					case "jump":
-						jump = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "crouch":
-						crouch = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "sprint":
-						sprint = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "switchShoulder":
-						switchShoulder = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "changeFocus":
-						changeFocus = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "hideWeapon":
-						hideWeapon = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "lastWeapon":
-						lastWeapon = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "weaponSlot1":
-						weaponSlot1 = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "weaponSlot2":
-						weaponSlot2 = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "weaponSlot3":
-						weaponSlot3 = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "weaponSlot4":
-						weaponSlot4 = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "zoomIn":
-						zoomIn = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					case "zoomOut":
-						zoomOut = newKey;
-						buttonText.text = newKey.ToString();
-						break;
-					default:
-						break;
+					Cursor.visible = true;
+					Cursor.lockState = CursorLockMode.Confined;
+					buttonText.text = previousText;
+					wait = false;
 				}
-				wait = false;
+				else
+				{
+					switch (action)
+					{
+						case "jump":
+							jump = newKey;
+							break;
+						case "crouch":
+							crouch = newKey;
+							break;
+						case "sprint":
+							sprint = newKey;
+							break;
+						case "switchShoulder":
+							switchShoulder = newKey;
+							break;
+						case "changeFocus":
+							changeFocus = newKey;
+							break;
+						case "hideWeapon":
+							hideWeapon = newKey;
+							break;
+						case "lastWeapon":
+							lastWeapon = newKey;
+							break;
+						case "weaponSlot1":
+							weaponSlot1 = newKey;
+							break;
+						case "weaponSlot2":
+							weaponSlot2 = newKey;
+							break;
+						case "weaponSlot3":
+							weaponSlot3 = newKey;
+							break;
+						case "weaponSlot4":
+							weaponSlot4 = newKey;
+							break;
+						case "zoomIn":
+							zoomIn = newKey;
+							break;
+						case "zoomOut":
+							zoomOut = newKey;
+							break;
+						default:
+							break;
+					}
+					buttonText.text = KeyName(newKey);
+					Cursor.visible = true;
+					Cursor.lockState = CursorLockMode.Confined;
+					wait = false;
+				}
 			}
 			yield return null;
 		}
