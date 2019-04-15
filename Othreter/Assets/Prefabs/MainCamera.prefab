@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 338427233231972227}
   - component: {fileID: 8213906149556352725}
   - component: {fileID: 1778751560}
+  - component: {fileID: 6046623800707996574}
   m_Layer: 8
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -196,6 +197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minYAngle: -89
   maxYAngle: 89
+  weaponDistance: 2.5
+  changingDistanceEnabled: 1
   maxDistance: 3.5
   minDistance: 1.5
   distance: 2
@@ -209,6 +212,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1536
   aiming: 0
+  weaponDistanceChangeDone: 1
 --- !u!114 &1778751560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,3 +281,15 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
+--- !u!114 &6046623800707996574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338427233231972248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4650d63dc3798b147be1d7b4d332df32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14391,6 +14391,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIMenager
       objectReference: {fileID: 0}
+    - target: {fileID: 1677716432879114370, guid: 2de6cd2a98bffb1448f1d84617107cf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1677716432879114374, guid: 2de6cd2a98bffb1448f1d84617107cf9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15260,16 +15265,6 @@ PrefabInstance:
     - target: {fileID: 338427233231972228, guid: e762743f366f78341b2cf4a8b9921f96,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 338427233231972226, guid: e762743f366f78341b2cf4a8b9921f96,
-        type: 3}
-      propertyPath: m_ShowCustomSorter
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 338427233231972227, guid: e762743f366f78341b2cf4a8b9921f96,
-        type: 3}
-      propertyPath: debugOverlay
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

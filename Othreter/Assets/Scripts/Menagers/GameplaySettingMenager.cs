@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingMenager : MonoBehaviour
+public class GameplaySettingMenager : MonoBehaviour
 {
 	public float timeScale = 1.0f;
 

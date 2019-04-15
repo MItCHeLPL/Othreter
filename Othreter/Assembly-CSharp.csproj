@@ -60,16 +60,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Controllers\DepthOfField.cs" />
+    <Compile Include="Assets\Scripts\Controllers\DepthOfFieldController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Controllers\MovingPlatformController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\PlayerEyesController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\WeaponSwitching.cs" />
+    <Compile Include="Assets\Scripts\Menagers\GameplaySettingMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\InputMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\ObjectsMenager.cs" />
-    <Compile Include="Assets\Scripts\Menagers\SettingMenager.cs" />
+    <Compile Include="Assets\Scripts\Menagers\VideoSettingsMenager.cs" />
     <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\Stats\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\Stats\FallDamage.cs" />
