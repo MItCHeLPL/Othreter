@@ -5,26 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-	public GameObject settingsMenu;
 	public GameObject mainMenu;
+	public GameObject newGame;
+	public GameObject loadGame;
+	public GameObject settingsMenu;
 
 	void Start()
 	{
 		Cursor.visible = true;
+		newGame.SetActive(false);
+		loadGame.SetActive(false);
 		settingsMenu.SetActive(false);
 		mainMenu.SetActive(true);
 	}
 
 	public void NewGameButton()
 	{
-		SceneManager.LoadScene(1); //temp
-		//add
+		mainMenu.SetActive(false);
+		newGame.SetActive(true);
 	}
 
 	public void LoadButton()
 	{
-		SceneManager.LoadScene(1);
-		//add
+		mainMenu.SetActive(false);
+		loadGame.SetActive(true);
 	}
 
 	public void SettingsButton()
@@ -41,7 +45,6 @@ public class MainMenu : MonoBehaviour
 
 	public void DevSettingsButton()
 	{
-		SceneManager.LoadScene(1); //temp
 		//add
 	}
 }

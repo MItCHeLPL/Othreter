@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour
 
 	public void LoadButton()
 	{
-		SceneManager.LoadScene(1);//temp
+		//are you sure?
 		//add
 	}
 

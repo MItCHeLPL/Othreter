@@ -84,7 +84,9 @@
     <Compile Include="Assets\Scripts\UI\EnemyUI.cs" />
     <Compile Include="Assets\Scripts\UI\FPSCounter.cs" />
     <Compile Include="Assets\Scripts\UI\LevelMenager.cs" />
+    <Compile Include="Assets\Scripts\UI\LoadGame.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\NewGame.cs" />
     <Compile Include="Assets\Scripts\UI\OverHeadUI.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\UI\RuntimeOnClickControlsAssigner.cs" />
