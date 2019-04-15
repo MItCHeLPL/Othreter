@@ -6,6 +6,7 @@ using UnityEngine.Rendering.PostProcessing;
 public class DepthOfFieldController : MonoBehaviour
 {
 	private PostProcessVolume postProcessVolume;
+
 	void Start()
     {
 		postProcessVolume = GetComponent<PostProcessVolume>();
