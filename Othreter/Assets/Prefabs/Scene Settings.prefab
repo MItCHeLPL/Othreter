@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 443851532853646708}
-  - component: {fileID: 443851532853646707}
-  - component: {fileID: 443851532853646706}
   - component: {fileID: 443851532853646600}
   - component: {fileID: 443851532853646710}
+  - component: {fileID: 1267614122943623763}
   m_Layer: 0
   m_Name: Scene Settings
   m_TagString: Untagged
@@ -34,37 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &443851532853646707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443851532853646705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 3f201fd6b22cdfa42ae30b6a1d867401, type: 2}
---- !u!114 &443851532853646706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443851532853646705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441482e8936e35048a1dffac814e3ef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Profile: {fileID: 11400000, guid: 3f201fd6b22cdfa42ae30b6a1d867401, type: 2}
-  m_BakingSkyUniqueID: 2
 --- !u!114 &443851532853646600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,3 +70,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3370e4af179fcf445a588dcdef5196da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1267614122943623763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443851532853646705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: d378aeeadaade8542a00e25efc53754a, type: 2}

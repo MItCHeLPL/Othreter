@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 public class DepthOfFieldController : MonoBehaviour
 {
-	private PostProcessVolume postProcessVolume;
+	/*private PostProcessVolume postProcessVolume;
 
 	void Start()
     {
@@ -35,5 +34,5 @@ public class DepthOfFieldController : MonoBehaviour
 				pr.active = false;
 			}
 		}
-	}
+	}*/
 }
