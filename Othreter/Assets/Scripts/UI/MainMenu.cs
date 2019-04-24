@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
 
 	void Start()
 	{
+		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
 		newGame.SetActive(false);
 		loadGame.SetActive(false);

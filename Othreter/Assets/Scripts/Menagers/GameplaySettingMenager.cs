@@ -13,7 +13,6 @@ public class GameplaySettingMenager : MonoBehaviour
 
 	void Start()
     {
-		Cursor.lockState = CursorLockMode.Confined;
 		Time.timeScale = timeScale;
 	}
 }

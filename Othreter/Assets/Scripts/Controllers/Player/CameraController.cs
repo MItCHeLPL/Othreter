@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
 	[Header("Placement Settings")]
 	public float minYAngle = -89.0f; //camera Y angle limitations min
 	public float maxYAngle = 89.0f; //camera Y angle limitations amx
-	public float weaponDistance = 2.5f;
+	public float weaponDistance = 1.75f;
 	private bool weaponPicked = false;
 	public bool changingDistanceEnabled = true;
 	public float maxDistance = 3.5f; //camera distance limitations max 

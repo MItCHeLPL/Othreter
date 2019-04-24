@@ -11,7 +11,6 @@ TagManager:
   - Sword
   - Hands
   - Headshot
-  - GameSettings
   layers:
   - Default
   - TransparentFX

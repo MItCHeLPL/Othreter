@@ -1,38 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.HDPipeline;
 
 public class DepthOfFieldController : MonoBehaviour
 {
-	/*private PostProcessVolume postProcessVolume;
+	/*private DepthOfField pr;
+	public Camera cam;
 
-	void Start()
-    {
-		postProcessVolume = GetComponent<PostProcessVolume>();
+	private void Start()
+	{
+		pr = GetComponent<DepthOfField>();
 	}
 
-    void Update()
+	void Update()
     {
-		if (postProcessVolume && VideoSettingsMenager.video.DoFEnabled)
+		if (VideoSettingsMenager.video.DoFEnabled)
 		{
-			DepthOfField pr;
-			if (postProcessVolume.sharedProfile.TryGetSettings<DepthOfField>(out pr))
+			RaycastHit hit;
+			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f))
 			{
-				RaycastHit hit;
-				if (Physics.Raycast(transform.position, transform.forward, out hit, 100f))
-				{
-					pr.focusDistance.value = Vector3.Distance(hit.point, transform.position);
-				}
-				
+				pr.focusDistance.value = Vector3.Distance(hit.point, cam.transform.position);
 			}
 		}
 		else
 		{
-			DepthOfField pr;
-			if (postProcessVolume.sharedProfile.TryGetSettings<DepthOfField>(out pr))
-			{
-				pr.active = false;
-			}
+			pr.active = false;
 		}
 	}*/
 }

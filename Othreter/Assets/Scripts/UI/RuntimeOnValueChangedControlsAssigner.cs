@@ -6,27 +6,25 @@ using UnityEngine.UI;
 public class RuntimeOnValueChangedControlsAssigner : MonoBehaviour
 {
 	private Slider slider;
-	private InputMenager inputMenager;
 
 	public string axis;
 
 	private void Start()
 	{
 		slider = GetComponent<Slider>();
-		inputMenager = GameObject.FindGameObjectWithTag("GameSettings").GetComponent<InputMenager>();
 
 		slider.onValueChanged.AddListener(delegate {
-			inputMenager.GetSlider(slider);
-			inputMenager.ChangeSens(axis);
+			InputMenager.input.GetSlider(slider);
+			InputMenager.input.ChangeSens(axis);
 		});
 
 		if(axis == "x")
 		{
-			slider.value = inputMenager.mouseSensitivityX;
+			slider.value = InputMenager.input.mouseSensitivityX;
 		}
 		else if (axis == "y")
 		{
-			slider.value = inputMenager.mouseSensitivityY;
+			slider.value = InputMenager.input.mouseSensitivityY;
 		}
 	}
 }

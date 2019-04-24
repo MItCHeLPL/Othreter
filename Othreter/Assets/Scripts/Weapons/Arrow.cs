@@ -16,6 +16,8 @@ public class Arrow : MonoBehaviour
     Bow bow;
 	private bool enemyHit = false;
 
+	public GameObject trail;
+
 	void Start()
     {
         myBody = GetComponent<Rigidbody>();
@@ -27,6 +29,8 @@ public class Arrow : MonoBehaviour
         bow = ObjectsMenager.instance.bow.GetComponent<Bow>();
 
         Physics.IgnoreCollision(GetComponent<BoxCollider>(), ObjectsMenager.instance.player.GetComponent<CapsuleCollider>());
+
+		trail.SetActive(false);
 	}
 
     void Update()
@@ -35,6 +39,8 @@ public class Arrow : MonoBehaviour
         {
 			//arrowCollider.center = new Vector3(arrowCollider.center.x, arrowCollider.center.y, (bow.shootForce + 0.35f) * -0.004f);
 			transform.rotation = Quaternion.LookRotation(myBody.velocity);
+
+			trail.SetActive(true);
         }
 
         /*if(bow.arrowsOnGround > 25)
@@ -109,12 +115,14 @@ public class Arrow : MonoBehaviour
 
     private void afterCollision()
     {
+		trail.GetComponent<TrailRenderer>().time = 0.3f;
 		hitSomething = true;
+		myBody.constraints = RigidbodyConstraints.FreezeAll;
 		myBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		arrowCollider.isTrigger = true;
 		myBody.isKinematic = true;
-        myBody.constraints = RigidbodyConstraints.FreezeAll;
         arrowCollider.size = new Vector3(1.5f, 1.75f, 1.5f);
         arrowCollider.center = new Vector3(0f, 0f, 0f);
-    }
+		trail.transform.SetParent(null);
+	}
 }
