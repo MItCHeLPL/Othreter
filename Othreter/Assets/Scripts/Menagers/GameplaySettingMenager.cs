@@ -10,7 +10,6 @@ public class GameplaySettingMenager : MonoBehaviour
 	{
 		DontDestroyOnLoad(this.gameObject);
 	}
-
 	void Start()
     {
 		Time.timeScale = timeScale;

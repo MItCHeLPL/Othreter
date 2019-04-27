@@ -27,7 +27,7 @@ public class EnemyUI : MonoBehaviour
 
 	void Update()
 	{
-		if (Vector3.Distance(transform.position, cam.transform.position) < hideDistance && (enemyStats.currentHealth < enemyStats.maxHealth || lockIndicator.enabled == true))
+		if (Vector3.Distance(transform.position, cam.transform.position) < hideDistance && ((enemyStats.currentHealth < enemyStats.maxHealth || enemyStats.armor.GetValue() < enemyStats.maxArmor) || lockIndicator.enabled == true))
 		{
 			healthUI.enabled = true;
 			uiController.ObjectFaceOtherObject(healthUI.gameObject, cam.gameObject);
@@ -38,9 +38,10 @@ public class EnemyUI : MonoBehaviour
 		}
 	}
 
-	public void HPChange(float current, float max)
+	public void HPChange(int currentArmor, int maxArmor, int currentHp, int maxHp)
 	{
 		//healthUI.SetText("Health {0}/{1}", current, max);
-		healthUI.SetText("Health {0}", current);
+		//healthUI.SetText("Health {0}", current);
+		healthUI.SetText("Armor {0}\nHealth {1}", currentArmor, currentHp);
 	}
 }

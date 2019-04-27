@@ -13,19 +13,21 @@ public class EnemyStats : CharacterStats
 		playerController = ObjectsMenager.instance.player.GetComponent<PlayerController>();
 		enemyUI = GetComponent<EnemyUI>();
 
-		enemyUI.HPChange(currentHealth, maxHealth);
+		StartCoroutine(CheckArmour());
+
+		RefreshHealthUI();
 	}
 
 	public override void TakeDamage(int damage) //u can add more events while taking damage only for player
     {
         base.TakeDamage(damage);
-		enemyUI.HPChange(currentHealth, maxHealth);
+		RefreshHealthUI();
 	}
 
 	public override void TakeTrueDamage(int damage) //u can add more events while taking damage only for player
 	{
 		base.TakeTrueDamage(damage);
-		enemyUI.HPChange(currentHealth, maxHealth);
+		RefreshHealthUI();
 	}
 
 	public override void Die()
@@ -50,5 +52,22 @@ public class EnemyStats : CharacterStats
 			playerController.FindEnemy(gameObject, false);
 		}
 		Destroy(gameObject);
+	}
+
+	private void RefreshHealthUI()
+	{
+		enemyUI.HPChange(armor.GetValue(), maxArmor, currentHealth, maxHealth);
+	}
+
+	private IEnumerator CheckArmour()
+	{
+		while (true)
+		{
+			if (armorRegenerating)
+			{
+				RefreshHealthUI();
+			}
+			yield return new WaitForSeconds(regenRatePerSecond - 0.1f);
+		}
 	}
 }

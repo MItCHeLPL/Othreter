@@ -16,4 +16,9 @@ public class Stat
     {
         return baseValue; //temp while theres no perks nor items
     }
+
+	public void SetValue(int value)
+	{
+		baseValue = value;
+	}
 }

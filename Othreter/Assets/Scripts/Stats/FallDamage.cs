@@ -17,6 +17,9 @@ public class FallDamage : MonoBehaviour
     public float minFallDistance = 4.0f; //minimal distance that player have to fall to get damage
     public float minVelocity = 15.0f; //minimal velocity, that player has to have to get damage
     public float damageDivider = 2.0f; //how many times you want to divide the damage from falling
+
+	public GameObject trail;
+
     public float speedAfterFalling = 3.0f; //valu that speed is reduced to when falling and getting damage
 
     [HideInInspector]
@@ -25,6 +28,8 @@ public class FallDamage : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>(); //conroller
+
+		trail.SetActive(false);
 
         player = GetComponent<PlayerStats>(); //allows to use PlayerStats Script
         playerMovement = GetComponent<PlayerController>(); //allows to get variables from PlayerMovement.cs
@@ -38,7 +43,8 @@ public class FallDamage : MonoBehaviour
 
     public void resetValues() //resets values after falling
     {
-        lastPositionY = 0.0f;
+		trail.SetActive(false);
+		lastPositionY = 0.0f;
         fallDistance = 0.0f;
         velocity = 0.0f;
     }
@@ -65,6 +71,7 @@ public class FallDamage : MonoBehaviour
 
 			if(fallDistance >= minFallDistance && velocity <= minVelocity)
 			{
+				trail.SetActive(true);
 				anim.SetBool("Falling", true);
 			}
 			else

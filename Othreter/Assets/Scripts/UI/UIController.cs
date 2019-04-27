@@ -28,16 +28,16 @@ public class UIController : MonoBehaviour
 		ammoFade = FadeUI(ammoUI, 3.0f, 5.0f);
 	}
 
-	public void HPChange(float current, float max)
+	public void HPChange(int currentArmor, int maxArmor, int currentHp, int maxHp)
 	{
 		//healthUI.SetText("Health\n{0}/{1}", current, max);
-		healthUI.SetText("Health {0}", current);
+		healthUI.SetText("Armor {0}\nHealth {1}", currentArmor, currentHp);
 		StopCoroutine(healthFade);
 		healthFade = FadeUI(healthUI, 3.0f, 5.0f);
 		StartCoroutine(healthFade);
 	}
 
-	public void AmmoChange(float current, float max)
+	public void AmmoChange(int current, int max)
 	{
 		//ammoUI.SetText("Arrows\n{0}/{1}", current, max);
 		ammoUI.SetText("Arrows {0}", current);
