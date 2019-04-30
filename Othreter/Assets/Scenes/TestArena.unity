@@ -15289,16 +15289,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6046623800707996574, guid: e762743f366f78341b2cf4a8b9921f96,
-        type: 3}
-      propertyPath: antialiasing
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8213906149556352725, guid: e762743f366f78341b2cf4a8b9921f96,
-        type: 3}
-      propertyPath: weaponDistance
-      value: 1.75
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e762743f366f78341b2cf4a8b9921f96, type: 3}
 --- !u!1001 &6825433520563105948

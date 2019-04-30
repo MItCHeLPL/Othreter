@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 338427233231972230}
   - component: {fileID: 8213906149556352725}
   - component: {fileID: 6046623800707996574}
+  - component: {fileID: 1652139916}
   m_Layer: 8
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 338427233231972248}
   m_LocalRotation: {x: 0.05573436, y: 0, z: 0, w: 0.99844563}
   m_LocalPosition: {x: 0.53, y: 0.08899999, z: -3.526}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minYAngle: -89
   maxYAngle: 89
-  weaponDistance: 2.5
+  weaponDistance: 1.75
   changingDistanceEnabled: 1
   maxDistance: 3.5
   minDistance: 1.5
@@ -108,6 +109,7 @@ MonoBehaviour:
   sensitivityX: 2
   sensitivityY: 1
   lookAtOffset: {x: 0.8, y: 1.75, z: 0}
+  WaitToShake: 3
   currentX: 0
   currentY: 0
   wallLayer:
@@ -134,7 +136,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 3
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
@@ -209,3 +211,33 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &1652139916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338427233231972248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466f5d370469efe418730fd8cd901331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frequency: 0.25
+  _translationMasterMagnitude: 0.15
+  _translateAxisX: 1
+  _translateAxisY: 1
+  _translateAxisZ: 1
+  _translateAxisXMultiplier: 1
+  _translateAxisYMultiplier: 0.5
+  _translateAxisZMultiplier: 1
+  _rotationMasterMagnitude: 15
+  _rotateAxisX: 1
+  _rotateAxisY: 1
+  _rotateAxisZ: 1
+  _rotateAxisXMultiplier: 1
+  _rotateAxisYMultiplier: 1
+  _rotateAxisZMultiplier: 1
+  _decay: 0
+  _trauma: 0
+  _shakeJobRunning: 0

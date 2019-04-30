@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
 	private CharacterController controller; //adds character controller
 	private CameraController cameraController; //allows to get variables form CameraMouse.cs
 	private FallDamage fallDamage; //allows to use FallDamage script
-	[HideInInspector]
-	public GameObject playerModel;
+	private GameObject playerModel;
 	private WeaponSwitching weaponHolder;
 
 	[HideInInspector]
@@ -30,39 +29,55 @@ public class PlayerController : MonoBehaviour
 	public float speed = 5.0f; //player speed
 	[HideInInspector]
 	public float oldSpeed; //holds default player speed
-	public float sprintSpeed = 8.0f; //speed when sprinting
-	public float airSpeed = 3.0f; // speed mid air
-	public float crouchSpeed = 3.0f; // speed when crouching
-	public float backSpeed = 4.0f; //speed when moving backwards
+	[SerializeField]
+	private float sprintSpeed = 8.0f; //speed when sprinting
+	[SerializeField]
+	private float airSpeed = 3.0f; // speed mid air
+	[SerializeField]
+	private float crouchSpeed = 3.0f; // speed when crouching
+	[SerializeField]
+	private float backSpeed = 4.0f; //speed when moving backwards
 	private float jumpCooldown;
 
 	[Header("Physics")]
-	public float pushPower = 2.0f; //how many times multiply player force on rigidbody objects
-	public float jumpHeight = 8.0f; //jump height
-	public float gravity = 20.0f; //gravitation force (20f is optimal as for earth gravity)
+	[SerializeField]
+	private float pushPower = 2.0f; //how many times multiply player force on rigidbody objects
+	[SerializeField]
+	private float jumpHeight = 8.0f; //jump height
+	[SerializeField]
+	private float gravity = 20.0f; //gravitation force (20f is optimal as for earth gravity)
 
 	[Header("Camera")]
-	public float camFov = 60.0f; //normal camera field of view
-	public float camSprintFov = 65.0f; //camera field of view while sprinting
+	[SerializeField]
+	private float camFov = 60.0f; //normal camera field of view
+	[SerializeField]
+	private float camSprintFov = 65.0f; //camera field of view while sprinting
 
 	[Header("Player Controller Size")]
-	public float playerHeight = 2.0f; //default player height
-	public float crouchHeight = 1.5f; //player height when crouching
-	public Vector3 playerCenter = new Vector3(0.0f, 1.0f, 0.0f); //default player model center
-	public float playerRadius = 0.3f; //default player radius
+	[SerializeField]
+	private float playerHeight = 2.0f; //default player height
+	[SerializeField]
+	private float crouchHeight = 1.5f; //player height when crouching
+	[SerializeField]
+	private Vector3 playerCenter = new Vector3(0.0f, 1.0f, 0.0f); //default player model center
+	[SerializeField]
+	private float playerRadius = 0.3f; //default player radius
 
 	private readonly float slopeLimitCheckDistance = 5.25f; //how low should ray go to check if player is coming down the slope
 	private float groundAngle; //angle of the ground player is standing on
 
 	[Header("Climbing")]
 	private float climbingCheckDistance = 0.5f; //how long climbing raycast is
-	public float climbingSpeed = 2.0f; //how fast player is climbing
+	[SerializeField]
+	private float climbingSpeed = 2.0f; //how fast player is climbing
 	private readonly float climbingJumpHeight = 7.0f; //how high player jumps from wall
 	private bool climbingJumped = false; //if player canceled climbing
 
 	[Header("Layers")]
-	public LayerMask crouchWallLayer; //player colides with theese layers
-	public LayerMask climbLayer; //player can climb when raycast hits this layer
+	[SerializeField]
+	private LayerMask crouchWallLayer; //player colides with theese layers
+	[SerializeField]
+	private LayerMask climbLayer; //player can climb when raycast hits this layer
 
 	[HideInInspector]
 	public bool climbingProcess = false; //determine if player is in climbing state form being off ground to standing on the ground again
@@ -76,9 +91,11 @@ public class PlayerController : MonoBehaviour
 	public bool inFight = false; //informs wether player jumped
 
 	[Header("Combat")]
-	public float fightDistance = 200.0f;
+	[SerializeField]
+	private float fightDistance = 200.0f;
 	private GameObject closestEnemy = null;
 	private float distanceToClosestEnemy;
+	[HideInInspector]
 	public bool swordAiming = false;
 
 	#endregion

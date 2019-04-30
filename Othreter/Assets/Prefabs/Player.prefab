@@ -1049,6 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1578392978700017772}
   - component: {fileID: 5352396068207802518}
+  - component: {fileID: 776406500}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -1103,12 +1104,32 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ca993cef453761c40b5a24c1b526de7c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &776406500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578392978058487168}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bc682fcde81ad48b56719894873831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ikActive: 1
+  rotation: 1
+  showMarkers: 0
+  LeftFoot: {fileID: 457100076733452886}
+  RightFoot: {fileID: 6360254033993570186}
+  footOffset: 0
+  smooth: 10
+  deltaAmplifier: 1
 --- !u!1 &1578392979487053811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38f90d8b98f1644a9d67c5edb01c31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   speed: 5
   oldSpeed: 0

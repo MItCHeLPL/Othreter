@@ -13,27 +13,41 @@ public class CameraController : MonoBehaviour
 	private WeaponSwitching weaponHolder;
 	private Bow bow;
 	private GameObject pauseMenu;
+	private PerlinCameraShake camShake;
 
 	[Header("Placement Settings")]
-	public float minYAngle = -89.0f; //camera Y angle limitations min
-	public float maxYAngle = 89.0f; //camera Y angle limitations amx
-	public float weaponDistance = 1.75f;
+	[SerializeField]
+	private float minYAngle = -89.0f; //camera Y angle limitations min
+	[SerializeField]
+	private float maxYAngle = 89.0f; //camera Y angle limitations amx
+	[SerializeField]
+	private float weaponDistance = 1.75f;
 	private bool weaponPicked = false;
-	public bool changingDistanceEnabled = true;
-	public float maxDistance = 3.5f; //camera distance limitations max 
-	public float minDistance = 1.5f; //camera distance limitations min
+	[SerializeField]
+	private bool changingDistanceEnabled = true;
+	[SerializeField]
+	private float maxDistance = 3.5f; //camera distance limitations max 
+	[SerializeField]
+	private float minDistance = 1.5f; //camera distance limitations min
 	private float oldMinDistance;
-	public float distance = 2.0f; //camera placement distance
-	public float aimDistance = 1.0f; //camera placement distance
+	[SerializeField]
+	private float distance = 2.0f; //camera placement distance
+	[SerializeField]
+	private float aimDistance = 1.0f; //camera placement distance
 	private float oldDistance;
 	private float oldDistanceBeforeWeapon;
 	private Vector3 vectorDistance;
-	public float sensitivityX; //Camera sensitivity in x axis
-	public float sensitivityY; //Camera sensitivity in y axis
-	public Vector3 lookAtOffset = new Vector3(0.8f, 1.75f, 0.0f);
+	[SerializeField]
+	private float sensitivityX; //Camera sensitivity in x axis
+	[SerializeField]
+	private float sensitivityY; //Camera sensitivity in y axis
+	[SerializeField]
+	private Vector3 lookAtOffset = new Vector3(0.8f, 1.75f, 0.0f);
 	private float lookAtXOffset;
 	private float lookAtYOffset;
 	private float lookAtZOffset;
+	[SerializeField]
+	private float WaitToShake = 3.0f;
 
 	[Header("Input")]
 	[HideInInspector]
@@ -41,9 +55,11 @@ public class CameraController : MonoBehaviour
 	[HideInInspector]
 	public float currentY; //camera placement in y axis
 	private Quaternion rotation;
+	private bool inputDone = false;
 
 	[Header("Layers")]
-	public LayerMask wallLayer; //camera colides with theese layers
+	[SerializeField]
+	private LayerMask wallLayer; //camera colides with theese layers
 
 	[Header("Indicators")]
 	[HideInInspector]
@@ -53,6 +69,8 @@ public class CameraController : MonoBehaviour
 	private bool camShoulder = false; //switches camera beetween left and right shoulder right - false, left - true
 	[HideInInspector]
 	public bool weaponDistanceChangeDone = true;
+	private float waitTimer;
+	private bool colliding = false;
 
 	[Header("GameObjects")]
 	private GameObject right;  //right shoulder lookatpoint
@@ -74,6 +92,7 @@ public class CameraController : MonoBehaviour
 		weaponHolder = ObjectsMenager.instance.weaponHolder.GetComponent<WeaponSwitching>();
 		bow = ObjectsMenager.instance.bow.GetComponent<Bow>();
 		pauseMenu = ObjectsMenager.instance.pauseMenu;
+		camShake = GetComponent<PerlinCameraShake>();
 
 		cam.nearClipPlane = 0.04f; //optimal camera clipping when camera is coliding with wall etc.
 
@@ -139,12 +158,17 @@ public class CameraController : MonoBehaviour
 		//edit binds
 		#region Input
 
+		if(Input.anyKey)
+		{
+			inputDone = true;
+		}
+
 		if (camOnPosition == true && pauseMenu.activeInHierarchy == false)
 		{
 			currentX += Input.GetAxis("Mouse X") * sensitivityX * Time.timeScale; //multiplyes camera movement times sensitivityx
 			currentY -= Input.GetAxis("Mouse Y") * sensitivityY * Time.timeScale; //multiplyes camera movement times sensitivityy  
 
-			if(aiming == false && distanceOnPosition == true && changingDistanceEnabled && weaponPicked == false)
+			if(camShake._shakeJobRunning == false && aiming == false && distanceOnPosition == true && changingDistanceEnabled && weaponPicked == false)
 			{
 				if (Input.GetAxis("Mouse ScrollWheel") != 0)
 				{
@@ -208,33 +232,36 @@ public class CameraController : MonoBehaviour
 
 		//edit binds
 		#region Shoulder
-
-		if (Input.GetKeyDown(InputMenager.input.switchShoulder) && camOnPosition == true && aiming == false && playerController.moveDirection != Vector3.zero && pauseMenu.activeInHierarchy == false)//shoulder camera swap key
+		if(camShake._shakeJobRunning == false && Input.GetKeyDown(InputMenager.input.switchShoulder) && camOnPosition == true && aiming == false && pauseMenu.activeInHierarchy == false)
 		{
-			if (camShoulder == false)//right
+			if (playerController.moveDirection != Vector3.zero)//shoulder camera swap key
 			{
-				StartCoroutine(Smooth(cam.gameObject, left.transform.position + rotation * vectorDistance, 15.0f));
-				camShoulder = true;
+				if (camShoulder == false)//right
+				{
+					StartCoroutine(Smooth(cam.gameObject, left.transform.position + rotation * vectorDistance, 15.0f));
+					camShoulder = true;
+				}
+				else//left
+				{
+					StartCoroutine(Smooth(cam.gameObject, right.transform.position + rotation * vectorDistance, 15.0f));
+					camShoulder = false;
+				}
 			}
-			else//left
+			if (playerController.moveDirection == Vector3.zero)//shoulder camera swap key
 			{
-				StartCoroutine(Smooth(cam.gameObject, right.transform.position + rotation * vectorDistance, 15.0f));
-				camShoulder = false;
+				if (camShoulder == false)//right
+				{
+					StartCoroutine(Smooth(cam.gameObject, sleft.transform.position + rotation * vectorDistance, 15.0f));
+					camShoulder = true;
+				}
+				else//left
+				{
+					StartCoroutine(Smooth(cam.gameObject, sright.transform.position + rotation * vectorDistance, 15.0f));
+					camShoulder = false;
+				}
 			}
 		}
-		if (Input.GetKeyDown(InputMenager.input.switchShoulder) && camOnPosition == true && aiming == false && playerController.moveDirection == Vector3.zero && pauseMenu.activeInHierarchy == false)//shoulder camera swap key
-		{
-			if (camShoulder == false)//right
-			{
-				StartCoroutine(Smooth(cam.gameObject, sleft.transform.position + rotation * vectorDistance, 15.0f));
-				camShoulder = true;
-			}
-			else//left
-			{
-				StartCoroutine(Smooth(cam.gameObject, sright.transform.position + rotation * vectorDistance, 15.0f));
-				camShoulder = false;
-			}
-		}
+		
 
 		//camera movement and lookat when using shoulder camera
 		if (aiming == false) //free cam key
@@ -420,6 +447,11 @@ public class CameraController : MonoBehaviour
 			Debug.DrawRay(middle.transform.position, direction, Color.green);//shows ray when in scene mode
 			Vector3 sphereCastCenter = middle.transform.position + (direction.normalized * hit.distance * 0.75f); //dont change hit.distance multiplier, this line makes camera collision seamless when camera is looking at left, right or middle gameobjects 
 			cam.transform.position = sphereCastCenter; //moves camera to point where raycast hits the wall
+			colliding = true;
+		}
+		else
+		{
+			colliding = false;
 		}
 
 		#endregion
@@ -429,10 +461,27 @@ public class CameraController : MonoBehaviour
 	{
 		rotation = Quaternion.Euler(currentY, currentX, cam.gameObject.transform.rotation.z); //calculates rotation
 
-		if (camOnPosition == true)
+		if (camOnPosition == true && (Input.anyKey || Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 || Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Mouse ScrollWheel") != 0 || inputDone == false || colliding == true))
 		{
 			cam.gameObject.transform.position = lookatpoint.transform.position + rotation * vectorDistance; //camera position
 			cam.gameObject.transform.LookAt(lookatpoint.transform.position);//camera lookAt set at lookat point
+			waitTimer = WaitToShake;
+			if(camShake._trauma > 0)
+			{
+				camShake._trauma = 0;
+			}
+		}
+		else if (camOnPosition == true)
+		{
+			cam.gameObject.transform.LookAt(lookatpoint.transform.position);//camera lookAt set at lookat point
+			if(waitTimer > 0)
+			{
+				waitTimer -= Time.deltaTime;
+			}
+			else if(waitTimer <= 0)
+			{
+				camShake._trauma = Mathf.Clamp01(camShake._trauma + (Time.deltaTime / 2));
+			}
 		}
 	}
 
