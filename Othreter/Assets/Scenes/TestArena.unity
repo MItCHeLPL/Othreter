@@ -14944,6 +14944,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: speed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: sprintWeaponSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: weaponSpeed
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: airSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: crouchSpeed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ecc204fbfd5ab4899ff2f3252b71f4, type: 3}
 --- !u!1001 &1677716432446190056

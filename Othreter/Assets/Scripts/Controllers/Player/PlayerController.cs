@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
 	private Camera camMain;
 	private CapsuleCollider playerTriggerCollider;
 	private Animator anim;
-	private CharacterController controller; //adds character controller
+	[HideInInspector]
+	public CharacterController controller; //adds character controller
 	private CameraController cameraController; //allows to get variables form CameraMouse.cs
 	private FallDamage fallDamage; //allows to use FallDamage script
 	private GameObject playerModel;
@@ -26,17 +27,21 @@ public class PlayerController : MonoBehaviour
 	private RaycastHit hitCrouch;
 
 	[Header("Speed")]
-	public float speed = 5.0f; //player speed
+	public float speed = 6.0f; //player speed
 	[HideInInspector]
 	public float oldSpeed; //holds default player speed
 	[SerializeField]
 	private float sprintSpeed = 8.0f; //speed when sprinting
 	[SerializeField]
-	private float airSpeed = 3.0f; // speed mid air
+	private float sprintWeaponSpeed = 7.5f; //speed when sprinting
 	[SerializeField]
-	private float crouchSpeed = 3.0f; // speed when crouching
+	private float weaponSpeed = 5.5f;
+	[HideInInspector]
+	public float oldWeaponSpeed; //holds default player speed
 	[SerializeField]
-	private float backSpeed = 4.0f; //speed when moving backwards
+	private float airSpeed = 4.0f; // speed mid air
+	[SerializeField]
+	private float crouchSpeed = 4.0f; // speed when crouching
 	private float jumpCooldown;
 
 	[Header("Physics")]
@@ -130,6 +135,7 @@ public class PlayerController : MonoBehaviour
 		camMain.fieldOfView = camFov; //sets default main camera field of view
 
 		oldSpeed = speed; //saves default speed
+		oldWeaponSpeed = weaponSpeed;
 
 		climbingCheckDistance = playerRadius + 0.2f; //check for climbing distance just in front of player
 
@@ -145,12 +151,14 @@ public class PlayerController : MonoBehaviour
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
 			speed = sprintSpeed; //multiplies speed
+			weaponSpeed = sprintWeaponSpeed;
 			anim.SetBool("Sprint", true);
 		}
 		else if ((Input.GetKey(InputMenager.input.sprint) == false || Input.GetKey(KeyCode.W) == false || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camFov, 10 * Time.deltaTime);
 			speed = oldSpeed;//brings default speed back\
+			weaponSpeed = oldWeaponSpeed;
 			anim.SetBool("Sprint", false);
 		}
 
@@ -188,6 +196,8 @@ public class PlayerController : MonoBehaviour
 
 		//edit, edit binds
 		#region Movement, Jump and Rotation
+
+		Debug.Log(controller.velocity);
 
 		if (climbingProcess == false)
 		{
@@ -284,17 +294,18 @@ public class PlayerController : MonoBehaviour
 
 			#endregion
 
-			//test this
-			if (weaponHolder.ActiveWeaponTag() != "Hands")
-			{
-				speed -= 1.0f;
-			}
-
 			moveDirection = transform.TransformDirection(moveDirection);
 
 			if (controller.isGrounded)//when player is on ground
 			{
-				moveDirection *= speed;
+				if (weaponHolder.ActiveWeaponTag() == "Hands")
+				{
+					moveDirection *= speed;
+				}
+				else
+				{
+					moveDirection *= weaponSpeed;
+				}
 
 				if (Input.GetKeyDown(InputMenager.input.jump) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
 				{
@@ -302,7 +313,7 @@ public class PlayerController : MonoBehaviour
 
 					anim.SetTrigger("Jump");
 
-					jumpVelocity = moveDirection * 0.75f;
+					jumpVelocity = moveDirection * 0.5f;
 					jumpVelocity.y = jumpHeight;
 				}
 			}
