@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class NewGame : MonoBehaviour
 {
-	public GameObject newGamePanel;
-	public GameObject prevMenu;
+	[SerializeField]
+	private GameObject newGamePanel;
+	[SerializeField]
+	private GameObject prevMenu;
 
 	private void Update()
 	{

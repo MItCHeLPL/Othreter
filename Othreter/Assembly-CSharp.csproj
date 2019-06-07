@@ -86,7 +86,6 @@
     <Compile Include="Assets\Scripts\Teleport Scripts\VoidCollider.cs" />
     <Compile Include="Assets\Scripts\UI\BowCrosshair.cs" />
     <Compile Include="Assets\Scripts\UI\EnemyUI.cs" />
-    <Compile Include="Assets\Scripts\UI\FPSCounter.cs" />
     <Compile Include="Assets\Scripts\UI\LevelMenager.cs" />
     <Compile Include="Assets\Scripts\UI\LoadGame.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />

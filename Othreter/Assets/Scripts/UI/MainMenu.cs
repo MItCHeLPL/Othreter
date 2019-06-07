@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-	public GameObject mainMenu;
-	public GameObject newGame;
-	public GameObject loadGame;
-	public GameObject settingsMenu;
+	[SerializeField]
+	private GameObject mainMenu;
+	[SerializeField]
+	private GameObject newGame;
+	[SerializeField]
+	private GameObject loadGame;
+	[SerializeField]
+	private GameObject settingsMenu;
 
 	void Start()
 	{

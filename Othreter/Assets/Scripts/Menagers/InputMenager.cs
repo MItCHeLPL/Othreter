@@ -6,31 +6,6 @@ using TMPro;
 
 public class InputMenager : MonoBehaviour
 {
-	/*[Header("Movement")]
-	public KeyCode jump = KeyCode.Space;
-	public KeyCode crouch = KeyCode.LeftShift; // change to control for default
-	public KeyCode sprint = KeyCode.LeftControl;
-
-	[Header("Camera")]
-	public KeyCode switchShoulder = KeyCode.C;
-	public KeyCode zoomIn = KeyCode.PageUp;
-	public KeyCode zoomOut = KeyCode.PageDown;
-	public float mouseSensitivityX = 2.0f;
-	public float mouseSensitivityY = 1.0f;
-
-	[Header("Combat")]
-	public KeyCode changeFocus = KeyCode.Z;
-
-	[Header("Weapons")]
-	public KeyCode hideWeapon = KeyCode.R;
-	public KeyCode lastWeapon = KeyCode.Q;
-	public KeyCode weaponSlot1 = KeyCode.Alpha1;
-	public KeyCode weaponSlot2 = KeyCode.Alpha2;
-	public KeyCode weaponSlot3 = KeyCode.Alpha3;
-	public KeyCode weaponSlot4 = KeyCode.Alpha4;
-
-	public static InputMenager input; //singleton*/
-
 	private KeyCode action; //for changing bindings
 	private Event e;
 	[HideInInspector]
@@ -126,6 +101,9 @@ public class InputMenager : MonoBehaviour
 		{
 			if (Input.anyKeyDown)
 			{
+				Cursor.visible = true;
+				Cursor.lockState = CursorLockMode.Confined;
+
 				if (newKey == KeyCode.Escape)
 				{
 					Cursor.visible = true;

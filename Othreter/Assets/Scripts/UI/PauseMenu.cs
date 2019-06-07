@@ -6,13 +6,21 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
 	private float oldTimeScale;
-	public GameObject pauseMenu;
-	public GameObject pauseMainMenu;
-	public GameObject fpsUI;
-	public GameObject settingsMenu;
+	[SerializeField]
+	private GameObject pauseMenu;
+	[SerializeField]
+	private GameObject pauseMainMenu;
+	[SerializeField]
+	private GameObject fpsUI;
+	[SerializeField]
+	private GameObject settingsMenu;
 
+	[SerializeField]
+	private GameObject inputSettings;
+	private InputMenager inputMenager;
 	private void Start()
     {
+		inputMenager = inputSettings.GetComponent<InputMenager>();
 		oldTimeScale = Time.timeScale;
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
@@ -31,12 +39,9 @@ public class PauseMenu : MonoBehaviour
 			pauseMenu.SetActive(true);
 			pauseMainMenu.SetActive(true);
 		}
-		else if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0.0f)
+		else if(Input.GetKeyDown(KeyCode.Escape) && inputMenager.waitingForKey == false && inputMenager.wait == false && Time.timeScale == 0.0f)
 		{
-			Cursor.visible = false;
-			Cursor.lockState = CursorLockMode.Locked;
-			Time.timeScale = oldTimeScale;
-			DisableAllMenus();
+			ResumeButton();
 		}
     }
 

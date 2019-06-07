@@ -3,17 +3,26 @@ using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
-	public GameObject settingsMenu;
-	public GameObject prevMenu;
-	public TextMeshProUGUI settingTitle;
+	[SerializeField]
+	private GameObject settingsMenu;
+	[SerializeField]
+	private GameObject prevMenu;
+	[SerializeField]
+	private TextMeshProUGUI settingTitle;
 
-	public GameObject gameplayMenu;
-	public GameObject audioMenu;
-	public GameObject graphicsMenu;
-	public GameObject controllsMenu;
-	public GameObject bindButtons;
+	[SerializeField]
+	private GameObject gameplayMenu;
+	[SerializeField]
+	private GameObject audioMenu;
+	[SerializeField]
+	private GameObject graphicsMenu;
+	[SerializeField]
+	private GameObject controllsMenu;
+	[SerializeField]
+	private GameObject bindButtons;
 
-	public GameObject inputSettings;
+	[SerializeField]
+	private GameObject inputSettings;
 	private InputMenager inputMenager;
 
 	private void Start()

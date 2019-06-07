@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class LevelMenager : MonoBehaviour
 {
-	public GameObject LevelLoaderPanel;
-	public TextMeshProUGUI text;
-	public Slider slider;
+	[SerializeField]
+	private GameObject LevelLoaderPanel;
+	[SerializeField]
+	private TextMeshProUGUI text;
+	[SerializeField]
+	private Slider slider;
 
 	private void Start()
 	{

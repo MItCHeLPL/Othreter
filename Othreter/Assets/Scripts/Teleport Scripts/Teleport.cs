@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    public Vector3 place;
+	[SerializeField]
+	private Vector3 place;
 
     private void OnTriggerEnter(Collider col)
     {
