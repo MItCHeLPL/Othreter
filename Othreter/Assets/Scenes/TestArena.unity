@@ -13064,6 +13064,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1578392978700017763}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1900394939 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1677716431969096501, guid: 2de6cd2a98bffb1448f1d84617107cf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1677716432446190056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1901128416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14751,6 +14757,11 @@ PrefabInstance:
       propertyPath: swordCrosshair
       value: 
       objectReference: {fileID: 7731772985210514619}
+    - target: {fileID: 443851532853646600, guid: 5c18a3df25a888847846cbcf186f7885,
+        type: 3}
+      propertyPath: fpsUI
+      value: 
+      objectReference: {fileID: 1900394939}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c18a3df25a888847846cbcf186f7885, type: 3}
 --- !u!1 &867754188544098988 stripped
@@ -14920,31 +14931,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-        type: 3}
-      propertyPath: speed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-        type: 3}
-      propertyPath: sprintWeaponSpeed
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-        type: 3}
-      propertyPath: weaponSpeed
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-        type: 3}
-      propertyPath: airSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578392979487053808, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-        type: 3}
-      propertyPath: crouchSpeed
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ecc204fbfd5ab4899ff2f3252b71f4, type: 3}
@@ -15135,11 +15121,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1320761222}
-    - target: {fileID: 3150387295615764532, guid: 2de6cd2a98bffb1448f1d84617107cf9,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -106.09985
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2de6cd2a98bffb1448f1d84617107cf9, type: 3}
 --- !u!1 &3479226869994984105 stripped

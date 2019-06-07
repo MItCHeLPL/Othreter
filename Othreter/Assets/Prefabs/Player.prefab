@@ -1211,13 +1211,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38f90d8b98f1644a9d67c5edb01c31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 6
   oldSpeed: 0
   sprintSpeed: 8
-  airSpeed: 3
-  crouchSpeed: 3
-  backSpeed: 4
+  sprintWeaponSpeed: 7.5
+  weaponSpeed: 5.5
+  oldWeaponSpeed: 0
+  airSpeed: 4
+  crouchSpeed: 4
   pushPower: 2
   jumpHeight: 8
   gravity: 20

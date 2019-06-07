@@ -471,7 +471,7 @@ public class CameraController : MonoBehaviour
 				camShake._trauma = 0;
 			}
 		}
-		else if (camOnPosition == true)
+		/*else if (camOnPosition == true) //old setting for backup while testing nev wersion
 		{
 			cam.gameObject.transform.LookAt(lookatpoint.transform.position);//camera lookAt set at lookat point
 			if(waitTimer > 0)
@@ -481,6 +481,20 @@ public class CameraController : MonoBehaviour
 			else if(waitTimer <= 0)
 			{
 				camShake._trauma = Mathf.Clamp01(camShake._trauma + (Time.deltaTime / 2));
+			}
+		}*/
+		else if (camOnPosition == true)
+		{
+			if (waitTimer > 0)
+			{
+				waitTimer -= Time.deltaTime;
+				cam.gameObject.transform.LookAt(lookatpoint.transform.position);//camera lookAt set at lookat point
+				cam.gameObject.transform.position = lookatpoint.transform.position + rotation * vectorDistance; //camera position
+			}
+			else if (waitTimer <= 0)
+			{
+				camShake._trauma = Mathf.Clamp01(camShake._trauma + (Time.deltaTime / 2));
+				cam.gameObject.transform.LookAt(lookatpoint.transform.position);//camera lookAt set at lookat point
 			}
 		}
 	}
