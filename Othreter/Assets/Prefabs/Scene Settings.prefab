@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 443851532853646600}
   - component: {fileID: 443851532853646710}
   - component: {fileID: 1267614122943623763}
+  - component: {fileID: 443851533456936650}
   m_Layer: 0
   m_Name: Scene Settings
   m_TagString: Untagged
@@ -87,3 +88,15 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: d378aeeadaade8542a00e25efc53754a, type: 2}
+--- !u!114 &443851533456936650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443851532853646705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4650d63dc3798b147be1d7b4d332df32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

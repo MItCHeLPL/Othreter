@@ -197,8 +197,6 @@ public class PlayerController : MonoBehaviour
 		//edit, edit binds
 		#region Movement, Jump and Rotation
 
-		Debug.Log(controller.velocity);
-
 		if (climbingProcess == false)
 		{
 			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));

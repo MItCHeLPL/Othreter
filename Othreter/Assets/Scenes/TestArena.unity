@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.050319113, g: 0.069879435, b: 0.106254935, a: 1}
+  m_IndirectSpecularColor: {r: 0.1493033, g: 0.22371577, b: 0.3417084, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1250,13 +1250,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170076733}
-  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalRotation: {x: 0.347754, y: 0, z: 0, w: 0.93758583}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40.7, y: 0, z: 0}
 --- !u!114 &170076736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9899,7 +9899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters:
     albedo: {r: 1, g: 1, b: 1, a: 1}
-    meanFreePath: 10
+    meanFreePath: 20
     asymmetry: 0
     volumeMask: {fileID: 0}
     textureScrollingSpeed: {x: 0, y: 0, z: 0}
@@ -14751,31 +14751,8 @@ PrefabInstance:
       propertyPath: swordCrosshair
       value: 
       objectReference: {fileID: 7731772985210514619}
-    - target: {fileID: 443851532853646600, guid: 5c18a3df25a888847846cbcf186f7885,
-        type: 3}
-      propertyPath: fpsUI
-      value: 
-      objectReference: {fileID: 4096927939047943229}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c18a3df25a888847846cbcf186f7885, type: 3}
---- !u!1 &443851533456936649 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 443851532853646705, guid: 5c18a3df25a888847846cbcf186f7885,
-    type: 3}
-  m_PrefabInstance: {fileID: 443851533456936648}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &443851533456936650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443851533456936649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4650d63dc3798b147be1d7b4d332df32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &867754188544098988 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1868279005697139407, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
@@ -15088,11 +15065,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1677716432879114373, guid: 2de6cd2a98bffb1448f1d84617107cf9,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1320761222}
     - target: {fileID: 1766678652182740796, guid: 2de6cd2a98bffb1448f1d84617107cf9,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -15158,6 +15130,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1677716432879114373, guid: 2de6cd2a98bffb1448f1d84617107cf9,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1320761222}
+    - target: {fileID: 3150387295615764532, guid: 2de6cd2a98bffb1448f1d84617107cf9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -106.09985
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2de6cd2a98bffb1448f1d84617107cf9, type: 3}
 --- !u!1 &3479226869994984105 stripped
@@ -15171,12 +15153,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2802081441637444837, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
     type: 3}
   m_PrefabInstance: {fileID: 1578392978700017763}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4096927939047943229 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3428159014294855125, guid: 2de6cd2a98bffb1448f1d84617107cf9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1677716432446190056}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5532102776224375666
 PrefabInstance:

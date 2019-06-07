@@ -47,3 +47,11 @@ The following packages were removed:
   com.unity.render-pipelines.high-definition@4.10.0-preview
   com.unity.shadergraph@4.10.0-preview
   com.unity.visualeffectgraph@4.10.0-preview
+
+=== Fri Jun  7 13:00:30 2019
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.textmeshpro from version 2.0.0 to 2.0.1
