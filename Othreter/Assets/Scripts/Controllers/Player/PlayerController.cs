@@ -147,14 +147,14 @@ public class PlayerController : MonoBehaviour
 		//edit binds
 		#region Sprint
 
-		if (Input.GetKey(InputMenager.input.sprint) && Input.GetKey(KeyCode.W) && crouch == false && climbingProcess == false && jump == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
+		if (Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W) && crouch == false && climbingProcess == false && jump == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
 			speed = sprintSpeed; //multiplies speed
 			weaponSpeed = sprintWeaponSpeed;
 			anim.SetBool("Sprint", true);
 		}
-		else if ((Input.GetKey(InputMenager.input.sprint) == false || Input.GetKey(KeyCode.W) == false || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
+		else if ((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camFov, 10 * Time.deltaTime);
 			speed = oldSpeed;//brings default speed back\
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
 		//edit binds
 		#region Crouch
 
-		if (Input.GetKey(InputMenager.input.crouch) && climbingProcess == false)//crouch key
+		if (Input.GetKey(DataHolder.Crouch) && climbingProcess == false)//crouch key
 		{
 			crouch = true;//crouch is on
 			controller.height = crouchHeight; //reduces player height
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
 			anim.SetBool("Crouch", true);
 		}
 
-		if (Input.GetKey(InputMenager.input.crouch) == false)
+		if (Input.GetKey(DataHolder.Crouch) == false)
 		{
 			Debug.DrawRay(transform.position, Vector3.up, Color.red);//shows ray when in scene mode
 			if (!Physics.Raycast(transform.position, Vector3.up, out hitCrouch, playerHeight + 0.1f, crouchWallLayer))
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour
 				controller.center = playerCenter; //makes player center default
 				crouch = false;//crouch is off
 				anim.SetBool("Crouch", false);
-				if (Input.GetKey(InputMenager.input.sprint) == false && fallDamage.fallen == false && cameraController.aiming == false) //set speed back to normal only if player is not sprinting
+				if (Input.GetKey(DataHolder.Sprint) == false && fallDamage.fallen == false && cameraController.aiming == false) //set speed back to normal only if player is not sprinting
 				{
 					speed = oldSpeed;//sets player speed to default value
 				}
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
 				playerModel.transform.rotation = Quaternion.Lerp(playerModel.transform.rotation, Quaternion.LookRotation(new Vector3(closestEnemy.transform.position.x, transform.position.y, closestEnemy.transform.position.z) - playerModel.transform.position), 7.5f * Time.deltaTime);
 				modelRotation = playerModel.transform.rotation;
 
-				if (Input.GetKeyDown(InputMenager.input.changeFocus))
+				if (Input.GetKeyDown(DataHolder.ChangeFocus))
 				{
 					closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = false;
 					FindEnemy(closestEnemy, true);
@@ -305,7 +305,7 @@ public class PlayerController : MonoBehaviour
 					moveDirection *= weaponSpeed;
 				}
 
-				if (Input.GetKeyDown(InputMenager.input.jump) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
+				if (Input.GetKeyDown(DataHolder.Jump) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
 				{
 					jump = true; //enables jump
 

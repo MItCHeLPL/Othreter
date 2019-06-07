@@ -32,7 +32,7 @@ public class WeaponSwitching : MonoBehaviour
     {
 		if (isSwitching == false && cameraController.aiming == false && pauseMenu.activeInHierarchy == false)
 		{
-			if (Input.GetKeyDown(InputMenager.input.hideWeapon))
+			if (Input.GetKeyDown(DataHolder.HideWeapon))
 			{
 				if (index == 0)
 				{
@@ -46,7 +46,7 @@ public class WeaponSwitching : MonoBehaviour
 				}
 			}
 
-			if (Input.GetKeyDown(InputMenager.input.lastWeapon))
+			if (Input.GetKeyDown(DataHolder.LastWeapon))
 			{
 				SwitchWeapon(prevIndex);
 			}
@@ -76,25 +76,25 @@ public class WeaponSwitching : MonoBehaviour
 			}*/
 
 
-			if (Input.GetKeyDown(InputMenager.input.weaponSlot1))
+			if (Input.GetKeyDown(DataHolder.WeaponSlot1))
 			{
 				SwitchWeapon(1);
 				weaponsHidden = false;
 			}
 
-			if (Input.GetKeyDown(InputMenager.input.weaponSlot2) && weapons.Count > 2)
+			if (Input.GetKeyDown(DataHolder.WeaponSlot2) && weapons.Count > 2)
 			{
 				SwitchWeapon(2);
 				weaponsHidden = false;
 			}
 
-			if (Input.GetKeyDown(InputMenager.input.weaponSlot3) && weapons.Count > 3)
+			if (Input.GetKeyDown(DataHolder.WeaponSlot3) && weapons.Count > 3)
 			{
 				SwitchWeapon(3);
 				weaponsHidden = false;
 			}
 
-			if (Input.GetKeyDown(InputMenager.input.weaponSlot4) && weapons.Count > 4)
+			if (Input.GetKeyDown(DataHolder.WeaponSlot4) && weapons.Count > 4)
 			{
 				SwitchWeapon(4);
 				weaponsHidden = false;

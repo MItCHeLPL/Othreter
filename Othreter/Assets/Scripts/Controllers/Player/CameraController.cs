@@ -96,8 +96,8 @@ public class CameraController : MonoBehaviour
 
 		cam.nearClipPlane = 0.04f; //optimal camera clipping when camera is coliding with wall etc.
 
-		sensitivityX = InputMenager.input.mouseSensitivityX;
-		sensitivityY = InputMenager.input.mouseSensitivityY;
+		sensitivityX = DataHolder.MouseSensitivityX;
+		sensitivityY = DataHolder.MouseSensitivityY;
 
 		oldDistance = distance;
 		oldDistanceBeforeWeapon = distance;
@@ -175,12 +175,12 @@ public class CameraController : MonoBehaviour
 					distance += Input.GetAxis("Mouse ScrollWheel") * -1;//allows to change distance by scrolling
 				}
 				
-				if (Input.GetKeyDown(InputMenager.input.zoomIn))
+				if (Input.GetKeyDown(DataHolder.ZoomIn))
 				{
 					//distance -= 0.1f;
 					StartCoroutine(SmoothDistance(-0.25f, 10.0f));
 				}
-				else if (Input.GetKeyDown(InputMenager.input.zoomOut))
+				else if (Input.GetKeyDown(DataHolder.ZoomOut))
 				{
 					//distance += 0.1f;
 					StartCoroutine(SmoothDistance(0.25f, 10.0f));
@@ -190,8 +190,8 @@ public class CameraController : MonoBehaviour
 
 		if(pauseMenu.activeInHierarchy == true)
 		{
-			sensitivityX = InputMenager.input.mouseSensitivityX;
-			sensitivityY = InputMenager.input.mouseSensitivityY;
+			sensitivityX = DataHolder.MouseSensitivityX;
+			sensitivityY = DataHolder.MouseSensitivityY;
 		}
 
 		#endregion
@@ -232,7 +232,7 @@ public class CameraController : MonoBehaviour
 
 		//edit binds
 		#region Shoulder
-		if(camShake._shakeJobRunning == false && Input.GetKeyDown(InputMenager.input.switchShoulder) && camOnPosition == true && aiming == false && pauseMenu.activeInHierarchy == false)
+		if(camShake._shakeJobRunning == false && Input.GetKeyDown(DataHolder.SwitchShoulder) && camOnPosition == true && aiming == false && pauseMenu.activeInHierarchy == false)
 		{
 			if (playerController.moveDirection != Vector3.zero)//shoulder camera swap key
 			{
@@ -322,7 +322,7 @@ public class CameraController : MonoBehaviour
 
 			if (weaponHolder.ActiveWeaponTag() == "Bow" && camOnPosition == true && distanceOnPosition == true)
 				{
-					if (Input.GetKeyDown(InputMenager.input.switchShoulder) && aiming == true)//shoulder camera swap key
+					if (Input.GetKeyDown(DataHolder.SwitchShoulder) && aiming == true)//shoulder camera swap key
 					{
 						if (camShoulder == false)//right
 						{

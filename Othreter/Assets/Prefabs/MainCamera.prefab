@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 338427233231972248}
   m_LocalRotation: {x: 0.05573436, y: 0, z: 0, w: 0.99844563}
   m_LocalPosition: {x: 0.53, y: 0.08899999, z: -3.526}
-  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  backgroundColorHDR: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 0}
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2

@@ -13,14 +13,18 @@ public class SettingsMenu : MonoBehaviour
 	public GameObject controllsMenu;
 	public GameObject bindButtons;
 
+	public GameObject inputSettings;
+	private InputMenager inputMenager;
+
 	private void Start()
 	{
+		inputMenager = inputSettings.GetComponent<InputMenager>();
 		GameplayButton();
 	}
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && InputMenager.input.waitingForKey == false && InputMenager.input.wait == false)
+		if (Input.GetKeyDown(KeyCode.Escape) && inputMenager.waitingForKey == false && inputMenager.wait == false)
 		{
 			BackButton();
 		}
@@ -70,7 +74,5 @@ public class SettingsMenu : MonoBehaviour
 
 		controllsMenu.SetActive(true);
 		settingTitle.SetText("Contolls Settings");
-
-		InputMenager.input.RenameControllButtons(bindButtons);
 	}
 }

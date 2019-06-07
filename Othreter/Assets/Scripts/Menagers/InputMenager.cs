@@ -6,9 +6,7 @@ using TMPro;
 
 public class InputMenager : MonoBehaviour
 {
-	//public KeyCode jump { get; set; } //example when using saving data to file
-
-	[Header("Movement")]
+	/*[Header("Movement")]
 	public KeyCode jump = KeyCode.Space;
 	public KeyCode crouch = KeyCode.LeftShift; // change to control for default
 	public KeyCode sprint = KeyCode.LeftControl;
@@ -31,7 +29,7 @@ public class InputMenager : MonoBehaviour
 	public KeyCode weaponSlot3 = KeyCode.Alpha3;
 	public KeyCode weaponSlot4 = KeyCode.Alpha4;
 
-	public static InputMenager input; //singleton
+	public static InputMenager input; //singleton*/
 
 	private KeyCode action; //for changing bindings
 	private Event e;
@@ -43,13 +41,6 @@ public class InputMenager : MonoBehaviour
 	private TextMeshProUGUI buttonText;
 	private Slider updateSlider;
 	private string previousText;
-
-	void Awake()
-	{
-		input = this; //singleton
-
-		//jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("jumpKey", "Space")); //example when using saving data to file, do this instead of seting value while defining variable
-	}
 
 	private void OnGUI()
 	{
@@ -68,43 +59,43 @@ public class InputMenager : MonoBehaviour
 			switch (text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text)
 			{
 				case "jump":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(jump);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.Jump);
 					break;
 				case "crouch":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(crouch);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.Crouch);
 					break;
 				case "sprint":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(sprint);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.Sprint);
 					break;
 				case "switchShoulder":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(switchShoulder);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.SwitchShoulder);
 					break;
 				case "changeFocus":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(changeFocus);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.ChangeFocus);
 					break;
 				case "hideWeapon":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(hideWeapon);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.HideWeapon);
 					break;
 				case "lastWeapon":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(lastWeapon);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.LastWeapon);
 					break;
 				case "weaponSlot1":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot1);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.WeaponSlot1);
 					break;
 				case "weaponSlot2":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot2);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.WeaponSlot2);
 					break;
 				case "weaponSlot3":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot3);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.WeaponSlot3);
 					break;
 				case "weaponSlot4":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(weaponSlot4);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.WeaponSlot4);
 					break;
 				case "zoomIn":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(zoomIn);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.ZoomIn);
 					break;
 				case "zoomOut":
-					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(zoomOut);
+					text.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = KeyName(DataHolder.ZoomOut);
 					break;
 				default:
 					break;
@@ -147,43 +138,43 @@ public class InputMenager : MonoBehaviour
 					switch (action)
 					{
 						case "jump":
-							jump = newKey;
+							DataHolder.Jump = newKey;
 							break;
 						case "crouch":
-							crouch = newKey;
+							DataHolder.Crouch = newKey;
 							break;
 						case "sprint":
-							sprint = newKey;
+							DataHolder.Sprint = newKey;
 							break;
 						case "switchShoulder":
-							switchShoulder = newKey;
+							DataHolder.SwitchShoulder = newKey;
 							break;
 						case "changeFocus":
-							changeFocus = newKey;
+							DataHolder.ChangeFocus = newKey;
 							break;
 						case "hideWeapon":
-							hideWeapon = newKey;
+							DataHolder.HideWeapon = newKey;
 							break;
 						case "lastWeapon":
-							lastWeapon = newKey;
+							DataHolder.LastWeapon = newKey;
 							break;
 						case "weaponSlot1":
-							weaponSlot1 = newKey;
+							DataHolder.WeaponSlot1 = newKey;
 							break;
 						case "weaponSlot2":
-							weaponSlot2 = newKey;
+							DataHolder.WeaponSlot2 = newKey;
 							break;
 						case "weaponSlot3":
-							weaponSlot3 = newKey;
+							DataHolder.WeaponSlot3 = newKey;
 							break;
 						case "weaponSlot4":
-							weaponSlot4 = newKey;
+							DataHolder.WeaponSlot4 = newKey;
 							break;
 						case "zoomIn":
-							zoomIn = newKey;
+							DataHolder.ZoomIn = newKey;
 							break;
 						case "zoomOut":
-							zoomOut = newKey;
+							DataHolder.ZoomOut = newKey;
 							break;
 						default:
 							break;
@@ -250,11 +241,11 @@ public class InputMenager : MonoBehaviour
 	{
 		if(axis == "x")
 		{
-			mouseSensitivityX = updateSlider.value;
+			DataHolder.MouseSensitivityX = updateSlider.value;
 		}
 		else if (axis == "y")
 		{
-			mouseSensitivityY = updateSlider.value;
+			DataHolder.MouseSensitivityY = updateSlider.value;
 		}
 	}
 }
