@@ -33,7 +33,7 @@ public class SettingsMenu : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && inputMenager.waitingForKey == false && inputMenager.wait == false)
+		if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(DataHolder.BackController)) && inputMenager.waitingForKey == false && inputMenager.wait == false)
 		{
 			BackButton();
 		}

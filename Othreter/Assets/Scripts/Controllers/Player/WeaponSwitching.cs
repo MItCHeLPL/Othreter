@@ -32,7 +32,7 @@ public class WeaponSwitching : MonoBehaviour
     {
 		if (isSwitching == false && cameraController.aiming == false && pauseMenu.activeInHierarchy == false)
 		{
-			if (Input.GetKeyDown(DataHolder.HideWeapon))
+			if (Input.GetKeyDown(DataHolder.HideWeapon) || Input.GetKeyDown(DataHolder.HideWeaponController))
 			{
 				if (index == 0)
 				{
@@ -51,7 +51,7 @@ public class WeaponSwitching : MonoBehaviour
 				SwitchWeapon(prevIndex);
 			}
 
-			/*if (Input.GetAxis("Mouse ScrollWheel") > 0 && weaponsHidden == false)
+			if (Input.GetKeyDown(DataHolder.WeaponSlotUpController) && weaponsHidden == false)
 			{
 				if (index == weapons.Count - 1)
 				{
@@ -63,7 +63,7 @@ public class WeaponSwitching : MonoBehaviour
 				}
 			}
 
-			if (Input.GetAxis("Mouse ScrollWheel") < 0 && weaponsHidden == false)
+			if (Input.GetKeyDown(DataHolder.WeaponSlotDownController) && weaponsHidden == false)
 			{
 				if (index == 1)
 				{
@@ -73,7 +73,7 @@ public class WeaponSwitching : MonoBehaviour
 				{
 					SwitchWeapon(index - 1);
 				}
-			}*/
+			}
 
 
 			if (Input.GetKeyDown(DataHolder.WeaponSlot1))

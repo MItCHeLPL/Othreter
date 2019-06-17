@@ -26,7 +26,7 @@ public class Sword : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") == 1 && wasHit == false))
 		{
 			//play anim
 

@@ -30,7 +30,7 @@ public class PauseMenu : MonoBehaviour
 
 	void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale > 0.0f)
+        if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(DataHolder.PauseController)) && Time.timeScale > 0.0f)
 		{
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.Confined;
@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour
 			pauseMenu.SetActive(true);
 			pauseMainMenu.SetActive(true);
 		}
-		else if(Input.GetKeyDown(KeyCode.Escape) && inputMenager.waitingForKey == false && inputMenager.wait == false && Time.timeScale == 0.0f)
+		else if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(DataHolder.PauseController) || Input.GetKeyDown(DataHolder.BackController)) && inputMenager.waitingForKey == false && inputMenager.wait == false && Time.timeScale == 0.0f)
 		{
 			ResumeButton();
 		}

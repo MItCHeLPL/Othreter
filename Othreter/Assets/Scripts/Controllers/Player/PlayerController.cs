@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
 	private float distanceToClosestEnemy;
 	[HideInInspector]
 	public bool swordAiming = false;
+	private bool calledFinding = false;
 
 	#endregion
 
@@ -147,14 +148,14 @@ public class PlayerController : MonoBehaviour
 		//edit binds
 		#region Sprint
 
-		if (Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W) && crouch == false && climbingProcess == false && jump == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
+		if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0)) && crouch == false && climbingProcess == false && jump == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
 			speed = sprintSpeed; //multiplies speed
 			weaponSpeed = sprintWeaponSpeed;
 			anim.SetBool("Sprint", true);
 		}
-		else if ((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
+		else if (((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false) || (Input.GetKey(DataHolder.SprintController) == false || Input.GetAxis("Horizontal") <= 0) || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camFov, 10 * Time.deltaTime);
 			speed = oldSpeed;//brings default speed back\
@@ -167,7 +168,7 @@ public class PlayerController : MonoBehaviour
 		//edit binds
 		#region Crouch
 
-		if (Input.GetKey(DataHolder.Crouch) && climbingProcess == false)//crouch key
+		if ((Input.GetKey(DataHolder.Crouch) || Input.GetKey(DataHolder.CrouchController)) && climbingProcess == false)//crouch key
 		{
 			crouch = true;//crouch is on
 			controller.height = crouchHeight; //reduces player height
@@ -176,7 +177,7 @@ public class PlayerController : MonoBehaviour
 			anim.SetBool("Crouch", true);
 		}
 
-		if (Input.GetKey(DataHolder.Crouch) == false)
+		if (Input.GetKey(DataHolder.Crouch) == false && Input.GetKey(DataHolder.CrouchController) == false)
 		{
 			Debug.DrawRay(transform.position, Vector3.up, Color.red);//shows ray when in scene mode
 			if (!Physics.Raycast(transform.position, Vector3.up, out hitCrouch, playerHeight + 0.1f, crouchWallLayer))
@@ -207,18 +208,24 @@ public class PlayerController : MonoBehaviour
 
 			#region Model Rotation
 
-			if(Input.GetMouseButtonDown(1) && weaponHolder.ActiveWeaponTag() == "Sword")
+			if((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") > 0) && weaponHolder.ActiveWeaponTag() == "Sword")
 			{
-				FindEnemy(null, false);
-				if(closestEnemy != null)
+				if(calledFinding == false)
 				{
-					closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = true;
+					FindEnemy(null, false);
+					if (closestEnemy != null)
+					{
+						closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = true;
+						
+					}
+					calledFinding = true;
 				}
 			}
 
-			if (Input.GetMouseButtonUp(1) && weaponHolder.ActiveWeaponTag() == "Sword" && closestEnemy != null)
+			if ((Input.GetMouseButtonUp(1) || Input.GetAxis("Fire2") < 1) && weaponHolder.ActiveWeaponTag() == "Sword" && closestEnemy != null)
 			{
 				closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = false;
+				calledFinding = false;
 			}
 
 			transform.rotation = Quaternion.Euler(0.0f, cameraController.currentX, 0.0f);
@@ -278,7 +285,7 @@ public class PlayerController : MonoBehaviour
 				playerModel.transform.rotation = Quaternion.Lerp(playerModel.transform.rotation, Quaternion.LookRotation(new Vector3(closestEnemy.transform.position.x, transform.position.y, closestEnemy.transform.position.z) - playerModel.transform.position), 7.5f * Time.deltaTime);
 				modelRotation = playerModel.transform.rotation;
 
-				if (Input.GetKeyDown(DataHolder.ChangeFocus))
+				if (Input.GetKeyDown(DataHolder.ChangeFocus) || Input.GetKeyDown(DataHolder.ChangeFocusController))
 				{
 					closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = false;
 					FindEnemy(closestEnemy, true);
@@ -305,7 +312,7 @@ public class PlayerController : MonoBehaviour
 					moveDirection *= weaponSpeed;
 				}
 
-				if (Input.GetKeyDown(DataHolder.Jump) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
+				if ((Input.GetKeyDown(DataHolder.Jump) || Input.GetKeyDown(DataHolder.JumpController)) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
 				{
 					jump = true; //enables jump
 

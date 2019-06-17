@@ -73,7 +73,7 @@ public class Bow : MonoBehaviour
 
 			if (currentAmmo > 0)
 			{
-				if (Input.GetMouseButtonDown(0))
+				if (Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") == 1 && arrowInstantiated == false))
 				{
 					anim.SetTrigger("BowDraw");
 					maxShootForceAchieved = false;
@@ -88,7 +88,7 @@ public class Bow : MonoBehaviour
 					currentLerpTime = 0f;
 				}
 
-				if (Input.GetMouseButton(0))
+				if (Input.GetMouseButton(0) || Input.GetAxis("Fire1") == 1)
 				{
 					if (arrowCoolDown >= 0.0f)
 					{
@@ -121,7 +121,7 @@ public class Bow : MonoBehaviour
 
 				RayOrigin = cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 				Debug.DrawRay(RayOrigin, cam.transform.forward * 1000, Color.yellow);//shows ray when in scene mode
-				if (Input.GetMouseButtonUp(0) && bowCoolDown <= 0.0f && arrowCoolDown <= 0.0f && arrowInstantiated == true)
+				if ((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && bowCoolDown <= 0.0f && arrowCoolDown <= 0.0f && arrowInstantiated == true)
 				{
 					arrowReleased = true;
 					anim.SetBool("BowPulledHolding", false);
@@ -160,8 +160,9 @@ public class Bow : MonoBehaviour
 
 					bowCoolDown = 1.0f;
 				}
-				else if (Input.GetMouseButtonUp(0) && bowCoolDown > 0.0f || Input.GetMouseButtonUp(0) && arrowCoolDown > 0.0f)
+				else if ((((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && bowCoolDown > 0.0f) || ((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && arrowCoolDown > 0.0f)) && arrowInstantiated == true)
 				{
+					Debug.Log("elo2");
 					anim.SetTrigger("HideArrow");
 					arrowInstantiated = false;
 					Destroy(go);
@@ -180,8 +181,9 @@ public class Bow : MonoBehaviour
 			//temp
 			transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
 		}
+		//Debug.Log(bowCoolDown + "   " + arrowCoolDown);
 	}
-
+	
 	public void AddAmmo()
 	{
 		currentAmmo++;
