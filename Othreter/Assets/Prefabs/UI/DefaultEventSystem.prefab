@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6486877287123657796}
   - component: {fileID: 6486877287123657797}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: DefaultEventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 0
+  m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &6486877287123657797
 MonoBehaviour:

@@ -18,6 +18,8 @@ public class Arrow : MonoBehaviour
 
 	public GameObject trail;
 
+	private bool released = false;
+
 	void Start()
     {
         myBody = GetComponent<Rigidbody>();
@@ -41,6 +43,8 @@ public class Arrow : MonoBehaviour
 			transform.rotation = Quaternion.LookRotation(myBody.velocity);
 
 			trail.SetActive(true);
+
+			released = true;
         }
 
         /*if(bow.arrowsOnGround > 25)
@@ -67,7 +71,7 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-		if(bow.arrowReleased == true)
+		if(released == true)
 		{
 			_collider = col;
 

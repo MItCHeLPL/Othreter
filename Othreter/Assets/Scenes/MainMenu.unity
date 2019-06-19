@@ -3122,6 +3122,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1402356539}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1445798704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 626026909320283165, guid: ff18913848e34e6469ede23fb6c6420d,
+    type: 3}
+  m_PrefabInstance: {fileID: 404980335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1543991360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5518,6 +5524,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5058622651561537183, guid: 5c985dff5b2102449a4668cec7326e0b,
+        type: 3}
+      propertyPath: prevMenu
+      value: 
+      objectReference: {fileID: 1749473659}
     - target: {fileID: 4816184752404704617, guid: 5c985dff5b2102449a4668cec7326e0b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5623,11 +5634,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5058622651561537183, guid: 5c985dff5b2102449a4668cec7326e0b,
-        type: 3}
-      propertyPath: prevMenu
-      value: 
-      objectReference: {fileID: 1749473659}
     - target: {fileID: 1138551897113665662, guid: 5c985dff5b2102449a4668cec7326e0b,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -7975,6 +7981,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6486877287123657796, guid: e805fa55dcbe8cb41b6bea641a780642,
+        type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 1445798704}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e805fa55dcbe8cb41b6bea641a780642, type: 3}
 --- !u!1 &6543424525811828508

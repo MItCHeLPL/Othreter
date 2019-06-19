@@ -460,7 +460,7 @@ public class CameraController : MonoBehaviour
 	{
 		rotation = Quaternion.Euler(currentY, currentX, cam.gameObject.transform.rotation.z); //calculates rotation
 
-		if (camOnPosition == true && (Input.anyKey || Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 || Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Mouse ScrollWheel") != 0 || inputDone == false || colliding == true || playerController.controller.velocity != Vector3.zero))
+		if (camOnPosition == true && (Input.anyKey || Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 || Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Mouse ScrollWheel") != 0 || Input.GetAxis("Fire1") != 0 || Input.GetAxis("Fire2") != 0 || inputDone == false || colliding == true || playerController.controller.velocity != Vector3.zero))
 		{
 			cam.gameObject.transform.position = lookatpoint.transform.position + rotation * vectorDistance; //camera position
 			cam.gameObject.transform.LookAt(lookatpoint.transform.position);//camera lookAt set at lookat point

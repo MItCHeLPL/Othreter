@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 		//edit binds
 		#region Sprint
 
-		if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0)) && crouch == false && climbingProcess == false && jump == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
+		if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0)) && crouch == false && climbingProcess == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
 			speed = sprintSpeed; //multiplies speed
@@ -201,6 +201,7 @@ public class PlayerController : MonoBehaviour
 		if (climbingProcess == false)
 		{
 			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+			//moveDirection = new Vector3(Mathf.Clamp(Input.GetAxis("Horizontal"), -speed, speed), 0, Mathf.Clamp(Input.GetAxis("Vertical"), -speed, speed));
 
 			anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
 			anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));

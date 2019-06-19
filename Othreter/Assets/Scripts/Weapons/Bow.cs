@@ -162,7 +162,6 @@ public class Bow : MonoBehaviour
 				}
 				else if ((((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && bowCoolDown > 0.0f) || ((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && arrowCoolDown > 0.0f)) && arrowInstantiated == true)
 				{
-					Debug.Log("elo2");
 					anim.SetTrigger("HideArrow");
 					arrowInstantiated = false;
 					Destroy(go);
