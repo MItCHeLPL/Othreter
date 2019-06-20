@@ -23,25 +23,20 @@ public class PlayerController : MonoBehaviour
 	private Quaternion modelRotation;
 	private Vector3 desiredRotation;
 	private bool desiredRotated = false;
+	private ControllerColliderHit colliderHit;
 
 	private RaycastHit hitCrouch;
 
 	[Header("Speed")]
 	public float speed = 6.0f; //player speed
-	[HideInInspector]
-	public float oldSpeed; //holds default player speed
+
+	public float defaultSpeed = 6.0f; //speed when sprinting
 	[SerializeField]
 	private float sprintSpeed = 8.0f; //speed when sprinting
 	[SerializeField]
-	private float sprintWeaponSpeed = 7.5f; //speed when sprinting
-	[SerializeField]
-	private float weaponSpeed = 5.5f;
-	[HideInInspector]
-	public float oldWeaponSpeed; //holds default player speed
-	[SerializeField]
-	private float airSpeed = 4.0f; // speed mid air
-	[SerializeField]
 	private float crouchSpeed = 4.0f; // speed when crouching
+	[SerializeField]
+	private float weaponSpeedSub = 0.5f;
 	private float jumpCooldown;
 
 	[Header("Physics")]
@@ -51,6 +46,7 @@ public class PlayerController : MonoBehaviour
 	private float jumpHeight = 8.0f; //jump height
 	[SerializeField]
 	private float gravity = 20.0f; //gravitation force (20f is optimal as for earth gravity)
+	private Vector3 force;
 
 	[Header("Camera")]
 	[SerializeField]
@@ -135,8 +131,7 @@ public class PlayerController : MonoBehaviour
 
 		camMain.fieldOfView = camFov; //sets default main camera field of view
 
-		oldSpeed = speed; //saves default speed
-		oldWeaponSpeed = weaponSpeed;
+		speed = defaultSpeed;
 
 		climbingCheckDistance = playerRadius + 0.2f; //check for climbing distance just in front of player
 
@@ -151,15 +146,13 @@ public class PlayerController : MonoBehaviour
 		if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0)) && crouch == false && climbingProcess == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
-			speed = sprintSpeed; //multiplies speed
-			weaponSpeed = sprintWeaponSpeed;
+			speed = sprintSpeed;
 			anim.SetBool("Sprint", true);
 		}
 		else if (((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false) || (Input.GetKey(DataHolder.SprintController) == false || Input.GetAxis("Horizontal") <= 0) || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camFov, 10 * Time.deltaTime);
-			speed = oldSpeed;//brings default speed back\
-			weaponSpeed = oldWeaponSpeed;
+			speed = defaultSpeed;
 			anim.SetBool("Sprint", false);
 		}
 
@@ -188,7 +181,7 @@ public class PlayerController : MonoBehaviour
 				anim.SetBool("Crouch", false);
 				if (Input.GetKey(DataHolder.Sprint) == false && fallDamage.fallen == false && cameraController.aiming == false) //set speed back to normal only if player is not sprinting
 				{
-					speed = oldSpeed;//sets player speed to default value
+					speed = defaultSpeed;//sets player speed to default value
 				}
 			}
 		}
@@ -201,7 +194,6 @@ public class PlayerController : MonoBehaviour
 		if (climbingProcess == false)
 		{
 			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-			//moveDirection = new Vector3(Mathf.Clamp(Input.GetAxis("Horizontal"), -speed, speed), 0, Mathf.Clamp(Input.GetAxis("Vertical"), -speed, speed));
 
 			anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
 			anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
@@ -300,42 +292,23 @@ public class PlayerController : MonoBehaviour
 
 			#endregion
 
-			moveDirection = transform.TransformDirection(moveDirection);
 
 			if (controller.isGrounded)//when player is on ground
 			{
-				if (weaponHolder.ActiveWeaponTag() == "Hands")
-				{
-					moveDirection *= speed;
-				}
-				else
-				{
-					moveDirection *= weaponSpeed;
-				}
-
 				if ((Input.GetKeyDown(DataHolder.Jump) || Input.GetKeyDown(DataHolder.JumpController)) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
 				{
 					jump = true; //enables jump
 
 					anim.SetTrigger("Jump");
 
-					jumpVelocity = moveDirection * 0.5f;
+					jumpVelocity = controller.velocity;
 					jumpVelocity.y = jumpHeight;
 				}
 			}
-			else if (controller.isGrounded == false && jump == true)
-			{
-				moveDirection *= airSpeed;
-				jumpVelocity.y -= gravity * Time.deltaTime;
-			}
-			else if (controller.isGrounded == false && jump == false)
-			{
-				moveDirection *= speed;
-				jumpVelocity.y -= gravity * Time.deltaTime;
-			}
 			else
 			{
-				jumpVelocity = Vector3.zero;
+				moveDirection /= 1.5f;
+				jumpVelocity.y -= gravity * Time.deltaTime;
 			}
 		}
 		else
@@ -343,7 +316,14 @@ public class PlayerController : MonoBehaviour
 			jumpVelocity = Vector3.zero;
 		}
 
-		controller.Move((moveDirection + jumpVelocity) * Time.deltaTime);
+		if (weaponHolder.ActiveWeaponTag() != "Hands")
+		{
+			speed -= weaponSpeedSub;
+		}
+
+		//It has to be together
+		moveDirection = transform.TransformDirection(Vector3.ClampMagnitude(moveDirection, 1) * speed);
+		controller.Move((Vector3.ClampMagnitude((moveDirection + jumpVelocity), (defaultSpeed * 1.5f))) * Time.deltaTime);
 
 		if (jumpCooldown >= 0.0f)
 		{
@@ -361,7 +341,6 @@ public class PlayerController : MonoBehaviour
 		{
 			groundAngleOverLimit = true;
 		}
-
 		else
 		{
 			groundAngleOverLimit = false;
@@ -376,7 +355,7 @@ public class PlayerController : MonoBehaviour
 
 		if (SlopeCheck() && jump == false && (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)) //detects if player is moving on the slope and isnt jumping
 		{
-			controller.Move(Vector3.down * playerHeight / 2 * slopeLimitCheckDistance); //moves player to the slope
+			moveDirection += new Vector3(moveDirection.x, moveDirection.y - (playerHeight * slopeLimitCheckDistance), moveDirection.z); //moves player to the slope
 		}
 
 		#endregion
@@ -483,6 +462,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnControllerColliderHit(ControllerColliderHit hit) //Apply player push force on rigidbody objects
 	{
+		colliderHit = hit;
 		#region Character Controller can move Rigidbody
 
 		Rigidbody body = hit.collider.attachedRigidbody;
@@ -494,12 +474,18 @@ public class PlayerController : MonoBehaviour
 
 		if (hit.moveDirection.y < -0.3) // if object is below us
 		{
+			force = new Vector3(0, -0.5f, 0) * gravity * pushPower;
+			body.AddForceAtPosition(force, hit.point);
+
 			return;
+
 		}
+		else
+		{
+			Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);// Calculate push direction from move direction
 
-		Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);// Calculate push direction from move direction
-
-		body.velocity = pushDir * pushPower;// Apply the push
+			body.velocity = pushDir * pushPower;// Apply the push
+		}
 
 		#endregion
 	}

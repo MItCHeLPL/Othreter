@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trail: {fileID: 4540723669619513561}
+  light: {fileID: 172771599600460176}
 --- !u!75 &1528227995
 ConstantForce:
   m_ObjectHideFlags: 0

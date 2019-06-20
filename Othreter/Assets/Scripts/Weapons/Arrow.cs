@@ -17,6 +17,7 @@ public class Arrow : MonoBehaviour
 	private bool enemyHit = false;
 
 	public GameObject trail;
+	public GameObject light;
 
 	private bool released = false;
 
@@ -33,6 +34,7 @@ public class Arrow : MonoBehaviour
         Physics.IgnoreCollision(GetComponent<BoxCollider>(), ObjectsMenager.instance.player.GetComponent<CapsuleCollider>());
 
 		trail.SetActive(false);
+		light.SetActive(false);
 	}
 
     void Update()
@@ -120,6 +122,7 @@ public class Arrow : MonoBehaviour
     private void afterCollision()
     {
 		trail.GetComponent<TrailRenderer>().time = 0.3f;
+		light.SetActive(true);
 		hitSomething = true;
 		myBody.constraints = RigidbodyConstraints.FreezeAll;
 		myBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
