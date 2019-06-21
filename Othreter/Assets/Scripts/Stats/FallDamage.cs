@@ -94,8 +94,9 @@ public class FallDamage : MonoBehaviour
 
         if(playerMovement.speed >= speedAfterFalling && fallen == true)
         {
-            playerMovement.speed = Mathf.Lerp(playerMovement.speed, playerMovement.defaultSpeed, 2.0f * Time.deltaTime); //regain speed after time
-        }
+			//playerMovement.speed = Mathf.Lerp(playerMovement.speed, playerMovement.defaultSpeed, 2.0f * Time.deltaTime); //regain speed after time
+			playerMovement.speed = Mathf.Lerp(playerMovement.speed, playerMovement.holdingWeapon ? playerMovement.defaultSpeed - playerMovement.weaponSpeedSub : playerMovement.defaultSpeed, Time.deltaTime * 2.0f);
+		}
 
         if (fallDistance < minFallDistance && velocity > minVelocity && controller.isGrounded)
         {

@@ -33,6 +33,7 @@ public class Arrow : MonoBehaviour
 
         Physics.IgnoreCollision(GetComponent<BoxCollider>(), ObjectsMenager.instance.player.GetComponent<CapsuleCollider>());
 
+		arrowCollider.enabled = false;
 		trail.SetActive(false);
 		light.SetActive(false);
 	}
@@ -41,6 +42,7 @@ public class Arrow : MonoBehaviour
     {
         if (!hitSomething && myBody.velocity != Vector3.zero)
         {
+			arrowCollider.enabled = true;
 			//arrowCollider.center = new Vector3(arrowCollider.center.x, arrowCollider.center.y, (bow.shootForce + 0.35f) * -0.004f);
 			transform.rotation = Quaternion.LookRotation(myBody.velocity);
 

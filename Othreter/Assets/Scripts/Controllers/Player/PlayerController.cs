@@ -35,8 +35,7 @@ public class PlayerController : MonoBehaviour
 	private float sprintSpeed = 8.0f; //speed when sprinting
 	[SerializeField]
 	private float crouchSpeed = 4.0f; // speed when crouching
-	[SerializeField]
-	private float weaponSpeedSub = 0.5f;
+	public float weaponSpeedSub = 0.5f;
 	private float jumpCooldown;
 
 	[Header("Physics")]
@@ -90,6 +89,8 @@ public class PlayerController : MonoBehaviour
 	public bool jump = false; //informs wether player jumped
 	[HideInInspector]
 	public bool inFight = false; //informs wether player jumped
+	[HideInInspector]
+	public bool holdingWeapon = false;
 
 	[Header("Combat")]
 	[SerializeField]
@@ -146,13 +147,15 @@ public class PlayerController : MonoBehaviour
 		if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0)) && crouch == false && climbingProcess == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
-			speed = sprintSpeed;
+			speed = Mathf.Lerp(speed, holdingWeapon ? sprintSpeed - weaponSpeedSub : sprintSpeed, Time.deltaTime * 2.0f);
+			//speed = sprintSpeed;
 			anim.SetBool("Sprint", true);
 		}
 		else if (((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false) || (Input.GetKey(DataHolder.SprintController) == false || Input.GetAxis("Horizontal") <= 0) || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
 		{
 			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camFov, 10 * Time.deltaTime);
-			speed = defaultSpeed;
+			speed = Mathf.Lerp(speed, holdingWeapon ? defaultSpeed - weaponSpeedSub : defaultSpeed, Time.deltaTime * 2.0f);
+			//speed = defaultSpeed;
 			anim.SetBool("Sprint", false);
 		}
 
@@ -166,7 +169,9 @@ public class PlayerController : MonoBehaviour
 			crouch = true;//crouch is on
 			controller.height = crouchHeight; //reduces player height
 			controller.center = new Vector3(0.0f, crouchHeight / 2 + controller.skinWidth, 0.0f);//moves player center point lover
-			speed = crouchSpeed;//reduces player speed by sprint speed
+			//speed = crouchSpeed;//reduces player speed by sprint speed
+			speed = holdingWeapon ? crouchSpeed - weaponSpeedSub : crouchSpeed;
+			//speed = Mathf.Lerp(speed, holdingWeapon ? crouchSpeed - weaponSpeedSub : crouchSpeed, Time.deltaTime * 2.0f);
 			anim.SetBool("Crouch", true);
 		}
 
@@ -181,7 +186,8 @@ public class PlayerController : MonoBehaviour
 				anim.SetBool("Crouch", false);
 				if (Input.GetKey(DataHolder.Sprint) == false && fallDamage.fallen == false && cameraController.aiming == false) //set speed back to normal only if player is not sprinting
 				{
-					speed = defaultSpeed;//sets player speed to default value
+					//speed = defaultSpeed;//sets player speed to default value
+					speed = Mathf.Lerp(speed, holdingWeapon ? defaultSpeed - weaponSpeedSub : defaultSpeed, Time.deltaTime * 2.0f);
 				}
 			}
 		}
@@ -318,12 +324,17 @@ public class PlayerController : MonoBehaviour
 
 		if (weaponHolder.ActiveWeaponTag() != "Hands")
 		{
-			speed -= weaponSpeedSub;
+			holdingWeapon = true;
+			//speed -= weaponSpeedSub;
+		}
+		else
+		{
+			holdingWeapon = false;
 		}
 
 		//It has to be together
 		moveDirection = transform.TransformDirection(Vector3.ClampMagnitude(moveDirection, 1) * speed);
-		controller.Move((Vector3.ClampMagnitude((moveDirection + jumpVelocity), (defaultSpeed * 1.5f))) * Time.deltaTime);
+		controller.Move(new Vector3(Mathf.Clamp((moveDirection.x + jumpVelocity.x), -speed, speed), (moveDirection.y + jumpVelocity.y), Mathf.Clamp((moveDirection.z + jumpVelocity.z), -speed, speed)) * Time.deltaTime);
 
 		if (jumpCooldown >= 0.0f)
 		{
@@ -445,7 +456,7 @@ public class PlayerController : MonoBehaviour
 		if (jump && controller.isGrounded) //allows player to jump again
 		{
 			jumpVelocity = Vector3.zero;
-			jumpCooldown = 0.05f;
+			jumpCooldown = 0.04f;
 			jump = false; //disables jump after landing
 		}
 	}
@@ -474,17 +485,11 @@ public class PlayerController : MonoBehaviour
 
 		if (hit.moveDirection.y < -0.3) // if object is below us
 		{
-			force = new Vector3(0, -0.5f, 0) * gravity * pushPower;
-			body.AddForceAtPosition(force, hit.point);
-
-			return;
-
+			body.AddForceAtPosition(new Vector3(0, -1.0f, 0) * pushPower, hit.point);
 		}
 		else
 		{
-			Vector3 pushDir = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z);// Calculate push direction from move direction
-
-			body.velocity = pushDir * pushPower;// Apply the push
+			body.velocity = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z) * pushPower;// Calculate push direction from move direction
 		}
 
 		#endregion

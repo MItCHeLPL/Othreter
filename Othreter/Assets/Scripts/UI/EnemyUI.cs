@@ -12,11 +12,15 @@ public class EnemyUI : MonoBehaviour
 	private UIController uiController;
 	private Vector3 pos;
 	private EnemyStats enemyStats;
-	public float hideDistance = 30.0f;
+	[SerializeField]
+	private float hideDistance = 1000.0f;
+	private RaycastHit hit;
+	private CameraController camController;
 
 	void Start()
 	{
 		cam = ObjectsMenager.instance.cam;
+		camController = cam.GetComponent<CameraController>();
 		uiController = ObjectsMenager.instance.UIMenager.GetComponent<UIController>();
 		enemyStats = GetComponent<EnemyStats>();
 
@@ -27,10 +31,14 @@ public class EnemyUI : MonoBehaviour
 
 	void Update()
 	{
-		if (Vector3.Distance(transform.position, cam.transform.position) < hideDistance && ((enemyStats.currentHealth < enemyStats.maxHealth || enemyStats.armor.GetValue() < enemyStats.maxArmor) || lockIndicator.enabled == true))
+		if (healthUI.enabled == true)
+		{
+			uiController.ObjectFaceOtherObject(healthUI.gameObject, cam.gameObject);
+		}
+
+		if (Vector3.Distance(transform.position, cam.transform.position) < hideDistance && ((enemyStats.currentHealth < enemyStats.maxHealth || enemyStats.armor.GetValue() < enemyStats.maxArmor) || lockIndicator.enabled == true || ((Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, hideDistance) && camController.aiming) ? (hit.transform == transform || hit.transform.parent == transform) : false)))
 		{
 			healthUI.enabled = true;
-			uiController.ObjectFaceOtherObject(healthUI.gameObject, cam.gameObject);
 		}
 		else
 		{
