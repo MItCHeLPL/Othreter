@@ -204,10 +204,11 @@ public class PlayerController : MonoBehaviour
 			anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
 			anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
 			anim.SetFloat("Velocity", controller.velocity.magnitude);
+			anim.SetFloat("VelocityXZ", (controller.velocity.x * controller.velocity.x) + (controller.velocity.z * controller.velocity.z));
 
 			#region Model Rotation
 
-			if((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") > 0) && weaponHolder.ActiveWeaponTag() == "Sword")
+			if ((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") > 0) && weaponHolder.ActiveWeaponTag() == "Sword")
 			{
 				if(calledFinding == false)
 				{
@@ -301,11 +302,10 @@ public class PlayerController : MonoBehaviour
 
 			if (controller.isGrounded)//when player is on ground
 			{
-				if ((Input.GetKeyDown(DataHolder.Jump) || Input.GetKeyDown(DataHolder.JumpController)) && groundAngleOverLimit == false && jumpCooldown <= 0.0f)
+				if ((Input.GetKeyDown(DataHolder.Jump) || Input.GetKeyDown(DataHolder.JumpController)) && groundAngleOverLimit == false && jumpCooldown <= 0.0f && crouch == false)
 				{
 					jump = true; //enables jump
-
-					anim.SetTrigger("Jump");
+					anim.SetBool("Jump", true);
 
 					jumpVelocity = controller.velocity;
 					jumpVelocity.y = jumpHeight;
@@ -458,6 +458,7 @@ public class PlayerController : MonoBehaviour
 			jumpVelocity = Vector3.zero;
 			jumpCooldown = 0.04f;
 			jump = false; //disables jump after landing
+			anim.SetBool("Jump", false);
 		}
 	}
 

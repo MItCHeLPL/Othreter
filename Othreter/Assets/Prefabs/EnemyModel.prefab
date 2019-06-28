@@ -1519,10 +1519,10 @@ Animator:
   m_GameObject: {fileID: 5978482085307339018}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ff503781677231b43be54db6a9151dfc, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 74148ccf069f90845bae7b7a6a671f4c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1629,9 +1629,6 @@ MonoBehaviour:
   healthUI: {fileID: 223336278}
   lockIndicator: {fileID: 1960608810}
   hideDistance: 1000
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!1 &6012788822924133167
 GameObject:
   m_ObjectHideFlags: 0

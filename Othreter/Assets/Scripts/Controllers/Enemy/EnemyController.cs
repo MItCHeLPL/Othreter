@@ -34,6 +34,8 @@ public class EnemyController : MonoBehaviour
 
 	PlayerStats playerStats;
 
+	private Animator anim;
+
 	void Start()
     {
         target = ObjectsMenager.instance.player.transform; //player gameobject
@@ -48,6 +50,8 @@ public class EnemyController : MonoBehaviour
 
         waitTime = Random.Range(minWaitTime, maxWaitTime);
         randomSpot = Random.Range(0, moveSpots.Length);
+
+		anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -56,6 +60,8 @@ public class EnemyController : MonoBehaviour
         distance = Vector3.Distance(target.position, transform.position);
         targetDir = target.position - transform.position;
         angleToPlayer = (Vector3.Angle(targetDir, transform.forward));
+
+		anim.SetFloat("Velocity", agent.velocity.magnitude);
 
 		UnityEngine.AI.NavMeshHit hit;
 		// If inside the lookRadius, in fov of enemy, is steping loudlyand if is in direct line of sight
