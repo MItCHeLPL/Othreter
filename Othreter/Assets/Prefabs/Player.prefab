@@ -1049,7 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1578392978700017772}
   - component: {fileID: 5352396068207802518}
-  - component: {fileID: 776406500}
+  - component: {fileID: 776406501}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -1099,7 +1099,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578392978058487168}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6fc09018d27935c4aaa2a4bca2f00381, type: 3}
   m_Controller: {fileID: 9100000, guid: ca993cef453761c40b5a24c1b526de7c, type: 2}
   m_CullingMode: 1
@@ -1110,26 +1110,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &776406500
+--- !u!114 &776406501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578392978058487168}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9bc682fcde81ad48b56719894873831, type: 3}
+  m_Script: {fileID: 11500000, guid: bb6c84eac9e78524db009cfd1fb65456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ikActive: 1
-  rotation: 1
-  showMarkers: 0
-  LeftFoot: {fileID: 457100076733452886}
-  RightFoot: {fileID: 6360254033993570186}
-  footOffset: 0
-  smooth: 10
-  deltaAmplifier: 1
+  enableFeetIk: 1
+  heightFromGroundRaycast: 1.14
+  raycastDownDistance: 0.875
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 1559
+  pelvisOffset: 0
+  pelvisUpAndDownSpeed: 0.28
+  feetToIkPositionSpeed: 0.35
+  leftFootAnimVariableName: LeftFootCurve
+  rightFootAnimVariableName: RightFootCurve
+  useProIkFeature: 0
+  showSolverDebug: 0
+  distance: 0
 --- !u!1 &1578392979487053811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,13 +1220,10 @@ MonoBehaviour:
   controller: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   speed: 6
-  oldSpeed: 0
+  defaultSpeed: 6
   sprintSpeed: 8
-  sprintWeaponSpeed: 7.5
-  weaponSpeed: 5.5
-  oldWeaponSpeed: 0
-  airSpeed: 4
   crouchSpeed: 4
+  weaponSpeedSub: 0.5
   pushPower: 2
   jumpHeight: 8
   gravity: 20
@@ -1242,6 +1245,7 @@ MonoBehaviour:
   crouch: 0
   jump: 0
   inFight: 0
+  holdingWeapon: 0
   fightDistance: 200
   swordAiming: 0
 --- !u!114 &1578392979487053809
@@ -2052,7 +2056,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2715431339794445002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.000000024246964, z: 0.0000000027734466, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

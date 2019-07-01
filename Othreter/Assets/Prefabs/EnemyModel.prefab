@@ -1484,6 +1484,7 @@ GameObject:
   - component: {fileID: 1960857363021571365}
   - component: {fileID: 5978482085307339019}
   - component: {fileID: 156583527}
+  - component: {fileID: 3895291762400283958}
   m_Layer: 11
   m_Name: EnemyModel
   m_TagString: Enemy
@@ -1629,6 +1630,32 @@ MonoBehaviour:
   healthUI: {fileID: 223336278}
   lockIndicator: {fileID: 1960608810}
   hideDistance: 1000
+--- !u!114 &3895291762400283958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5978482085307339018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6c84eac9e78524db009cfd1fb65456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableFeetIk: 1
+  heightFromGroundRaycast: 1.14
+  raycastDownDistance: 0.875
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 9747
+  pelvisOffset: 0
+  pelvisUpAndDownSpeed: 0.28
+  feetToIkPositionSpeed: 0.5
+  leftFootAnimVariableName: LeftFootCurve
+  rightFootAnimVariableName: RightFootCurve
+  useProIkFeature: 0
+  showSolverDebug: 0
+  distance: 0
 --- !u!1 &6012788822924133167
 GameObject:
   m_ObjectHideFlags: 0

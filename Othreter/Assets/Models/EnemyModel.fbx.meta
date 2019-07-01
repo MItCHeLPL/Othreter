@@ -394,8 +394,8 @@ ModelImporter:
       name: Idle
       takeName: Armature|Walk
       internalID: -3100369314251171874
-      firstFrame: 0
-      lastFrame: 1
+      firstFrame: 20
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

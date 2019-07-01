@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
 	private Bow bow;
 	private GameObject pauseMenu;
 	private PerlinCameraShake camShake;
+	private FootIk footIk;
 
 	[Header("Placement Settings")]
 	[SerializeField]
@@ -48,6 +49,8 @@ public class CameraController : MonoBehaviour
 	private float lookAtZOffset;
 	[SerializeField]
 	private float WaitToShake = 3.0f;
+	[SerializeField]
+	private float crouchDistanceDivider = 0.25f;
 
 	[Header("Input")]
 	[HideInInspector]
@@ -93,6 +96,7 @@ public class CameraController : MonoBehaviour
 		bow = ObjectsMenager.instance.bow.GetComponent<Bow>();
 		pauseMenu = ObjectsMenager.instance.pauseMenu;
 		camShake = GetComponent<PerlinCameraShake>();
+		footIk = ObjectsMenager.instance.playerModel.GetComponent<FootIk>();
 
 		cam.nearClipPlane = 0.04f; //optimal camera clipping when camera is coliding with wall etc.
 
@@ -133,32 +137,35 @@ public class CameraController : MonoBehaviour
 		//to have camera look at on freecam and fpp view, it is in players head
 		middle = new GameObject("Middle"); //creates GameObject
 		middle.transform.parent = playerObject.transform;//sets gameobject as child of main player model
-		middle.transform.localPosition = new Vector3(0.0f, 1.75f, 0.0f);//moves point relative to player model
+		middle.transform.localPosition = new Vector3(0.0f, lookAtYOffset, 0.0f);//moves point relative to player model
 
 		//to have camera look at on freecam and fpp view, it is in players head
 		middleAim = new GameObject("MiddleAim"); //creates GameObject
 		middleAim.transform.parent = playerObject.transform;//sets gameobject as child of main player model
-		middleAim.transform.localPosition = new Vector3(0.0f, 2.0f, 0.0f);//moves point relative to player model
+		middleAim.transform.localPosition = new Vector3(0.0f, lookAtYOffset + 0.25f, 0.0f);//moves point relative to player model
 
 		//to have camera look from left shoulder
 		leftAim = new GameObject("LeftAim"); //creates GameObject
 		leftAim.transform.parent = playerObject.transform;//sets gameobject as child of main player model
-		leftAim.transform.localPosition = new Vector3(-0.6f, 1.75f, 0.0f); //moves point relative to player model
+		leftAim.transform.localPosition = new Vector3(-0.6f, lookAtYOffset, 0.0f); //moves point relative to player model
 
 		//to have camera look from left shoulder
 		rightAim = new GameObject("RightAim"); //creates GameObject
 		rightAim.transform.parent = playerObject.transform;//sets gameobject as child of main player model
-		rightAim.transform.localPosition = new Vector3(0.6f, 1.75f, 0.0f); //moves point relative to player model
+		rightAim.transform.localPosition = new Vector3(0.6f, lookAtYOffset, 0.0f); //moves point relative to player model
 
 		#endregion
 	}
 
 	private void Update()
 	{
+		//set camera to align foot ik offset
+		lookAtYOffset = Mathf.Lerp(lookAtYOffset, lookAtOffset.y - footIk.distance, 12.5f * Time.deltaTime);
+
 		//edit binds
 		#region Input
 
-		if(Input.anyKey)
+		if (Input.anyKey)
 		{
 			inputDone = true;
 		}
@@ -216,23 +223,29 @@ public class CameraController : MonoBehaviour
 
 		if (playerController.crouch)
 		{
-			middle.transform.position = new Vector3(middle.transform.position.x, playerObject.transform.position.y + 1.50f, middle.transform.position.z);//sets middle gameobjects position on eyesight hight while crouching
-			rightAim.transform.position = new Vector3(rightAim.transform.position.x, playerObject.transform.position.y + 1.50f, rightAim.transform.position.z);//sets middle gameobjects position on eyesight hight while crouching
-			leftAim.transform.position = new Vector3(leftAim.transform.position.x, playerObject.transform.position.y + 1.50f, leftAim.transform.position.z);//sets middle gameobjects position on eyesight hight while crouching
+			/*right.transform.localPosition = new Vector3(lookAtXOffset, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, lookAtZOffset); //moves point relative to player model
+			left.transform.localPosition = new Vector3(-lookAtXOffset, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, lookAtZOffset); //moves point relative to player model
+
+			sright.transform.localPosition = new Vector3(lookAtXOffset, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, lookAtZOffset); //moves point relative to player model
+			sleft.transform.localPosition = new Vector3(-lookAtXOffset, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, lookAtZOffset); //moves point relative to player model*/
+
+			middle.transform.position = new Vector3(middle.transform.position.x, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, middle.transform.position.z);
+			rightAim.transform.position = new Vector3(rightAim.transform.position.x, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, rightAim.transform.position.z);
+			leftAim.transform.position = new Vector3(leftAim.transform.position.x, playerObject.transform.position.y + lookAtYOffset - crouchDistanceDivider, leftAim.transform.position.z);
 		}
 
 		else
 		{
-			middle.transform.position = new Vector3(middle.transform.position.x, playerObject.transform.position.y + 1.75f, middle.transform.position.z); //sets middle gameobjects position on eyesight hight
-			rightAim.transform.position = new Vector3(rightAim.transform.position.x, playerObject.transform.position.y + 1.75f, rightAim.transform.position.z);//sets middle gameobjects position on eyesight hight while crouching
-			leftAim.transform.position = new Vector3(leftAim.transform.position.x, playerObject.transform.position.y + 1.75f, leftAim.transform.position.z);//sets middle gameobjects position on eyesight hight while crouching
+			middle.transform.position = new Vector3(middle.transform.position.x, playerObject.transform.position.y + lookAtYOffset + 0.25f, middle.transform.position.z);
+			rightAim.transform.position = new Vector3(rightAim.transform.position.x, playerObject.transform.position.y +lookAtYOffset, rightAim.transform.position.z);
+			leftAim.transform.position = new Vector3(leftAim.transform.position.x, playerObject.transform.position.y + lookAtYOffset, leftAim.transform.position.z);
 		}
 
 		#endregion
 
 		//edit binds
 		#region Shoulder
-		if(camShake._shakeJobRunning == false && (Input.GetKeyDown(DataHolder.SwitchShoulder) || Input.GetKeyDown(DataHolder.SwitchShoulderController)) && camOnPosition == true && aiming == false && pauseMenu.activeInHierarchy == false)
+		if (camShake._shakeJobRunning == false && (Input.GetKeyDown(DataHolder.SwitchShoulder) || Input.GetKeyDown(DataHolder.SwitchShoulderController)) && camOnPosition == true && aiming == false && pauseMenu.activeInHierarchy == false)
 		{
 			if (playerController.moveDirection != Vector3.zero)//shoulder camera swap key
 			{
@@ -271,6 +284,7 @@ public class CameraController : MonoBehaviour
 			{
 				right.transform.localPosition = new Vector3(lookAtXOffset, lookAtYOffset, lookAtZOffset);
 				left.transform.localPosition = new Vector3(-lookAtXOffset, lookAtYOffset, lookAtZOffset);
+
 				if (camShoulder == false)//right
 				{
 					CameraRotate(right);
@@ -408,7 +422,7 @@ public class CameraController : MonoBehaviour
 					}
 				}*/
 
-				if ((Input.GetAxis("Fire2") == 1 && aiming == false) && playerController.climbingProcess == false)
+				if (((Input.GetAxis("Fire2") == 1 || Input.GetMouseButtonDown(1)) && aiming == false) && playerController.climbingProcess == false)
 				{
 					/*oldMinDistance = minDistance;
 					oldDistance = distance;

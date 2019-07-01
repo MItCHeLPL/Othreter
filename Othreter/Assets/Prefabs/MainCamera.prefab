@@ -110,6 +110,7 @@ MonoBehaviour:
   sensitivityY: 1
   lookAtOffset: {x: 0.8, y: 1.75, z: 0}
   WaitToShake: 3
+  crouchDistanceDivider: 0.25
   currentX: 0
   currentY: 0
   wallLayer:
