@@ -46,4 +46,12 @@ public static class DataHolder
 	public static KeyCode WeaponSlot3 { get; set; } = KeyCode.Alpha3;
 	public static KeyCode WeaponSlot4 { get; set; } = KeyCode.Alpha4;
 	#endregion
+
+	#region Animator
+
+	public static int BowEquippedLayerId { get; set; } = 1;
+	public static int BowAimLayerId { get; set; } = 2;
+	public static int BowArrowLayerId { get; set; } = 3;
+
+	#endregion
 }

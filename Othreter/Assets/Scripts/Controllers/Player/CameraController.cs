@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
 	private GameObject pauseMenu;
 	private PerlinCameraShake camShake;
 	private FootIk footIk;
+	private Animator anim;
 
 	[Header("Placement Settings")]
 	[SerializeField]
@@ -97,6 +98,7 @@ public class CameraController : MonoBehaviour
 		pauseMenu = ObjectsMenager.instance.pauseMenu;
 		camShake = GetComponent<PerlinCameraShake>();
 		footIk = ObjectsMenager.instance.playerModel.GetComponent<FootIk>();
+		anim = ObjectsMenager.instance.playerModel.GetComponent<Animator>();
 
 		cam.nearClipPlane = 0.04f; //optimal camera clipping when camera is coliding with wall etc.
 
@@ -334,119 +336,135 @@ public class CameraController : MonoBehaviour
 
 		#region Aim Bow
 		if (weaponHolder.ActiveWeaponTag() == "Bow" && camOnPosition == true && distanceOnPosition == true)
+		{
+			if (aiming == true)
 			{
-				if ((Input.GetKeyDown(DataHolder.SwitchShoulder) || Input.GetKeyDown(DataHolder.SwitchShoulderController)) && aiming == true)//shoulder camera swap key
+				anim.SetLayerWeight(DataHolder.BowAimLayerId, 1);
+				anim.SetLayerWeight(DataHolder.BowEquippedLayerId, Mathf.Lerp(anim.GetLayerWeight(DataHolder.BowEquippedLayerId), 0, 10 * Time.deltaTime));
+			}
+			else
+			{
+				anim.SetLayerWeight(DataHolder.BowAimLayerId, 0);
+				anim.SetLayerWeight(DataHolder.BowEquippedLayerId, Mathf.Lerp(anim.GetLayerWeight(DataHolder.BowEquippedLayerId), 1, 10 * Time.deltaTime));
+			}
+
+			if ((Input.GetKeyDown(DataHolder.SwitchShoulder) || Input.GetKeyDown(DataHolder.SwitchShoulderController)) && aiming == true)//shoulder camera swap key
+			{
+				if (camShoulder == false)//right
 				{
-					if (camShoulder == false)//right
-					{
-						StartCoroutine(Smooth(cam.gameObject, leftAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
-						camShoulder = true;
-					}
-					else//left
-					{
-						StartCoroutine(Smooth(cam.gameObject, rightAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
-						camShoulder = false;
-					}
+					StartCoroutine(Smooth(cam.gameObject, leftAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
+					camShoulder = true;
 				}
-
-				if ((Input.GetAxis("Fire2") == 1 && aiming == false) && playerController.climbingProcess == false)
+				else//left
 				{
-					//bow.FadeAmmoOut();
-
-					oldMinDistance = minDistance;
-					oldDistance = distance;
-
-					minDistance = aimDistance;
-					distance = aimDistance;
-
-					if (camShoulder == false)//right
-					{
-						StartCoroutine(Smooth(cam.gameObject, rightAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
-
-						aiming = true;
-					}
-					else//left
-					{
-						StartCoroutine(Smooth(cam.gameObject, leftAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
-
-						aiming = true;
-					}
-				}
-
-				if ((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") == 1) && playerController.climbingProcess == false && aiming == true)
-				{
-					if (camShoulder == false)//right
-					{
-						CameraRotate(rightAim);
-					}
-					else if (camShoulder == true)//left
-					{
-						CameraRotate(leftAim);
-					}
-				}
-
-				if (playerController.climbingProcess == false && aiming == true && ((Input.GetMouseButtonUp(1) || Input.GetAxis("Fire2") < 1) || (Input.GetMouseButton(1) == false && Input.GetAxis("Fire2") != 1)))
-				{
-					if (camShoulder == false)//right
-					{
-						StartCoroutine(Smooth(cam.gameObject, right.transform.position + rotation * new Vector3(0.0f, 0.0f, -oldDistance), 15.0f));
-					}
-					else//left
-					{
-						StartCoroutine(Smooth(cam.gameObject, left.transform.position + rotation * new Vector3(0.0f, 0.0f, -oldDistance), 15.0f));
-					}
-					distance = oldDistance;
-					minDistance = oldMinDistance;
-					aiming = false;
+					StartCoroutine(Smooth(cam.gameObject, rightAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
+					camShoulder = false;
 				}
 			}
+
+			if ((Input.GetAxis("Fire2") == 1 && aiming == false) && playerController.climbingProcess == false)
+			{
+				//bow.FadeAmmoOut();
+
+				oldMinDistance = minDistance;
+				oldDistance = distance;
+
+				minDistance = aimDistance;
+				distance = aimDistance;
+
+				if (camShoulder == false)//right
+				{
+					StartCoroutine(Smooth(cam.gameObject, rightAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
+
+					aiming = true;
+				}
+				else//left
+				{
+					StartCoroutine(Smooth(cam.gameObject, leftAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
+
+					aiming = true;
+				}
+			}
+
+			if ((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") == 1) && playerController.climbingProcess == false && aiming == true)
+			{
+				if (camShoulder == false)//right
+				{
+					CameraRotate(rightAim);
+				}
+				else if (camShoulder == true)//left
+				{
+					CameraRotate(leftAim);
+				}
+			}
+
+			if (playerController.climbingProcess == false && aiming == true && ((Input.GetMouseButtonUp(1) || Input.GetAxis("Fire2") < 1) || (Input.GetMouseButton(1) == false && Input.GetAxis("Fire2") != 1)))
+			{
+				if (camShoulder == false)//right
+				{
+					StartCoroutine(Smooth(cam.gameObject, right.transform.position + rotation * new Vector3(0.0f, 0.0f, -oldDistance), 15.0f));
+				}
+				else//left
+				{
+					StartCoroutine(Smooth(cam.gameObject, left.transform.position + rotation * new Vector3(0.0f, 0.0f, -oldDistance), 15.0f));
+				}
+				distance = oldDistance;
+				minDistance = oldMinDistance;
+				aiming = false;
+			}
+		}
 
 		#endregion
 
 		
 		#region Aim Sword
 
-			else if (weaponHolder.ActiveWeaponTag() == "Sword" && playerController.inFight == true && camOnPosition == true && distanceOnPosition == true)
+		else if (weaponHolder.ActiveWeaponTag() == "Sword" && playerController.inFight == true && camOnPosition == true && distanceOnPosition == true)
+		{
+			/*if (Input.GetKeyDown(InputMenager.key.switchShoulder) && camOnPosition == true && aiming == true)//shoulder camera swap key
 			{
-				/*if (Input.GetKeyDown(InputMenager.key.switchShoulder) && camOnPosition == true && aiming == true)//shoulder camera swap key
+				if (camShoulder == false)//right
 				{
-					if (camShoulder == false)//right
-					{
-						StartCoroutine(Smooth(cam.gameObject, leftAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
-						camShoulder = true;
-					}
-					else//left
-					{
-						StartCoroutine(Smooth(cam.gameObject, rightAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
-						camShoulder = false;
-					}
-				}*/
-
-				if (((Input.GetAxis("Fire2") == 1 || Input.GetMouseButtonDown(1)) && aiming == false) && playerController.climbingProcess == false)
-				{
-					/*oldMinDistance = minDistance;
-					oldDistance = distance;
-
-					minDistance = aimDistance;
-					distance = aimDistance;*/
-
-					aiming = true;
-
-					StartCoroutine(Smooth(cam.gameObject, middleAim.transform.position + rotation * vectorDistance, 15.0f));
-				}		
-
-				if ((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") == 1) && playerController.climbingProcess == false && aiming == true)
-				{
-					CameraRotate(middleAim);
+					StartCoroutine(Smooth(cam.gameObject, leftAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
+					camShoulder = true;
 				}
-
-				if (playerController.climbingProcess == false && aiming == true && ((Input.GetMouseButtonUp(1) || Input.GetAxis("Fire2") < 1) || (Input.GetMouseButton(1) == false && Input.GetAxis("Fire2") != 1)))
+				else//left
 				{
-					CancelSwordAim();
+					StartCoroutine(Smooth(cam.gameObject, rightAim.transform.position + rotation * new Vector3(0.0f, 0.0f, -aimDistance), 15.0f));
+					camShoulder = false;
 				}
+			}*/
+
+			if (((Input.GetAxis("Fire2") == 1 || Input.GetMouseButtonDown(1)) && aiming == false) && playerController.climbingProcess == false)
+			{
+				/*oldMinDistance = minDistance;
+				oldDistance = distance;
+
+				minDistance = aimDistance;
+				distance = aimDistance;*/
+
+				aiming = true;
+
+				StartCoroutine(Smooth(cam.gameObject, middleAim.transform.position + rotation * vectorDistance, 15.0f));
+			}		
+
+			if ((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") == 1) && playerController.climbingProcess == false && aiming == true)
+			{
+				CameraRotate(middleAim);
 			}
 
+			if (playerController.climbingProcess == false && aiming == true && ((Input.GetMouseButtonUp(1) || Input.GetAxis("Fire2") < 1) || (Input.GetMouseButton(1) == false && Input.GetAxis("Fire2") != 1)))
+			{
+				CancelSwordAim();
+			}
+		}
+
 		#endregion
+
+		else
+		{
+			anim.SetLayerWeight(DataHolder.BowEquippedLayerId, Mathf.Lerp(anim.GetLayerWeight(DataHolder.BowEquippedLayerId), 0, 10 * Time.deltaTime));
+		}
 
 		#endregion
 

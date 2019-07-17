@@ -75,7 +75,10 @@ public class Bow : MonoBehaviour
 			{
 				if (Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") == 1 && arrowInstantiated == false))
 				{
+					anim.ResetTrigger("HideArrow");
+					anim.ResetTrigger("BowShot");
 					anim.SetTrigger("BowDraw");
+					anim.SetLayerWeight(DataHolder.BowArrowLayerId, 1);
 					maxShootForceAchieved = false;
 					shootForce = 5.0f;
 					arrowReleased = false;
@@ -106,12 +109,6 @@ public class Bow : MonoBehaviour
 						shootForce = Mathf.Lerp(shootForce, maxShootForce, perc);
 
 						go.transform.localPosition = new Vector3(go.transform.localPosition.x, go.transform.localPosition.y, go.transform.localPosition.z - 0.001f);
-						anim.SetBool("BowPulling", true);
-					}
-					else
-					{
-						anim.SetBool("BowPulling", false);
-						anim.SetBool("BowPulledHolding", true);
 					}
 					if(shootForce >= maxShootForce - 1.5f)
 					{
@@ -124,7 +121,7 @@ public class Bow : MonoBehaviour
 				if ((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && bowCoolDown <= 0.0f && arrowCoolDown <= 0.0f && arrowInstantiated == true)
 				{
 					arrowReleased = true;
-					anim.SetBool("BowPulledHolding", false);
+					anim.ResetTrigger("BowDraw");
 					anim.SetTrigger("BowShot");
 
 					rb.constraints = RigidbodyConstraints.None;
