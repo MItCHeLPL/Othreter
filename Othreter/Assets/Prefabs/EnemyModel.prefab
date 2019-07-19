@@ -1593,6 +1593,8 @@ MonoBehaviour:
   addedArmorPerRegen: 5
   regenRatePerSecond: 1
   armorRegenerating: 0
+  model: {fileID: 8293121553648682235}
+  dieMaterial: {fileID: 2100000, guid: 80cb70f1d7f97594799eb22dabd691bf, type: 2}
 --- !u!195 &5978482085307339019
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2084,7 +2086,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 005a8971e486f7b499f5100c8f057d7a, type: 2}
+  - {fileID: 2100000, guid: 8bae495e53cb1d547b650ebe3587e1c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
