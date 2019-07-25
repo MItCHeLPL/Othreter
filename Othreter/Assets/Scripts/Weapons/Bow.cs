@@ -184,5 +184,6 @@ public class Bow : MonoBehaviour
 	{
 		currentAmmo++;
 		UIController.AmmoChange(currentAmmo, maxAmmo);
+		anim.SetTrigger("PickUpArrow");
 	}		
 }

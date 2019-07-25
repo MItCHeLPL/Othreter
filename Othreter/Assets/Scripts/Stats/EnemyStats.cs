@@ -11,13 +11,18 @@ public class EnemyStats : CharacterStats
 	private GameObject model;
 	[SerializeField]
 	private Material dieMaterial;
+	[SerializeField]
+	private GameObject uIGameObject;
 
 	private Renderer modelRenderer;
+
+	private Animator anim;
 
 	private void Start()
 	{
 		playerController = ObjectsMenager.instance.player.GetComponent<PlayerController>();
 		enemyUI = GetComponent<EnemyUI>();
+		anim = GetComponent<Animator>();
 
 		StartCoroutine(CheckArmour());
 
@@ -42,7 +47,13 @@ public class EnemyStats : CharacterStats
     {
         base.Die();
 
-        foreach (Transform child in transform)
+		anim.SetTrigger("Death");
+		enemyUI.enabled = false;
+		uIGameObject.SetActive(false);
+		GetComponent<EnemyController>().enabled = false;
+		GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+
+		foreach (Transform child in transform)
         {
             if(child.transform.CompareTag("Arrow"))
             {
@@ -54,18 +65,13 @@ public class EnemyStats : CharacterStats
 				GameObject.Destroy(child.gameObject);
             }
         }
-		//FadeOut
-		if(playerController.swordAiming == true)
+
+		StartCoroutine(Dissolve());
+
+		if (playerController.swordAiming == true)
 		{
 			playerController.FindEnemy(gameObject, false);
 		}
-
-		modelRenderer.material = dieMaterial;
-
-		GetComponent<EnemyController>().enabled = false;
-		enemyUI.enabled = false;
-
-		StartCoroutine(Dissolve());
 	}
 
 	private void RefreshHealthUI()
@@ -85,8 +91,10 @@ public class EnemyStats : CharacterStats
 		}
 	}
 
-	private IEnumerator Dissolve()
+	public IEnumerator Dissolve()
 	{
+		modelRenderer.material = dieMaterial;
+
 		int progressId = Shader.PropertyToID("Vector1_CFDFAB28");
 
 		float progress = modelRenderer.material.GetFloat(progressId);

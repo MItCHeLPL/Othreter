@@ -1595,6 +1595,7 @@ MonoBehaviour:
   armorRegenerating: 0
   model: {fileID: 8293121553648682235}
   dieMaterial: {fileID: 2100000, guid: 80cb70f1d7f97594799eb22dabd691bf, type: 2}
+  uIGameObject: {fileID: 883025681}
 --- !u!195 &5978482085307339019
 NavMeshAgent:
   m_ObjectHideFlags: 0

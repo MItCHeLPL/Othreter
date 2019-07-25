@@ -61,8 +61,9 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void TakeTrueDamage(int damage) //damage that ignores armor
     {
-        // Damage the character
-        currentHealth -= damage;
+		// Damage the character
+		armor.SetValue(Mathf.Clamp(armor.GetValue() - damage, 0, maxArmor));
+		currentHealth -= damage;
 
         // If health reaches zero
         if (currentHealth <= 0)

@@ -4577,12 +4577,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767377550}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &776406499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1578392978058487168, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1578392978700017763}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &776559237
 GameObject:
   m_ObjectHideFlags: 0
@@ -5217,6 +5211,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1008100583159763638, guid: d473c11c5ec1bbe489a61afdae14fe67,
     type: 3}
   m_PrefabInstance: {fileID: 1008100582811158762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &933905811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4675397065720685579, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1578392978700017763}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &978463082 stripped
 GameObject:
@@ -8744,7 +8744,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21490
+  m_Name: pb_Mesh60780
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11179,7 +11179,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerModel
       value: 
-      objectReference: {fileID: 776406499}
+      objectReference: {fileID: 933905811}
     - target: {fileID: 443851532853646600, guid: 5c18a3df25a888847846cbcf186f7885,
         type: 3}
       propertyPath: cam
@@ -11405,11 +11405,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1578392978700017772, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ecc204fbfd5ab4899ff2f3252b71f4, type: 3}
 --- !u!1001 &1677716432446190056
@@ -11599,6 +11594,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1320761222}
+    - target: {fileID: 3989141100598834525, guid: 2de6cd2a98bffb1448f1d84617107cf9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150.00005
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2de6cd2a98bffb1448f1d84617107cf9, type: 3}
 --- !u!1 &1677716432446190057 stripped
