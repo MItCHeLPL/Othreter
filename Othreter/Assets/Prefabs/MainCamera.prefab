@@ -115,7 +115,7 @@ MonoBehaviour:
   currentY: 0
   wallLayer:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 1537
   aiming: 0
   weaponDistanceChangeDone: 1
 --- !u!114 &6046623800707996574
@@ -137,7 +137,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 3
+  antialiasing: 1
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
