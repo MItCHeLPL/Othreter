@@ -46,11 +46,6 @@ public class UIController : MonoBehaviour
 		StartCoroutine(ammoFade);
 	}
 
-	public void ObjectFaceOtherObject(GameObject obj, GameObject target)
-	{
-		obj.transform.rotation = Quaternion.LookRotation(new Vector3(target.transform.position.x, 0.0f, target.transform.position.z) - new Vector3(obj.transform.position.x, 0.0f, obj.transform.position.z)) * new Quaternion(0.0f, 180.0f, 0.0f, 0);
-	}
-
 	#region Fade Coroutines
 
 	public IEnumerator FadeUI(TextMeshProUGUI ui, float speed, float waitTime)

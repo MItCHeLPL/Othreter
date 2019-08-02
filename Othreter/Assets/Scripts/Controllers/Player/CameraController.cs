@@ -162,7 +162,7 @@ public class CameraController : MonoBehaviour
 	private void Update()
 	{
 		//set camera to align foot ik offset
-		lookAtYOffset = Mathf.Lerp(lookAtYOffset, lookAtOffset.y - footIk.distance, 12.5f * Time.deltaTime);
+		//lookAtYOffset = Mathf.Lerp(lookAtYOffset, lookAtOffset.y - footIk.distance, 12.5f * Time.deltaTime);
 
 		//edit binds
 		#region Input

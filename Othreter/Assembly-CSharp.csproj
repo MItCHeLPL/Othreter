@@ -71,7 +71,6 @@
     <Compile Include="Assets\ImportedPackages\Tayx\Graphy - Ultimate Stats Monitor\Scene\Customization Scripts\UpdateTextWithSliderValue.cs" />
     <Compile Include="Assets\Scripts\Controllers\DepthOfFieldController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Enemy\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\Controllers\FootIk.cs" />
     <Compile Include="Assets\Scripts\Controllers\MovingPlatformController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\PerlinCameraShake.cs" />
@@ -82,6 +81,9 @@
     <Compile Include="Assets\Scripts\Menagers\InputMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\ObjectsMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\PlayerPrefsMenager.cs" />
+    <Compile Include="Assets\Scripts\Other\FootIk.cs" />
+    <Compile Include="Assets\Scripts\Other\ObjectFaceCamera.cs" />
+    <Compile Include="Assets\Scripts\Other\ObjectFaceOtherObject.cs" />
     <Compile Include="Assets\Scripts\State Machine Behaviours\BowArrowLayer0.cs" />
     <Compile Include="Assets\Scripts\Stats\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\Stats\EnemyStats.cs" />
