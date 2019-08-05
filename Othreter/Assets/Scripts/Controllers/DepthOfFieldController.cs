@@ -5,27 +5,25 @@ using UnityEngine.Experimental.Rendering.HDPipeline;
 
 public class DepthOfFieldController : MonoBehaviour
 {
-	/*private DepthOfField pr;
-	public Camera cam;
+	private DepthOfField dof;
+	private Camera cam;
 
 	private void Start()
 	{
-		pr = GetComponent<DepthOfField>();
+		dof = GetComponent<DepthOfField>();
+		cam = ObjectsMenager.instance.cam;
 	}
 
-	void Update()
+	private void Update()
     {
-		if (VideoSettingsMenager.video.DoFEnabled)
+		RaycastHit hit;
+		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100.0f))
 		{
-			RaycastHit hit;
-			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f))
-			{
-				pr.focusDistance.value = Vector3.Distance(hit.point, cam.transform.position);
-			}
+			dof.focusDistance.value = Vector3.Distance(hit.point, cam.transform.position);
 		}
 		else
 		{
-			pr.active = false;
+			return;
 		}
-	}*/
+	}
 }

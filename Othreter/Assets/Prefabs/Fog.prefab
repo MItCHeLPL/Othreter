@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &700612645512566558
 Transform:
@@ -56,7 +56,7 @@ MonoBehaviour:
     m_EditorPositiveFade: {x: 1, y: 1, z: 1}
     m_EditorNegativeFade: {x: 0, y: 0, z: 0}
     m_EditorAdvancedFade: 1
-    size: {x: 150, y: 50, z: 150}
+    size: {x: 500, y: 50, z: 500}
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000

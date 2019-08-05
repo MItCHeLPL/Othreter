@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 443851532853646600}
   - component: {fileID: 443851532853646710}
   - component: {fileID: 1267614122943623763}
+  - component: {fileID: 2140199622608083254}
   m_Layer: 0
   m_Name: Scene Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &443851532853646708
 Transform:
@@ -83,7 +84,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGlobal: 1
-  priority: 0
+  priority: -1
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: d378aeeadaade8542a00e25efc53754a, type: 2}
+  sharedProfile: {fileID: 11400000, guid: b7af0768e54a1604b88026c4ac39412c, type: 2}
+--- !u!114 &2140199622608083254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443851532853646705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: -1
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 09781c2a4d0c698439fd87c38f9e5474, type: 2}

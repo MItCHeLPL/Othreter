@@ -47,7 +47,8 @@ public class FallDamage : MonoBehaviour
 		lastPositionY = 0.0f;
         fallDistance = 0.0f;
         velocity = 0.0f;
-    }
+		anim.SetBool("Falling", false);
+	}
 
     public void resetFallen() //resets boolean 
     {

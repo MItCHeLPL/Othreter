@@ -177,7 +177,8 @@ public class CameraController : MonoBehaviour
 			currentX += Input.GetAxis("Mouse X") * sensitivityX * Time.timeScale; //multiplyes camera movement times sensitivityx
 			currentY -= Input.GetAxis("Mouse Y") * sensitivityY * Time.timeScale; //multiplyes camera movement times sensitivityy  
 
-			if(camShake._shakeJobRunning == false && aiming == false && distanceOnPosition == true && changingDistanceEnabled && weaponPicked == false)
+			//camera zoom
+			/*if(camShake._shakeJobRunning == false && aiming == false && distanceOnPosition == true && changingDistanceEnabled && weaponPicked == false)
 			{
 				if (Input.GetAxis("Mouse ScrollWheel") != 0)
 				{
@@ -194,7 +195,7 @@ public class CameraController : MonoBehaviour
 					//distance += 0.1f;
 					StartCoroutine(SmoothDistance(0.25f, 10.0f));
 				}
-			}
+			}*/
 		}
 
 		if(pauseMenu.activeInHierarchy == true)
