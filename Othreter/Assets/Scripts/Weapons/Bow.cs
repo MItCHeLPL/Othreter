@@ -44,6 +44,13 @@ public class Bow : MonoBehaviour
 	[HideInInspector]
 	public bool maxShootForceAchieved = false;
 
+
+	[Header("PlayerIk")]
+	private Transform chest;
+	private Transform head;
+	[SerializeField]
+	private Vector3 boneAimOffset;
+
 	private void Start()
     {
 		currentAmmo = maxAmmo;
@@ -55,6 +62,14 @@ public class Bow : MonoBehaviour
 		anim = ObjectsMenager.instance.playerModel.GetComponent<Animator>();
 
 		UIController = ObjectsMenager.instance.UIMenager.GetComponent<UIController>();
+
+		chest = anim.GetBoneTransform(HumanBodyBones.Chest);
+		head = anim.GetBoneTransform(HumanBodyBones.Head);
+	}
+
+	private void FixedUpdate()
+	{
+		if (Physics.Raycast(RayOrigin, cam.transform.forward, out aimHit, aimDistance, LayersForArrow)) { }
 	}
 
 	void Update()
@@ -64,12 +79,10 @@ public class Bow : MonoBehaviour
 			bowCoolDown -= Time.deltaTime;
 		}
 
-		if(Physics.Raycast(RayOrigin, cam.transform.forward, out aimHit, aimDistance, LayersForArrow)) { }
-
 		if(cameraController.aiming == true)
 		{
 			//temp
-			transform.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0.0f, 90.0f);
+			//transform.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0.0f, 90.0f);
 
 			if (currentAmmo > 0)
 			{
@@ -175,11 +188,23 @@ public class Bow : MonoBehaviour
 		else
 		{
 			//temp
-			transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+			//transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
 		}
 		//Debug.Log(bowCoolDown + "   " + arrowCoolDown);
 	}
-	
+
+	private void LateUpdate()
+	{
+		if(cameraController.aiming == true)
+		{
+			chest.rotation = cam.transform.rotation;
+			head.rotation = cam.transform.rotation;
+
+			chest.rotation *= Quaternion.Euler(boneAimOffset); //temp
+			head.rotation *= Quaternion.Euler(-boneAimOffset * 0.75f); //temp
+		}
+	}
+
 	public void AddAmmo()
 	{
 		currentAmmo++;

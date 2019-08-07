@@ -309,12 +309,12 @@ MonoBehaviour:
     max: 4
   stepCount:
     m_OverrideState: 1
-    m_Value: 6
+    m_Value: 3
     min: 2
     max: 32
   radius:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 2.5
     min: 0.25
     max: 5
   fullResolution:
@@ -322,7 +322,7 @@ MonoBehaviour:
     m_Value: 0
   maximumRadiusInPixels:
     m_OverrideState: 1
-    m_Value: 16
+    m_Value: 85
     min: 16
     max: 256
   directLightingStrength:
@@ -373,6 +373,7 @@ MonoBehaviour:
   - {fileID: -2797771530495380550}
   - {fileID: -1369455788512823484}
   - {fileID: 4488455386542053788}
+  - {fileID: 8261742073861365505}
 --- !u!114 &87783350899684211
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -427,10 +428,10 @@ MonoBehaviour:
     m_Value: 0
   limitMin:
     m_OverrideState: 1
-    m_Value: -5
+    m_Value: -3.92
   limitMax:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 3.26
   curveMap:
     m_OverrideState: 1
     m_Value:
@@ -468,3 +469,77 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
     min: 0.001
+--- !u!114 &8261742073861365505
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384c4d03a551c44448145f4093304119, type: 3}
+  m_Name: ScreenSpaceReflection
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  depthBufferThickness:
+    m_OverrideState: 1
+    m_Value: 0.01
+    min: 0
+    max: 1
+  screenFadeDistance:
+    m_OverrideState: 1
+    m_Value: 0.3
+    min: 0
+    max: 1
+  minSmoothness:
+    m_OverrideState: 1
+    m_Value: 0.75
+    min: 0
+    max: 1
+  smoothnessFadeStart:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 1
+  reflectSky:
+    m_OverrideState: 1
+    m_Value: 1
+  rayMaxIterations:
+    m_OverrideState: 1
+    m_Value: 64
+  enableRaytracing:
+    m_OverrideState: 1
+    m_Value: 0
+  rayLength:
+    m_OverrideState: 1
+    m_Value: 10
+    min: 0.001
+    max: 50
+  clampValue:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0.001
+    max: 10
+  temporalAccumulationWeight:
+    m_OverrideState: 1
+    m_Value: 0.1
+    min: 0.001
+    max: 1
+  spatialFilterRadius:
+    m_OverrideState: 1
+    m_Value: 4
+  numSamples:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 1
+    max: 32
+  enableFilter:
+    m_OverrideState: 1
+    m_Value: 0
+  filterRadius:
+    m_OverrideState: 1
+    m_Value: 16
+    min: 1
+    max: 32

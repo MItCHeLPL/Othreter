@@ -10,6 +10,12 @@ public class WeaponSwitching : MonoBehaviour
 	//private GameObject[] weapons;
 	[SerializeField] private List<GameObject> weapons = new List<GameObject>();
 
+	[SerializeField] private List<Transform> hand = new List<Transform>();
+
+	[SerializeField] private List<Vector3> posOffset = new List<Vector3>();
+
+	[SerializeField] private List<Vector3> rotOffset = new List<Vector3>();
+
 	private int index = 0;
 	private int prevIndex = 1;
 
@@ -110,7 +116,13 @@ public class WeaponSwitching : MonoBehaviour
 		}
 
 		weapons[index].SetActive(false);
+		weapons[index].transform.parent = transform;
+
 		weapons[newIndex].SetActive(true);
+		weapons[newIndex].transform.parent = hand[newIndex];
+		weapons[newIndex].transform.localPosition = posOffset[newIndex];
+		weapons[newIndex].transform.localEulerAngles = rotOffset[newIndex];
+
 		prevIndex = index;
 		index = newIndex;
 

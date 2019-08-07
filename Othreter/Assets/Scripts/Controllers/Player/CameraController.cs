@@ -100,8 +100,6 @@ public class CameraController : MonoBehaviour
 		footIk = ObjectsMenager.instance.playerModel.GetComponent<FootIk>();
 		anim = ObjectsMenager.instance.playerModel.GetComponent<Animator>();
 
-		cam.nearClipPlane = 0.04f; //optimal camera clipping when camera is coliding with wall etc.
-
 		sensitivityX = DataHolder.MouseSensitivityX;
 		sensitivityY = DataHolder.MouseSensitivityY;
 
