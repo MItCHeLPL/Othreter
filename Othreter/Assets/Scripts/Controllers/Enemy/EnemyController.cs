@@ -81,6 +81,7 @@ public class EnemyController : MonoBehaviour
 				inFight = true;
 				if (coolDown < 0)
 				{
+					anim.SetTrigger("Attack");
 					playerStats.TakeDamage(10);
 					coolDown = 3.0f;
 				}

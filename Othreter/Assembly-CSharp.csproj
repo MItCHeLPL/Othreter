@@ -130,6 +130,7 @@
     <None Include="Assets\ImportedPackages\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\ImportedPackages\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\ImportedPackages\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\ImportedPackages\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\ImportedPackages\KinematicSoup\SceneFusion\Stand-Ins\DoNothing.compute" />
     <None Include="Assets\ImportedPackages\Tayx\Graphy - Ultimate Stats Monitor\Shaders\GraphStandard.shader" />
     <None Include="Assets\ImportedPackages\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />

@@ -10,6 +10,8 @@ public class Bow : MonoBehaviour
     public Transform ArrowSpawn;
 	private UIController UIController;
 
+	private SkinnedMeshRenderer meshRenderer;
+
 	public float bowCoolDown = 0.0f;
 	public float arrowCoolDown = 0.1f;
     private Vector3 RayOrigin;
@@ -58,6 +60,8 @@ public class Bow : MonoBehaviour
 		cam = ObjectsMenager.instance.cam;
 		cameraController = cam.GetComponent<CameraController>();
         playerController = ObjectsMenager.instance.player.GetComponent<PlayerController>();
+
+		meshRenderer = GetComponent<SkinnedMeshRenderer>();
 
 		anim = ObjectsMenager.instance.playerModel.GetComponent<Animator>();
 
@@ -121,6 +125,9 @@ public class Bow : MonoBehaviour
 						float perc = currentLerpTime / lerpSpeed;
 						shootForce = Mathf.Lerp(shootForce, maxShootForce, perc);
 
+						meshRenderer.SetBlendShapeWeight(0, Mathf.Clamp(shootForce, 0.0f, 100.0f));
+						go.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, Mathf.Clamp(shootForce, 0.0f, 100.0f));
+
 						go.transform.localPosition = new Vector3(go.transform.localPosition.x, go.transform.localPosition.y, go.transform.localPosition.z - 0.001f);
 					}
 					if(shootForce >= maxShootForce - 1.5f)
@@ -163,6 +170,8 @@ public class Bow : MonoBehaviour
 						rb.velocity = cam.transform.forward * (shootForce + playerController.speed);
 					}
 
+					meshRenderer.SetBlendShapeWeight(0, 0);
+					go.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, 0);
 					arrowInstantiated = false;
 					currentAmmo--;
 
@@ -173,6 +182,7 @@ public class Bow : MonoBehaviour
 				else if ((((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && bowCoolDown > 0.0f) || ((Input.GetMouseButtonUp(0) || (Input.GetAxis("Fire1") != 1 && arrowReleased == false)) && arrowCoolDown > 0.0f)) && arrowInstantiated == true)
 				{
 					anim.SetTrigger("HideArrow");
+					meshRenderer.SetBlendShapeWeight(0, 0);
 					arrowInstantiated = false;
 					Destroy(go);
 				}
@@ -182,14 +192,15 @@ public class Bow : MonoBehaviour
 		else if(cameraController.aiming == false && arrowReleased == false && arrowInstantiated == true)
 		{
 			arrowInstantiated = false;
+			meshRenderer.SetBlendShapeWeight(0, 0);
 			anim.SetTrigger("HideArrow");
 			Destroy(go);
 		}
-		else
+		/*else
 		{
 			//temp
 			//transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
-		}
+		}*/
 		//Debug.Log(bowCoolDown + "   " + arrowCoolDown);
 	}
 

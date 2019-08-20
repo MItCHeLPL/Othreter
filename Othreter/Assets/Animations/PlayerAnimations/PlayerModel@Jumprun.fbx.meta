@@ -1,11 +1,14 @@
 fileFormatVersion: 2
 guid: 25cf3dd859f7c184ea94e27a83e52666
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: -203655887218126122
     second: mixamo.com
+  - first:
+      74: 2759789406633122176
+    second: JumpRunLanding
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -70,6 +73,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

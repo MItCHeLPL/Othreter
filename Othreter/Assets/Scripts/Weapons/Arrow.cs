@@ -130,8 +130,8 @@ public class Arrow : MonoBehaviour
 		myBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		arrowCollider.isTrigger = true;
 		myBody.isKinematic = true;
-        arrowCollider.size = new Vector3(1.5f, 1.75f, 1.5f);
-        arrowCollider.center = new Vector3(0f, 0f, 0f);
+        arrowCollider.size = new Vector3(5.0f, 5.0f, 50.0f);
+        arrowCollider.center = new Vector3(0f, 0f, 15.0f);
 		trail.transform.SetParent(null);
 	}
 }

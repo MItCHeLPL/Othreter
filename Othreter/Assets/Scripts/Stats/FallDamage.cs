@@ -16,7 +16,7 @@ public class FallDamage : MonoBehaviour
 
     public float minFallDistance = 4.0f; //minimal distance that player have to fall to get damage
     public float minVelocity = 15.0f; //minimal velocity, that player has to have to get damage
-    public float damageDivider = 2.0f; //how many times you want to divide the damage from falling
+    public float damageDivider = 1.5f; //how many times you want to divide the damage from falling
 
 	public GameObject trail;
 

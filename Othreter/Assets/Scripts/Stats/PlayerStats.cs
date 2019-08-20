@@ -36,8 +36,14 @@ public class PlayerStats : CharacterStats
 	public override void Die()
     {
         base.Die();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);//when player dies, game reloads level
-    }
+
+		anim.ResetTrigger("GotHurt");
+		anim.SetTrigger("Death");
+
+		//state death, cant control itp.
+
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);//when player dies, game reloads level //after fadee itp.
+	}
 
 	private void RefreshHealthUI()
 	{

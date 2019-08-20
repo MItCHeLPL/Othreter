@@ -17,7 +17,7 @@ MonoBehaviour:
   m_RenderPipelineRayTracingResources: {fileID: 0}
   m_RenderingPathDefaultCameraFrameSettings:
     bitDatas:
-      data1: 69284264935197
+      data1: 69284264410909
       data2: 4539628424389459968
     lodBias: 1
     lodBiasMode: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     increaseSssSampleCount: 0
     supportVolumetrics: 1
     increaseResolutionOfVolumetrics: 0
-    supportLightLayers: 1
+    supportLightLayers: 0
     supportDistortion: 1
     supportTransparentBackface: 1
     supportTransparentDepthPrepass: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
     colorBufferFormat: 74
     supportedLitShaderMode: 2
     supportDecals: 1
-    msaaSampleCount: 1
+    msaaSampleCount: 2
     supportMotionVectors: 1
     supportRuntimeDebugDisplay: 1
     supportDitheringCrossFade: 1

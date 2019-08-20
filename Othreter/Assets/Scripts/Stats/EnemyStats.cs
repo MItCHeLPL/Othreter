@@ -34,12 +34,14 @@ public class EnemyStats : CharacterStats
 	public override void TakeDamage(int damage) //u can add more events while taking damage only for player
     {
         base.TakeDamage(damage);
+		anim.SetTrigger("GotHurt");
 		RefreshHealthUI();
 	}
 
 	public override void TakeTrueDamage(int damage) //u can add more events while taking damage only for player
 	{
 		base.TakeTrueDamage(damage);
+		anim.SetTrigger("GotHurt");
 		RefreshHealthUI();
 	}
 
@@ -47,6 +49,7 @@ public class EnemyStats : CharacterStats
     {
         base.Die();
 
+		anim.ResetTrigger("GotHurt");
 		anim.SetTrigger("Death");
 		enemyUI.enabled = false;
 		uIGameObject.SetActive(false);
@@ -98,9 +101,12 @@ public class EnemyStats : CharacterStats
 		int progressId = Shader.PropertyToID("Vector1_CFDFAB28");
 
 		float progress = modelRenderer.material.GetFloat(progressId);
+
+		yield return new WaitForSeconds(3.0f);
+
 		while (modelRenderer.material.GetFloat(progressId) < 1)
 		{
-			progress = Mathf.Lerp(progress, 1.0f, Time.deltaTime);
+			progress = Mathf.Lerp(progress, 1.0f, Time.deltaTime * 0.75f);
 			modelRenderer.material.SetFloat(progressId, progress);
 			if (progress > 0.75f)
 			{

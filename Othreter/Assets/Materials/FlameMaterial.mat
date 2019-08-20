@@ -11,10 +11,10 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: c5901db1c6e249740bf94510f1c0336d,
     type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _BLENDMODE_ALPHA _SURFACE_TYPE_TRANSPARENT
-  m_LightmapFlags: 4
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
     RenderType: Transparent
@@ -24,14 +24,22 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_2D2526A4:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_3ABB69D7:
         m_Texture: {fileID: 2800000, guid: 76a12ecdc263b4c409d9c5b8ccc45918, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_1D89DFBE: 0.25
+    - Vector1_4C35BE84: 100
+    - Vector1_6F5C392F: 0.5
+    - Vector1_916A96A1: 0
     - Vector1_BAB4322C: -0.25
     - Vector1_C829A535: 5
+    - Vector1_DD191744: 0
     - Vector1_EE902F11: 2
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 1
@@ -67,7 +75,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_179625E4: {r: 15.0943365, g: 3.7143133, b: 0.3951397, a: 1}
+    - Color_179625E4: {r: 51.984146, g: 13.4547205, b: 0, a: 1}
+    - Color_DE9BC905: {r: 51.984146, g: 13.4547205, b: 0, a: 1}
     - Vector2_3B7AB3C3: {r: 0, g: -0.5, b: 0, a: 0}
     - Vector2_B1421B5D: {r: 0, g: -0.5, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
