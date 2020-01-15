@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour
+public class Sword : Weapon
 {
 	EnemyStats enemyStats;
 	CameraController cameraController;
@@ -16,16 +16,21 @@ public class Sword : MonoBehaviour
 
 	private bool wasHit = false;
 
-	void Start()
-    {
+	public override void OnEnable()
+	{
+		base.OnEnable();
+	}
+
+	public override void Start()
+	{
 		cameraController = ObjectsMenager.instance.cam.GetComponent<CameraController>();
 		anim = GetComponent<Animator>();
 
 		//Physics.IgnoreCollision(GetComponent<BoxCollider>(), ObjectsMenager.instance.player.GetComponent<CapsuleCollider>()); when using ontriggerenter
 	}
 
-    void Update()
-    {
+	public override void Update()
+	{
         if(Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") == 1 && wasHit == false))
 		{
 			//play anim
@@ -63,7 +68,7 @@ public class Sword : MonoBehaviour
 			{
 				enemyStats = currentEnemy.GetComponent<EnemyStats>();
 
-				angleToEnemy = Vector3.Angle(currentEnemy.transform.position - ObjectsMenager.instance.playerModel.transform.position, ObjectsMenager.instance.playerModel.transform.forward);
+				angleToEnemy = Vector3.Angle(currentEnemy.transform.position - ObjectsMenager.instance.player.transform.position, ObjectsMenager.instance.player.transform.forward);
 
 				if (angleToEnemy >= -80 && angleToEnemy <= 80 && currentEnemy != null)
 				{
@@ -73,5 +78,15 @@ public class Sword : MonoBehaviour
 			}
 		}
 		StartCoroutine(Cooldown(coolDown));
+	}
+
+	public override void Aim()
+	{
+		base.Aim();
+	}
+
+	public override void StopAim()
+	{
+		base.StopAim();
 	}
 }

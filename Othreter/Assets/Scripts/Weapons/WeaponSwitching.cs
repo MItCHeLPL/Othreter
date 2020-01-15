@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeaponSwitching : MonoBehaviour
 {
-	CameraController cameraController;
+	CameraBaseController cameraBaseController;
 	GameObject pauseMenu;
+	PlayerController playerController;
 
-	//private GameObject[] weapons;
 	[SerializeField] private List<GameObject> weapons = new List<GameObject>();
 
 	[SerializeField] private List<Transform> hand = new List<Transform>();
@@ -15,6 +15,8 @@ public class WeaponSwitching : MonoBehaviour
 	[SerializeField] private List<Vector3> posOffset = new List<Vector3>();
 
 	[SerializeField] private List<Vector3> rotOffset = new List<Vector3>();
+
+	[SerializeField] private List<int> camId = new List<int>();
 
 	private int index = 0;
 	private int prevIndex = 1;
@@ -24,19 +26,21 @@ public class WeaponSwitching : MonoBehaviour
 
 	void Start()
     {
-		cameraController = ObjectsMenager.instance.cam.GetComponent<CameraController>();
+		cameraBaseController = ObjectsMenager.instance.cam.GetComponent<CameraBaseController>();
 		pauseMenu = ObjectsMenager.instance.pauseMenu;
+		playerController = ObjectsMenager.instance.player.GetComponent<PlayerController>();
 
 		for (int i = 0; i < weapons.Count; i++)
 		{
 			weapons[i].SetActive(false);
 		}
+
 		weapons[0].SetActive(true);
-    }
+	}
 	
     void Update()
     {
-		if (isSwitching == false && cameraController.aiming == false && pauseMenu.activeInHierarchy == false)
+		if (isSwitching == false && DataHolder.playerState_Aiming == false && pauseMenu.activeInHierarchy == false && DataHolder.playerState_Controllable)
 		{
 			if (Input.GetKeyDown(DataHolder.HideWeapon) || Input.GetKeyDown(DataHolder.HideWeaponController))
 			{
@@ -118,17 +122,23 @@ public class WeaponSwitching : MonoBehaviour
 		weapons[index].SetActive(false);
 		weapons[index].transform.parent = transform;
 
+		if(camId[newIndex] != camId[index])
+		{
+			cameraBaseController.ChangeCamera(camId[newIndex]);
+		}
+
 		weapons[newIndex].SetActive(true);
 		weapons[newIndex].transform.parent = hand[newIndex];
 		weapons[newIndex].transform.localPosition = posOffset[newIndex];
 		weapons[newIndex].transform.localEulerAngles = rotOffset[newIndex];
+
+		playerController.RefreshSpeed();
 
 		prevIndex = index;
 		index = newIndex;
 
 		StartCoroutine(Cooldown(0.75f));
 
-		cameraController.weaponDistanceChangeDone = false;
 
 		//play anim draw weapon
 	}

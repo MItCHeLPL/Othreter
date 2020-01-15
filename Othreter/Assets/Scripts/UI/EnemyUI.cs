@@ -31,7 +31,7 @@ public class EnemyUI : MonoBehaviour
 
 	void Update()
 	{
-		if (Vector3.Distance(transform.position, cam.transform.position) < hideDistance && ((enemyStats.currentHealth < enemyStats.maxHealth || enemyStats.armor.GetValue() < enemyStats.maxArmor) || lockIndicator.enabled == true || ((Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, hideDistance) && camController.aiming) ? (hit.transform == transform || hit.transform.parent == transform) : false)))
+		if (Vector3.Distance(transform.position, cam.transform.position) < hideDistance && ((enemyStats.currentHealth < enemyStats.maxHealth || enemyStats.armor.GetValue() < enemyStats.maxArmor) || lockIndicator.enabled == true || ((Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, hideDistance) && DataHolder.playerState_Aiming) ? (hit.transform == transform || hit.transform.parent == transform) : false)))
 		{
 			healthUI.enabled = true;
 		}

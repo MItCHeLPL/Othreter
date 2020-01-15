@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hands : MonoBehaviour
+public class Hands : Weapon
 {
-    void Start()
-    {
-        
-    }
+	public override void OnEnable()
+	{
+		base.OnEnable();
+	}
 
-    void Update()
-    {
-        
-    }
+	public override void Start()
+	{
+		base.Start();
+	}
+
+	public override void Update()
+	{
+		base.Update();
+	}
+
+	public override void Aim()
+	{
+		base.Aim();
+	}
+
+	public override void StopAim()
+	{
+		base.StopAim();
+	}
 }

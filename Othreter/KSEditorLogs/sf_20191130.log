@@ -1,0 +1,121 @@
+2019-11-30 16:42:24.3136 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 17:36:44.0394 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 17:36:44.3192 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 17:37:19.9902 [DEBUG] Play mode: False
+2019-11-30 20:12:43.0745 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:14:19.2729 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:14:19.5861 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:14:43.1866 [DEBUG] Play mode: False
+2019-11-30 20:15:17.4207 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:15:17.7199 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:16:20.5006 [DEBUG] Play mode: False
+2019-11-30 20:19:56.0503 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:27:49.0973 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:28:19.5587 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:28:19.8304 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:29:19.8270 [DEBUG] Play mode: False
+2019-11-30 20:30:01.7716 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:30:36.2798 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:31:24.3416 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:31:54.3009 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:34:13.5042 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:34:13.7685 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:34:37.8714 [DEBUG] Play mode: False
+2019-11-30 20:38:51.9349 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:38:52.2950 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:39:44.7299 [DEBUG] Play mode: False
+2019-11-30 20:40:01.2425 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:40:01.5587 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:40:09.8029 [DEBUG] Play mode: False
+2019-11-30 20:40:52.0232 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:40:52.3233 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:41:28.3716 [DEBUG] Play mode: False
+2019-11-30 20:41:57.8376 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:41:58.1078 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:42:40.1313 [DEBUG] Play mode: False
+2019-11-30 20:43:10.0267 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:43:10.3458 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:43:40.5976 [DEBUG] Play mode: False
+2019-11-30 20:43:59.8243 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:44:00.1350 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:44:57.7388 [DEBUG] Play mode: False
+2019-11-30 20:45:27.4577 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:45:27.7748 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:46:03.9367 [DEBUG] Play mode: False
+2019-11-30 20:46:45.4736 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:46:45.7458 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:47:38.2524 [DEBUG] Play mode: False
+2019-11-30 20:48:09.9814 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:48:10.2419 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:49:04.3455 [DEBUG] Play mode: False
+2019-11-30 20:50:32.5372 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:50:32.8120 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:51:15.2500 [DEBUG] Play mode: False
+2019-11-30 20:52:05.7362 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:52:06.0489 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:54:33.9161 [DEBUG] Play mode: False
+2019-11-30 20:54:43.0623 [ERROR] NullReferenceException: Object reference not set to an instance of an object
+Cinemachine.CinemachineFreeLook.UpdateRigCache () (at Library/PackageCache/com.unity.cinemachine@2.4.0-preview.9/Runtime/Behaviours/CinemachineFreeLook.cs:567)
+Cinemachine.CinemachineFreeLook.GetRig (System.Int32 i) (at Library/PackageCache/com.unity.cinemachine@2.4.0-preview.9/Runtime/Behaviours/CinemachineFreeLook.cs:158)
+Cinemachine.CinemachineFreeLookEditor.UpdateRigEditors () (at Library/PackageCache/com.unity.cinemachine@2.4.0-preview.9/Editor/Editors/CinemachineFreeLookEditor.cs:97)
+Cinemachine.CinemachineFreeLookEditor.OnInspectorGUI () (at Library/PackageCache/com.unity.cinemachine@2.4.0-preview.9/Editor/Editors/CinemachineFreeLookEditor.cs:67)
+UnityEditor.UIElements.InspectorElement+<CreateIMGUIInspectorFromEditor>c__AnonStorey1.<>m__0 () (at C:/buildslave/unity/build/Editor/Mono/Inspector/InspectorElement.cs:501)
+UnityEngine.GUIUtility:ProcessEvent(Int32, IntPtr) (at C:/buildslave/unity/build/Modules/IMGUI/GUIUtility.cs:179)
+
+2019-11-30 20:55:23.6124 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:55:23.9175 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:56:17.5141 [DEBUG] Play mode: False
+2019-11-30 20:57:27.7815 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:57:28.0687 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:58:01.6704 [DEBUG] Play mode: False
+2019-11-30 20:58:42.5350 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 20:58:42.8163 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 20:59:03.8516 [DEBUG] Play mode: False
+2019-11-30 21:05:16.7032 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:05:16.9994 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:05:24.0714 [DEBUG] Play mode: False
+2019-11-30 21:07:09.4363 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:07:09.7569 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:07:20.6918 [DEBUG] Play mode: False
+2019-11-30 21:08:01.1105 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:08:01.3844 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:08:15.3793 [DEBUG] Play mode: False
+2019-11-30 21:09:34.0393 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:09:34.3345 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:09:55.9464 [DEBUG] Play mode: False
+2019-11-30 21:15:56.6587 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:15:56.9445 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:16:08.1844 [DEBUG] Play mode: False
+2019-11-30 21:16:48.8690 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:16:49.1503 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:17:03.5972 [DEBUG] Play mode: False
+2019-11-30 21:17:23.1904 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:17:23.4607 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:17:41.4688 [DEBUG] Play mode: False
+2019-11-30 21:20:26.0057 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:20:55.0279 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:20:55.3016 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:24:08.6447 [DEBUG] Play mode: False
+2019-11-30 21:29:31.5333 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:30:00.5273 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:30:00.8385 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:30:07.8316 [DEBUG] Play mode: False
+2019-11-30 21:30:32.5344 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:30:56.0911 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:30:56.3973 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:31:08.1374 [DEBUG] Play mode: False
+2019-11-30 21:39:01.3410 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:39:01.6531 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:43:00.8029 [DEBUG] Play mode: False
+2019-11-30 21:46:50.4618 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:46:50.7805 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:48:13.9011 [DEBUG] Play mode: False
+2019-11-30 21:51:06.1460 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:51:06.5159 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:52:24.9724 [DEBUG] Play mode: False
+2019-11-30 21:53:42.6124 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:53:42.9191 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:53:59.3359 [DEBUG] Play mode: False
+2019-11-30 21:54:47.2571 [DEBUG] Scene Fusion version 1.8.5-0
+2019-11-30 21:54:47.6406 [DEBUG] Play mode: True, sync in play mode: True
+2019-11-30 21:54:53.7699 [DEBUG] Play mode: False

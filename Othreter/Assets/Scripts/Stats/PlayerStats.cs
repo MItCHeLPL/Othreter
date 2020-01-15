@@ -11,7 +11,7 @@ public class PlayerStats : CharacterStats
 
 	private void Start()
 	{
-		anim = transform.GetChild(0).gameObject.GetComponent<Animator>();
+		anim = GetComponent<Animator>();
 
 		UIController = ObjectsMenager.instance.UIMenager.GetComponent<UIController>();
 

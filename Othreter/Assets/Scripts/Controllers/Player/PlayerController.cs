@@ -8,98 +8,64 @@ public class PlayerController : MonoBehaviour
 
 	[Header("Scripts")]
 	private Camera camMain;
-	private CapsuleCollider playerTriggerCollider;
 	private Animator anim;
-	[HideInInspector]
-	public CharacterController controller; //adds character controller
-	private CameraController cameraController; //allows to get variables form CameraMouse.cs
-	private FallDamage fallDamage; //allows to use FallDamage script
-	private GameObject playerModel;
-	private WeaponSwitching weaponHolder;
+	[HideInInspector] public CharacterController controller;
 
-	[HideInInspector]
-	public Vector3 moveDirection; //player moves in this direction
-	private Vector3 jumpVelocity = Vector3.zero;
+
+	[HideInInspector] public Vector3 moveDirection;
 	private Quaternion modelRotation;
 	private Vector3 desiredRotation;
 	private bool desiredRotated = false;
-	private ControllerColliderHit colliderHit;
+	private Vector3 colliderHitNormal;
+	private Vector3 slideDirection;
 
-	private RaycastHit hitCrouch;
+	[Header("Jump")]
 
-	[Header("Speed")]
-	public float speed = 6.0f; //player speed
-
-	public float defaultSpeed = 6.0f; //speed when sprinting
-	[SerializeField]
-	private float sprintSpeed = 8.0f; //speed when sprinting
-	[SerializeField]
-	private float crouchSpeed = 4.0f; // speed when crouching
-	public float weaponSpeedSub = 0.5f;
+	[SerializeField] private float jumpHeight = 9.0f;
+	private Vector3 jumpVelocity = Vector3.zero;
 	private float jumpCooldown;
 
-	[Header("Physics")]
-	[SerializeField]
-	private float pushPower = 2.0f; //how many times multiply player force on rigidbody objects
-	[SerializeField]
-	private float jumpHeight = 8.0f; //jump height
-	[SerializeField]
-	private float gravity = 20.0f; //gravitation force (20f is optimal as for earth gravity)
-	private Vector3 force;
+	[Header("Script Settings")]
 
-	[Header("Camera")]
-	[SerializeField]
-	private float camFov = 60.0f; //normal camera field of view
-	[SerializeField]
-	private float camSprintFov = 65.0f; //camera field of view while sprinting
+	[SerializeField] private bool jumpEnabled = true;
+	[SerializeField] private bool sprintEnabled = true;
+	[SerializeField] private bool crouchEnabled = true;
+	[SerializeField] private bool modelRotationEnabled = true;
+	[SerializeField] private bool rigidbodyForceEnabled = true;
+	[SerializeField] private bool slidingEnabled = true;
+	[SerializeField] private bool WASDEnabled = true;
+
+	private bool horizontalMovementOnlyEnabled = false;
+
+	private bool sprintSpeedReached = false;
+	private bool crouchSpeedReached = false;
+
+	[Header("Speed")]
+	public float speed = 6.0f;
+
+	public float defaultSpeed = 6.0f;
+	[SerializeField] private float sprintSpeed = 8.0f;
+	[SerializeField] private float crouchSpeed = 4.0f;
+	[SerializeField] private float maxSlideSpeed = 17.0f;
+	private float slideSpeed = 0.0f;
+
+	[Header("Physics")]
+	[SerializeField] private float pushPower = 2.0f; //how many times multiply player force on rigidbody objects
+	[SerializeField] private float gravity = 20.0f; //gravitation force (20f is optimal as for earth gravity)
+	private Vector3 force;
+	[SerializeField] private float angleLimitToSlide = 45.0f;
 
 	[Header("Player Controller Size")]
-	[SerializeField]
-	private float playerHeight = 2.0f; //default player height
-	[SerializeField]
-	private float crouchHeight = 1.5f; //player height when crouching
-	[SerializeField]
-	private Vector3 playerCenter = new Vector3(0.0f, 1.0f, 0.0f); //default player model center
-	[SerializeField]
-	private float playerRadius = 0.3f; //default player radius
-
-	private readonly float slopeLimitCheckDistance = 5.25f; //how low should ray go to check if player is coming down the slope
-	private float groundAngle; //angle of the ground player is standing on
-
-	[Header("Climbing")]
-	private float climbingCheckDistance = 0.5f; //how long climbing raycast is
-	[SerializeField]
-	private float climbingSpeed = 2.0f; //how fast player is climbing
-	private readonly float climbingJumpHeight = 7.0f; //how high player jumps from wall
-	private bool climbingJumped = false; //if player canceled climbing
+	private float playerHeight; //default player height
+	private Vector3 playerCenter;
+	[SerializeField] private float crouchHeight = 1.5f;
 
 	[Header("Layers")]
-	[SerializeField]
-	private LayerMask crouchWallLayer; //player colides with theese layers
-	[SerializeField]
-	private LayerMask climbLayer; //player can climb when raycast hits this layer
+	[SerializeField] private LayerMask crouchWallLayer;
 
-	[HideInInspector]
-	public bool climbingProcess = false; //determine if player is in climbing state form being off ground to standing on the ground again
-	[HideInInspector]
-	public bool groundAngleOverLimit = false; //detects if ground angle is over slope limit
-	[HideInInspector]
-	public bool crouch = false; //informs whether player crouches
-	[HideInInspector]
-	public bool jump = false; //informs wether player jumped
-	[HideInInspector]
-	public bool inFight = false; //informs wether player jumped
-	[HideInInspector]
-	public bool holdingWeapon = false;
-
-	[Header("Combat")]
-	[SerializeField]
-	private float fightDistance = 200.0f;
-	private GameObject closestEnemy = null;
-	private float distanceToClosestEnemy;
-	[HideInInspector]
-	public bool swordAiming = false;
-	private bool calledFinding = false;
+	[HideInInspector] public bool groundAngleOverLimit = false;
+	private readonly float slopeLimitCheckDistance = 5.25f; //how low should ray go to check if player is coming down the slope
+	private float groundAngle;
 
 	#endregion
 
@@ -107,234 +73,189 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
 	{
-		controller = GetComponent<CharacterController>(); //sets character controller
-		playerModel = ObjectsMenager.instance.playerModel;
-		camMain = ObjectsMenager.instance.cam; //optimalization
-		anim = playerModel.GetComponent<Animator>();
-		cameraController = camMain.GetComponent<CameraController>();
-		fallDamage = GetComponent<FallDamage>();
-		playerTriggerCollider = GetComponent<CapsuleCollider>();
-		weaponHolder = ObjectsMenager.instance.weaponHolder.GetComponent<WeaponSwitching>();
+		controller = GetComponent<CharacterController>();
+		camMain = ObjectsMenager.instance.cam;
+		anim = GetComponent<Animator>();
 
-		playerTriggerCollider.isTrigger = true;
-		playerTriggerCollider.radius = 0.4f;
-		playerTriggerCollider.height = 2.4f;
-		playerTriggerCollider.center = new Vector3(0.0f, 0.9f, 0.0f);
-
-		playerCenter.y = playerCenter.y + +controller.skinWidth;
-		controller.height = playerHeight;//this could be changed depending on player model
-		controller.center = playerCenter; //this could be changed depending on player model
-		controller.radius = playerRadius;//this could be changed depending on player model
-		controller.stepOffset = 0.4f; //step offset
-		controller.slopeLimit = 45.0f; //slope limit
 		controller.skinWidth = 0.06f;//dont change
-		controller.minMoveDistance = 0.0f;//dont change
+		playerHeight = controller.height;
+		playerCenter = controller.center;
 
-		camMain.fieldOfView = camFov; //sets default main camera field of view
+		speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
 
-		speed = defaultSpeed;
-
-		climbingCheckDistance = playerRadius + 0.2f; //check for climbing distance just in front of player
-
-		modelRotation = playerModel.transform.rotation;
+		modelRotation = transform.rotation;
 	}
 
 	private void Update()
 	{
-		//edit binds
 		#region Sprint
 
-		if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0)) && crouch == false && climbingProcess == false && fallDamage.fallen == false && cameraController.aiming == false) //sprint works only if you push forward and sprint key, crouch key cant be pressed
+		if (sprintEnabled && DataHolder.playerState_Controllable)
 		{
-			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camSprintFov, 10 * Time.deltaTime); //rises fov
-			speed = Mathf.Lerp(speed, holdingWeapon ? sprintSpeed - weaponSpeedSub : sprintSpeed, Time.deltaTime * 2.0f);
-			//speed = sprintSpeed;
-			anim.SetBool("Sprint", true);
-		}
-		else if (((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false) || (Input.GetKey(DataHolder.SprintController) == false || Input.GetAxis("Horizontal") <= 0) || climbingProcess) && fallDamage.fallen == false || (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow"))
-		{
-			camMain.fieldOfView = Mathf.Lerp(camMain.fieldOfView, camFov, 10 * Time.deltaTime);
-			speed = Mathf.Lerp(speed, holdingWeapon ? defaultSpeed - weaponSpeedSub : defaultSpeed, Time.deltaTime * 2.0f);
-			//speed = defaultSpeed;
-			anim.SetBool("Sprint", false);
+			if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0) && sprintSpeedReached == false) && DataHolder.playerState_Crouch == false && DataHolder.playerState_Fallen == false && DataHolder.playerState_Aiming == false && DataHolder.playerState_Sliding == false)
+			{
+				DataHolder.playerState_Sprint = true;
+				anim.SetBool("Sprint", true);
+				speed = Mathf.Lerp(speed, sprintSpeed - DataHolder.activeWeaponSpeedSub, Time.deltaTime * 2.0f);
+				if(Mathf.Abs((sprintSpeed - DataHolder.activeWeaponSpeedSub) - speed) < 0.25f)
+				{
+					speed = sprintSpeed - DataHolder.activeWeaponSpeedSub;
+					sprintSpeedReached = true;
+				}
+			}
+			else if (((Input.GetKey(DataHolder.Sprint) == false || Input.GetKey(KeyCode.W) == false) && (Input.GetKey(DataHolder.SprintController) == false || Input.GetAxis("Horizontal") <= 0) && sprintSpeedReached == true) && DataHolder.playerState_Fallen == false || (DataHolder.playerState_Aiming && DataHolder.playerState_Crouch == false) || DataHolder.playerState_Sliding)
+			{
+				DataHolder.playerState_Sprint = false;
+				anim.SetBool("Sprint", false);
+
+				speed = Mathf.Lerp(speed, defaultSpeed - DataHolder.activeWeaponSpeedSub, Time.deltaTime * 2.0f);
+				if (Mathf.Abs(speed - (defaultSpeed - DataHolder.activeWeaponSpeedSub)) < 0.25f)
+				{
+					speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
+					sprintSpeedReached = false;
+				}
+			}
+			else
+			{
+				DataHolder.playerState_Sprint = false;
+				anim.SetBool("Sprint", false);
+			}
 		}
 
 		#endregion
 
-		//edit binds
 		#region Crouch
 
-		if ((Input.GetKey(DataHolder.Crouch) || Input.GetKey(DataHolder.CrouchController)) && climbingProcess == false)//crouch key
+		if (crouchEnabled && DataHolder.playerState_Controllable)
 		{
-			crouch = true;//crouch is on
-			controller.height = crouchHeight; //reduces player height
-			controller.center = new Vector3(0.0f, crouchHeight / 2 + controller.skinWidth, 0.0f);//moves player center point lover
-			//speed = crouchSpeed;//reduces player speed by sprint speed
-			speed = holdingWeapon ? crouchSpeed - weaponSpeedSub : crouchSpeed;
-			//speed = Mathf.Lerp(speed, holdingWeapon ? crouchSpeed - weaponSpeedSub : crouchSpeed, Time.deltaTime * 2.0f);
-			anim.SetBool("Crouch", true);
-		}
+			RaycastHit hitCrouch;
 
-		if (Input.GetKey(DataHolder.Crouch) == false && Input.GetKey(DataHolder.CrouchController) == false)
-		{
-			Debug.DrawRay(transform.position, Vector3.up, Color.red);//shows ray when in scene mode
-			if (!Physics.Raycast(transform.position, Vector3.up, out hitCrouch, playerHeight + 0.1f, crouchWallLayer))
+			if ((Input.GetKey(DataHolder.Crouch) || Input.GetKey(DataHolder.CrouchController) && crouchSpeedReached == false) && DataHolder.playerState_Grounded)
 			{
-				controller.height = playerHeight; //makes player hight default
-				controller.center = playerCenter; //makes player center default
-				crouch = false;//crouch is off
-				anim.SetBool("Crouch", false);
-				if (Input.GetKey(DataHolder.Sprint) == false && fallDamage.fallen == false && cameraController.aiming == false) //set speed back to normal only if player is not sprinting
+				DataHolder.playerState_Crouch = true;
+				anim.SetBool("Crouch", true);
+
+				controller.height = crouchHeight;
+				controller.center = new Vector3(0.0f, crouchHeight / 2 + controller.skinWidth, 0.0f);//moves player center point lover
+				speed = crouchSpeed - DataHolder.activeWeaponSpeedSub;
+				crouchSpeedReached = true;
+			}
+			else if ((Input.GetKey(DataHolder.Crouch) == false && Input.GetKey(DataHolder.CrouchController) == false && crouchSpeedReached == true) && DataHolder.playerState_Sprint == false && DataHolder.playerState_Fallen == false)
+			{
+				if (!Physics.Raycast(transform.position, Vector3.up, out hitCrouch, playerHeight + 0.1f, crouchWallLayer))
 				{
-					//speed = defaultSpeed;//sets player speed to default value
-					speed = Mathf.Lerp(speed, holdingWeapon ? defaultSpeed - weaponSpeedSub : defaultSpeed, Time.deltaTime * 2.0f);
+					DataHolder.playerState_Crouch = false;
+					anim.SetBool("Crouch", false);
+
+					controller.height = playerHeight;
+					controller.center = playerCenter;
+					speed = Mathf.Lerp(speed, defaultSpeed - DataHolder.activeWeaponSpeedSub, Time.deltaTime * 2.0f);
+					if (Mathf.Abs(speed - (defaultSpeed - DataHolder.activeWeaponSpeedSub)) < 0.25f)
+					{
+						speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
+						crouchSpeedReached = false;
+					}
+				}
+			}
+			else
+			{
+				if (!Physics.Raycast(transform.position, Vector3.up, out hitCrouch, playerHeight + 0.1f, crouchWallLayer))
+				{
+					DataHolder.playerState_Crouch = false;
+					anim.SetBool("Crouch", false);
+
+					controller.height = playerHeight;
+					controller.center = playerCenter;
 				}
 			}
 		}
 
 		#endregion
 
-		//edit, edit binds
 		#region Movement, Jump and Rotation
 
-		if (climbingProcess == false)
+		if(WASDEnabled && DataHolder.playerState_Controllable)
 		{
-			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+			Vector2 movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-			anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
-			anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
-			anim.SetFloat("Velocity", controller.velocity.magnitude);
-			anim.SetFloat("VelocityXZ", (controller.velocity.x * controller.velocity.x) + (controller.velocity.z * controller.velocity.z));
+			Vector3 forward = camMain.transform.forward;
+			Vector3 right = camMain.transform.right;
 
-			#region Model Rotation
+			forward.y = 0f;
+			right.y = 0f;
 
-			if ((Input.GetMouseButtonDown(1) || Input.GetAxis("Fire2") > 0) && weaponHolder.ActiveWeaponTag() == "Sword")
+			forward.Normalize();
+			right.Normalize();
+
+			if(horizontalMovementOnlyEnabled)
 			{
-				if(calledFinding == false)
-				{
-					FindEnemy(null, false);
-					if (closestEnemy != null)
-					{
-						closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = true;
-						
-					}
-					calledFinding = true;
-				}
-			}
-
-			if ((Input.GetMouseButtonUp(1) || Input.GetAxis("Fire2") < 1) && weaponHolder.ActiveWeaponTag() == "Sword" && closestEnemy != null)
-			{
-				closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = false;
-				calledFinding = false;
-			}
-
-			transform.rotation = Quaternion.Euler(0.0f, cameraController.currentX, 0.0f);
-			if (moveDirection != Vector3.zero && cameraController.aiming == false && jump == false) //player rotation
-			{
-				playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.LookRotation(moveDirection, Vector3.up), 7.5f * Time.deltaTime);
-				modelRotation = playerModel.transform.rotation;
-				desiredRotation = moveDirection;
-				desiredRotated = false;
-			}
-
-			else if (jump == true && inFight == false && cameraController.aiming == false)
-			{
-				if (Quaternion.Angle(playerModel.transform.localRotation, Quaternion.LookRotation(desiredRotation, Vector3.up)) < 0.1f)
-				{
-					desiredRotated = true;
-				}
-				if (desiredRotated == false)
-				{
-					playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.LookRotation(desiredRotation, Vector3.up), 7.5f * Time.deltaTime);
-					modelRotation = playerModel.transform.rotation;
-				}
-				else
-				{
-					playerModel.transform.rotation = modelRotation;
-				}
-
-				/*playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, 7.5f * Time.deltaTime);
-				modelRotation = playerModel.transform.rotation;*/
-			}
-
-			else if (moveDirection == Vector3.zero && jump == false && inFight == false && cameraController.aiming == false)
-			{
-				if(Quaternion.Angle(playerModel.transform.localRotation, Quaternion.LookRotation(desiredRotation, Vector3.up)) < 0.1f)
-				{
-					desiredRotated = true;
-				}
-				if(desiredRotated == false)
-				{
-					playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.LookRotation(desiredRotation, Vector3.up), 7.5f * Time.deltaTime);
-					modelRotation = playerModel.transform.rotation;
-				}
-				else
-				{
-					playerModel.transform.rotation = modelRotation;
-				}
-			}
-
-			else if (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Bow")
-			{
-				playerModel.transform.localRotation = Quaternion.Lerp(playerModel.transform.localRotation, Quaternion.identity, 7.5f * Time.deltaTime);
-				modelRotation = playerModel.transform.rotation;
-			}
-			else if (cameraController.aiming == true && weaponHolder.ActiveWeaponTag() == "Sword" && inFight == true && closestEnemy != null)
-			{
-				swordAiming = true;
-				playerModel.transform.rotation = Quaternion.Lerp(playerModel.transform.rotation, Quaternion.LookRotation(new Vector3(closestEnemy.transform.position.x, transform.position.y, closestEnemy.transform.position.z) - playerModel.transform.position), 7.5f * Time.deltaTime);
-				modelRotation = playerModel.transform.rotation;
-
-				if (Input.GetKeyDown(DataHolder.ChangeFocus) || Input.GetKeyDown(DataHolder.ChangeFocusController))
-				{
-					closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = false;
-					FindEnemy(closestEnemy, true);
-					closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = true;
-				}
+				moveDirection = (forward * movementInput.y + right * movementInput.x) - (slideDirection / 2);
 			}
 			else
 			{
-				swordAiming = false;
+				moveDirection = (forward * movementInput.y + right * movementInput.x);
 			}
+			
 
-			#endregion
+			float inputDeadzone = DataHolder.inputDeadzone;
 
-
-			if (controller.isGrounded)//when player is on ground
+			if (moveDirection.magnitude < inputDeadzone)
 			{
-				if ((Input.GetKeyDown(DataHolder.Jump) || Input.GetKeyDown(DataHolder.JumpController)) && groundAngleOverLimit == false && jumpCooldown <= 0.0f && crouch == false)
-				{
-					jump = true; //enables jump
-					anim.SetBool("Jump", true);
-
-					jumpVelocity = controller.velocity;
-					jumpVelocity.y = jumpHeight;
-				}
+				moveDirection = Vector2.zero;
 			}
 			else
 			{
-				moveDirection /= 1.5f;
-				jumpVelocity.y -= gravity * Time.deltaTime;
+				moveDirection = moveDirection.normalized * ((moveDirection.magnitude - inputDeadzone) / (1 - inputDeadzone));
+			}
+		}
+
+		//The two below has to be together
+		moveDirection = Vector3.ClampMagnitude(moveDirection, 1);
+		controller.Move(((Vector3.ClampMagnitude(new Vector3(moveDirection.x + jumpVelocity.x, 0, moveDirection.z + jumpVelocity.z), 1) * speed) + new Vector3(0, moveDirection.y + jumpVelocity.y, 0) + slideDirection) * Time.deltaTime);
+
+		anim.SetFloat("InputVertical", Input.GetAxis("Vertical"));
+		anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
+		anim.SetFloat("Velocity", controller.velocity.magnitude);
+		anim.SetFloat("VelocityXZ", (controller.velocity.x * controller.velocity.x) + (controller.velocity.z * controller.velocity.z));
+		if (controller.velocity != Vector3.zero)
+		{
+			DataHolder.playerState_Idle = false;
+		}
+		else
+		{
+			DataHolder.playerState_Idle = true;
+		}
+
+		if (controller.isGrounded)
+		{
+			DataHolder.playerState_Grounded = true;
+
+			if ((Input.GetKeyDown(DataHolder.Jump) || Input.GetKeyDown(DataHolder.JumpController)) && groundAngleOverLimit == false && jumpCooldown <= 0.0f && DataHolder.playerState_Crouch == false && jumpEnabled && DataHolder.playerState_Controllable) //jump
+			{
+				jumpVelocity = moveDirection;
+				jumpVelocity = Vector3.ClampMagnitude(jumpVelocity, 1);
+				jumpVelocity.y = jumpHeight;
+
+				DataHolder.playerState_Jump = true;
+				anim.SetBool("Jump", true);
 			}
 		}
 		else
 		{
-			jumpVelocity = Vector3.zero;
-		}
+			DataHolder.playerState_Grounded = false;
 
-		if (weaponHolder.ActiveWeaponTag() != "Hands")
-		{
-			holdingWeapon = true;
-			//speed -= weaponSpeedSub;
-		}
-		else
-		{
-			holdingWeapon = false;
-		}
+			//in air after jump
+			jumpVelocity.y -= gravity * Time.deltaTime;
 
-		//It has to be together
-		moveDirection = transform.TransformDirection(Vector3.ClampMagnitude(moveDirection, 1) * speed);
-		controller.Move(new Vector3(Mathf.Clamp((moveDirection.x + jumpVelocity.x), -speed, speed), (moveDirection.y + jumpVelocity.y), Mathf.Clamp((moveDirection.z + jumpVelocity.z), -speed, speed)) * Time.deltaTime);
+			if (controller.velocity.y < 0) //falling
+			{
+				if (DataHolder.playerState_Jump)
+				{
+					anim.SetBool("JumpFalling", true);
+					DataHolder.playerState_JumpFalling = true;
+				}
+			}
+		}
 
 		if (jumpCooldown >= 0.0f)
 		{
@@ -343,158 +264,145 @@ public class PlayerController : MonoBehaviour
 
 		#endregion
 
-		//edit binds
-		#region Slope
+		#region Model Rotation
 
-		SlopeCheck();
+		if (modelRotationEnabled && DataHolder.playerState_Controllable)
+		{
+			if (controller.velocity.magnitude > 0.25f && DataHolder.playerState_Aiming == false && DataHolder.playerState_Jump == false) //rotation when moving
+			{
+				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(controller.velocity.x, 0.0f, controller.velocity.z)), 7.5f * Time.deltaTime);
+				modelRotation = transform.rotation;
+				desiredRotation = controller.velocity;
+				desiredRotated = false;
+			}
 
-		if (groundAngle > controller.slopeLimit) //detects if player is on slope that he cant be on
-		{
-			groundAngleOverLimit = true;
-		}
-		else
-		{
-			groundAngleOverLimit = false;
-		}
-
-		/*if(colliderHitLayer == slideLayer) //if object has tag slide, player will slide off of it
-		{
-			moveDirection = new Vector3(colliderHitNormal.x, -colliderHitNormal.y, colliderHitNormal.z);
-			Vector3.OrthoNormalize(ref colliderHitNormal, ref moveDirection);
-			moveDirection *= slideSpeed; //add sliding speed
-		}*/
-
-		if (SlopeCheck() && jump == false && (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)) //detects if player is moving on the slope and isnt jumping
-		{
-			moveDirection += new Vector3(moveDirection.x, moveDirection.y - (playerHeight * slopeLimitCheckDistance), moveDirection.z); //moves player to the slope
+			else if ((controller.velocity == Vector3.zero || DataHolder.playerState_Jump) && DataHolder.playerState_Aiming == false && desiredRotation != Vector3.zero && modelRotation != Quaternion.identity) //rotation to desired point
+			{
+				if (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(new Vector3(desiredRotation.x, 0.0f, desiredRotation.z))) < 0.1f)
+				{
+					desiredRotated = true;
+				}
+				if (desiredRotated == false)
+				{
+					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(desiredRotation.x, 0.0f, desiredRotation.z)), 7.5f * Time.deltaTime);
+					modelRotation = transform.rotation;
+				}
+				else
+				{
+					transform.rotation = modelRotation;
+				}
+			}
+			else if (DataHolder.playerState_Aiming) //rotation when aiming, tmep, it will be in weapon script
+			{
+				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0), 7.5f * Time.deltaTime);
+				modelRotation = transform.rotation;
+			}
 		}
 
 		#endregion
 
-		//edit, edit binds
-		#region Climb
-		/*
-		RaycastHit hitClimb; //creates raycast
-		RaycastHit hitLeft; //creates raycast2
-		RaycastHit hitDown; //creates raycast3
-		RaycastHit hitRight; //creates raycast3
-		RaycastHit hitUp;
+		#region Slope
 
-		Debug.DrawRay(transform.position + new Vector3(0.0f, controller.height / 1.5f, 0.0f), transform.TransformDirection(Vector3.forward), Color.blue);//shows ray when in scene mode
-
-		if (Physics.Raycast(transform.position + new Vector3(0.0f, controller.height / 1.5f, 0.0f), transform.TransformDirection(Vector3.forward), out hitClimb, controller.radius + climbingCheckDistance, climbLayer) && climbingJumped == false && cameraController.aiming == false)
-		{
-			if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitDown, 0.10f))//when starts climbing from ground
+		if(slidingEnabled && DataHolder.playerState_Controllable)
+		{ 
+			if (groundAngle > angleLimitToSlide)
 			{
-				transform.Translate(Vector3.up * 0.11f);//moves you just above the raycast which checks if you are grounded while climbing
+				groundAngleOverLimit = true;
+
+				DataHolder.playerState_Sliding = true;
+
+				jumpVelocity = Vector3.zero;
+
+				Vector3 c = Vector3.Cross(colliderHitNormal, Vector3.up);
+				slideDirection = -Vector3.Cross(c, colliderHitNormal);
+
+				slideSpeed = Mathf.Lerp(slideSpeed, maxSlideSpeed, Mathf.Abs(groundAngle * 0.025f) * Time.deltaTime);
+				if (Mathf.Abs(maxSlideSpeed - slideSpeed) <= 1.0f)
+				{
+					slideSpeed = maxSlideSpeed;
+				}
+
+				if(controller.velocity.y < 0)
+				{
+					horizontalMovementOnlyEnabled = true;
+				}
+				else
+				{
+					horizontalMovementOnlyEnabled = false;
+				}
+
+				slideDirection *= slideSpeed; //add sliding speed
+
+				if (slideSpeed >= maxSlideSpeed * 0.15f)
+				{
+					anim.SetBool("Sliding", true);
+				}
 			}
-			climbingProcess = true; //starts climbing
-			moveDirection = new Vector3(0.0f, 0.0f, 0.0f); //sticks player to the wall
-
-			anim.SetBool("Climbing", true);
-
-			transform.rotation = Quaternion.LookRotation(-hitClimb.normal); //rotate player depending on normal of colider
-			playerModel.transform.rotation = Quaternion.LookRotation(-hitClimb.normal);
-
-			if (Input.GetKey(KeyCode.W) && !Physics.Raycast(transform.position + new Vector3(0.0f, controller.height, 0.0f), Vector3.up, out hitUp, 0.1f))
+			else
 			{
-				transform.Translate(Vector3.up * climbingSpeed * Time.deltaTime); //going upwards
-			}
+				if (DataHolder.playerState_Sliding)
+				{
+					slideSpeed = 0;
+					slideDirection = Vector3.zero;
+					horizontalMovementOnlyEnabled = false;
+					anim.SetBool("Sliding", false);
+					DataHolder.playerState_Sliding = false;
+				}
 
-			if (Input.GetKey(KeyCode.S))
-			{
-				transform.Translate(Vector3.down * climbingSpeed * Time.deltaTime); //going downwards
-			}
-
-			if (Input.GetKey(KeyCode.A) && Physics.Raycast(transform.position + new Vector3(-controller.radius / 2, controller.height / 1.5f, 0.0f), transform.TransformDirection(Vector3.forward), out hitLeft, climbingCheckDistance + controller.radius, climbLayer) && !Physics.Raycast(transform.position + new Vector3(-controller.radius / 2, controller.height / 1.5f, 0.0f), transform.TransformDirection(Vector3.left), out hitRight, controller.radius + 0.2f))
-			{
-				transform.Translate(Vector3.left * climbingSpeed * Time.deltaTime); //going left
-			}
-
-			if (Input.GetKey(KeyCode.D) && Physics.Raycast(transform.position + new Vector3(controller.radius / 2, controller.height / 1.5f, 0.0f), transform.TransformDirection(Vector3.forward), out hitLeft, climbingCheckDistance + controller.radius, climbLayer) && !Physics.Raycast(transform.position + new Vector3(-controller.radius / 2, controller.height / 1.5f, 0.0f), transform.TransformDirection(Vector3.right), out hitRight, controller.radius + 0.2f))
-			{
-				transform.Translate(Vector3.right * climbingSpeed * Time.deltaTime); //going right
+				groundAngleOverLimit = false;
 			}
 		}
 
-		if (Input.GetButtonDown("Jump") && climbingProcess)
+		if (SlopeCheck() && DataHolder.playerState_Jump == false && DataHolder.playerState_Idle == false) //detects if player is moving on the slope and isnt jumping
 		{
-			climbingJumped = true; //player canceled climbing
-			jumpVelocity.y = climbingJumpHeight;
-			EndClimbing();
-
+			moveDirection = new Vector3(moveDirection.x, moveDirection.y - (playerHeight * slopeLimitCheckDistance), moveDirection.z); //moves player to the slope
 		}
-		else if (Input.GetButtonDown("Jump") && climbingJumped)
-		{
-			climbingJumped = false; //allows to climb
-		}
-
-		if (hitClimb.collider == null && climbingProcess) //if player is on top
-		{
-			jumpVelocity.y = climbingJumpHeight;
-			anim.SetTrigger("ClimbedOnTop");
-			EndClimbing();
-		}
-
-		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hitDown, 0.10f) && climbingProcess) //when you are hitting floor and is climbing
-		{
-			EndClimbing();
-			climbingJumped = true; //cant climb again until is grounded
-		}
-
-		if (controller.isGrounded) //allows to climb again
-		{
-			EndClimbing();
-			climbingJumped = false; //resets 
-		}*/
 
 		#endregion
 	}
 
 	private void LateUpdate()
 	{
-		if (jump && controller.isGrounded) //allows player to jump again
+		if (((DataHolder.playerState_Jump && jumpVelocity.y < 0) || DataHolder.playerState_JumpFalling) && controller.isGrounded) //landing
 		{
 			jumpVelocity = Vector3.zero;
 			jumpCooldown = 0.04f;
-			jump = false; //disables jump after landing
-			anim.SetBool("Jump", false);
+
+			anim.SetBool("JumpFalling", false);
+			anim.SetBool("Jump", false);//temp
+
+			DataHolder.playerState_Jump = false;
+
+			DataHolder.playerState_JumpFalling = false;
 		}
 	}
 
-
-	/*void OnAnimatorIK(int layerIndex) //enable when animations will be done
-	{
-		if (climbingProcess == false && moveDirection != Vector3.zero && cameraController.aiming == false)
-		{
-			anim.SetLookAtWeight(1f);
-			anim.SetLookAtPosition(new Vector3(camMain.transform.eulerAngles.x, camMain.transform.eulerAngles.y, 0.0f));
-		}
-	}*/
+	#region Character Controller can move Rigidbody
 
 	private void OnControllerColliderHit(ControllerColliderHit hit) //Apply player push force on rigidbody objects
 	{
-		colliderHit = hit;
-		#region Character Controller can move Rigidbody
-
-		Rigidbody body = hit.collider.attachedRigidbody;
-
-		if (body == null || body.isKinematic) // If object has no rigidbody
+		colliderHitNormal = hit.normal;
+		if (rigidbodyForceEnabled)
 		{
-			return;
-		}
+			Rigidbody body = hit.collider.attachedRigidbody;
 
-		if (hit.moveDirection.y < -0.3) // if object is below us
-		{
-			body.AddForceAtPosition(new Vector3(0, -1.0f, 0) * pushPower, hit.point);
-		}
-		else
-		{
-			body.velocity = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z) * pushPower;// Calculate push direction from move direction
-		}
+			if (body == null || body.isKinematic) // If object has no rigidbody
+			{
+				return;
+			}
 
-		#endregion
+			if (hit.moveDirection.y < -0.3) // if object is below us
+			{
+				body.AddForceAtPosition(new Vector3(0, -1.0f, 0) * pushPower, hit.point);
+			}
+			else
+			{
+				body.velocity = new Vector3(hit.moveDirection.x, 0.0f, hit.moveDirection.z) * pushPower;// Calculate push direction from move direction
+			}
+		}
 	}
+
+	#endregion
 
 	private bool SlopeCheck() //detects if player is on the slope
 	{
@@ -509,64 +417,10 @@ public class PlayerController : MonoBehaviour
 		return false;
 	}
 
-	private void EndClimbing()
+	public void RefreshSpeed()
 	{
-		anim.SetBool("Climbing", false);
-		climbingProcess = false;
+		speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
 	}
-
-	private IEnumerator Cooldown(float sec)
-	{
-		yield return new WaitForSeconds(sec);
-	}
-
-	#region Finding Enemy
-	public void FindEnemy(GameObject enemyToSkip, bool changeEnemy)
-	{
-		StartCoroutine(FindClosestEnemy(enemyToSkip, changeEnemy));
-		if (closestEnemy != null)
-		{
-			inFight = true;
-			closestEnemy.GetComponent<EnemyUI>().lockIndicator.enabled = true;
-		}
-		else
-		{
-			inFight = false;
-		}
-	}
-
-	private IEnumerator FindClosestEnemy(GameObject enemyToSkip, bool changeEnemy)
-	{
-		distanceToClosestEnemy = fightDistance;
-		closestEnemy = null;
-		GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-		foreach (GameObject currentEnemy in allEnemies)
-		{
-			float distanceToEnemy = (currentEnemy.transform.position - transform.position).sqrMagnitude;
-
-			if (distanceToEnemy < distanceToClosestEnemy && currentEnemy != enemyToSkip)
-			{
-				distanceToClosestEnemy = distanceToEnemy;
-				closestEnemy = currentEnemy;
-			}
-		}
-		
-		if(closestEnemy == null && changeEnemy == false)
-		{
-			inFight = false;
-			if(weaponHolder.ActiveWeaponTag() == "Sword")
-			{
-				cameraController.CancelSwordAim();
-			}
-		}
-		else if(closestEnemy == null && changeEnemy == true)
-		{
-			closestEnemy = enemyToSkip;
-		}
-
-		yield return closestEnemy;
-	}
-	#endregion
 
 	#endregion
 }

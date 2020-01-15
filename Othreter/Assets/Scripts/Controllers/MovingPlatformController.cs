@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class MovingPlatformController : MonoBehaviour
 {
-
-	Camera cam;
+	private Camera cam;
 
 	private void Start()
 	{

@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
 
 		UnityEngine.AI.NavMeshHit hit;
 		// If inside the lookRadius, in fov of enemy, is steping loudlyand if is in direct line of sight
-		if (distance <= lookDistance && angleToPlayer >= -80 && angleToPlayer <= 80 && !agent.Raycast(target.position, out hit) || distance <= 5.0f && playerController.crouch == false && !agent.Raycast(target.position, out hit))
+		if (distance <= lookDistance && angleToPlayer >= -80 && angleToPlayer <= 80 && !agent.Raycast(target.position, out hit) || distance <= 5.0f && DataHolder.playerState_Crouch == false && !agent.Raycast(target.position, out hit))
         {
             lastPlayerPosition = target.position; //last known player position
             wasInSight = true; //wa in sight once

@@ -1,29 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Experimental.Rendering.HDPipeline;
+﻿using UnityEngine;
+using UnityEngine.Rendering;
+//using UnityEngine.Rendering.HighDefinition;
 
 public class DepthOfFieldController : MonoBehaviour
 {
-	private DepthOfField dof;
+	/*DepthOfField depthOfField;
 	private Camera cam;
 
 	private void Start()
 	{
-		dof = GetComponent<DepthOfField>();
-		cam = ObjectsMenager.instance.cam;
+		Volume volume = GetComponent<Volume>();
+		DepthOfField tempDof;
+
+		if (volume.profile.TryGet<DepthOfField>(out tempDof))
+		{
+			depthOfField = tempDof;
+		}
 	}
 
 	private void Update()
     {
-		RaycastHit hit;
-		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100.0f))
+		if(DataHolder.DoFEnabled)
 		{
-			dof.focusDistance.value = Vector3.Distance(hit.point, cam.transform.position);
+			RaycastHit hit;
+			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100.0f))
+			{
+				depthOfField.focusDistance.value = Vector3.Distance(hit.point, cam.transform.position);
+			}
+			else
+			{
+				return;
+			}
 		}
 		else
 		{
 			return;
 		}
-	}
+	}*/
 }

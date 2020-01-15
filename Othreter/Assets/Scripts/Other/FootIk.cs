@@ -26,12 +26,6 @@ public class FootIk : MonoBehaviour
 	public bool useProIkFeature = false;
 	public bool showSolverDebug = true;
 
-	private float rDistance = 0.0f;
-	private float lDistance = 0.0f;
-
-	[HideInInspector]
-	public float distance = 0.0f;
-
 	private void Start()
 	{
 		anim = GetComponent<Animator>();
@@ -52,28 +46,8 @@ public class FootIk : MonoBehaviour
 		AdjustFeetTarget(ref leftFootPosition, HumanBodyBones.LeftFoot);
 
 		//find and raycast to the ground to find positions
-		rDistance = FeetPositionSolver(rightFootPosition, ref rightFootIkPosition, ref rightFootIkRotation); // handle the solver for right foot
-		lDistance = FeetPositionSolver(leftFootPosition, ref leftFootIkPosition, ref leftFootIkRotation); //handle the solver for the left foot
-
-		if(rDistance > lDistance)
-		{
-			distance = rDistance;
-		}
-		else if(lDistance > rDistance)
-		{
-			distance = lDistance;
-		}
-		else
-		{
-			distance =  rDistance;
-		}
-
-		distance -= heightFromGroundRaycast;
-
-		if(Mathf.Abs(distance) > raycastDownDistance)
-		{
-			distance = 0;
-		}
+		FeetPositionSolver(rightFootPosition, ref rightFootIkPosition, ref rightFootIkRotation); // handle the solver for right foot
+		FeetPositionSolver(leftFootPosition, ref leftFootIkPosition, ref leftFootIkRotation); //handle the solver for the left foot
 	}
 
 	private void OnAnimatorIK(int layerIndex)
@@ -81,7 +55,7 @@ public class FootIk : MonoBehaviour
 		if (enableFeetIk == false) { return; }
 		if (anim == null) { return; }
 
-		//MovePelvisHeight();
+		MovePelvisHeight();
 
 		//right foot ik position and rotation -- utilise the pro features in here
 		anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
@@ -171,7 +145,7 @@ public class FootIk : MonoBehaviour
 	/// <param name="fromSkyPosition">From sky position.</param>
 	/// <param name="feetIkPositions">Feet ik positions.</param>
 	/// <param name="feetIkRotations">Feet ik rotations.</param>
-	private float FeetPositionSolver(Vector3 fromSkyPosition, ref Vector3 feetIkPositions, ref Quaternion feetIkRotations)
+	private void FeetPositionSolver(Vector3 fromSkyPosition, ref Vector3 feetIkPositions, ref Quaternion feetIkRotations)
 	{
 		//raycast handling section 
 		RaycastHit feetOutHit;
@@ -185,12 +159,9 @@ public class FootIk : MonoBehaviour
 			feetIkPositions = fromSkyPosition;
 			feetIkPositions.y = feetOutHit.point.y + pelvisOffset;
 			feetIkRotations = Quaternion.FromToRotation(Vector3.up, feetOutHit.normal) * transform.rotation;
-
-			return feetOutHit.distance;
 		}
 
 		feetIkPositions = Vector3.zero; //it didn't work :(
-		return 0;
 
 	}
 	/// <summary>

@@ -18,9 +18,10 @@ public class ObjectsMenager : MonoBehaviour
 
 	[Header("Player")]
 	public GameObject player;
-	public GameObject playerModel;
 	public Camera cam;
 	public GameObject weaponHolder;
+
+	[Header("Weapons")]
 	public GameObject bow;
 	public GameObject sword;
 

@@ -175,6 +175,15 @@ public class PlayerPrefsMenager : MonoBehaviour
 		{
 			PlayerPrefs.SetString("weaponSlot4", DataHolder.WeaponSlot4.ToString());
 		}
+
+		if (PlayerPrefs.HasKey("inputDeadzone"))
+		{
+			DataHolder.inputDeadzone = PlayerPrefs.GetFloat("inputDeadzone");
+		}
+		else
+		{
+			PlayerPrefs.SetFloat("inputDeadzone", DataHolder.inputDeadzone);
+		}
 		#endregion
 	}
 
@@ -220,6 +229,8 @@ public class PlayerPrefsMenager : MonoBehaviour
 		PlayerPrefs.SetString("weaponSlot2", DataHolder.WeaponSlot2.ToString());
 		PlayerPrefs.SetString("weaponSlot3", DataHolder.WeaponSlot3.ToString());
 		PlayerPrefs.SetString("weaponSlot4", DataHolder.WeaponSlot4.ToString());
+
+		PlayerPrefs.SetFloat("inputDeadzone", DataHolder.inputDeadzone);
 		#endregion
 
 		PlayerPrefs.Save();

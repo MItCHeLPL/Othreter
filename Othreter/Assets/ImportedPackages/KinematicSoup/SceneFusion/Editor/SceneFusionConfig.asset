@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Debug: 1
   ShowGettingStartedScreen: 0
-  LastVersion: 1.8.2
+  LastVersion: 1.8.5
   Offsets:
     OnlineStatusOffset: {x: 0, y: 0}
     HierarchyIconOffset: 0

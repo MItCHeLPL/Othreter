@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 338427233231972228}
   - component: {fileID: 338427233231972231}
   - component: {fileID: 338427233231972230}
-  - component: {fileID: 8213906149556352725}
   - component: {fileID: 6046623800707996574}
-  - component: {fileID: 1652139916}
+  - component: {fileID: 179896493}
+  - component: {fileID: 179896494}
   m_Layer: 8
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -51,16 +51,16 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 20.78461
+  m_FocalLength: 25
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 51.28201
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -86,38 +86,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338427233231972248}
   m_Enabled: 1
---- !u!114 &8213906149556352725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338427233231972248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e263a6fc9b63f4bb25ca7dce199230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minYAngle: -89
-  maxYAngle: 89
-  weaponDistance: 1.75
-  changingDistanceEnabled: 1
-  maxDistance: 3.5
-  minDistance: 1.5
-  distance: 2
-  aimDistance: 1
-  sensitivityX: 2
-  sensitivityY: 1
-  lookAtOffset: {x: 0.8, y: 1.75, z: 0}
-  WaitToShake: 3
-  crouchDistanceDivider: 0.25
-  currentX: 0
-  currentY: 0
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 1537
-  aiming: 0
-  weaponDistanceChangeDone: 1
 --- !u!114 &6046623800707996574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +127,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_RenderingPathCustomFrameSettings:
     bitDatas:
-      data1: 69284256022301
+      data1: 69456054714141
       data2: 4539628424389459968
     lodBias: 1
     lodBiasMode: 0
@@ -170,7 +138,7 @@ MonoBehaviour:
       data1: 0
       data2: 0
   defaultFrameSettings: 0
-  m_Version: 5
+  m_Version: 6
   m_ObsoleteRenderingPath: 0
   m_ObsoleteFrameSettings:
     overrides: 0
@@ -217,7 +185,7 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
---- !u!114 &1652139916
+--- !u!114 &179896493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,24 +194,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 338427233231972248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 466f5d370469efe418730fd8cd901331, type: 3}
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frequency: 0.25
-  _translationMasterMagnitude: 0.15
-  _translateAxisX: 1
-  _translateAxisY: 1
-  _translateAxisZ: 1
-  _translateAxisXMultiplier: 1
-  _translateAxisYMultiplier: 0.5
-  _translateAxisZMultiplier: 1
-  _rotationMasterMagnitude: 15
-  _rotateAxisX: 1
-  _rotateAxisY: 1
-  _rotateAxisZ: 1
-  _rotateAxisXMultiplier: 1
-  _rotateAxisYMultiplier: 1
-  _rotateAxisZMultiplier: 1
-  _decay: 0
-  _trauma: 0
-  _shakeJobRunning: 0
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 0.3
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &179896494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338427233231972248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d63faa7afe55242a66f720e3092554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameras:
+  - {fileID: 0}
+  - {fileID: 0}

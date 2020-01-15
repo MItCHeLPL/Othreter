@@ -71,10 +71,10 @@ public class EnemyStats : CharacterStats
 
 		StartCoroutine(Dissolve());
 
-		if (playerController.swordAiming == true)
+		/*if (playerController.swordAiming == true)
 		{
 			playerController.FindEnemy(gameObject, false);
-		}
+		}*/
 	}
 
 	private void RefreshHealthUI()

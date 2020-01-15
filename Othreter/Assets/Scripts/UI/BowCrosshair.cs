@@ -53,7 +53,7 @@ public class BowCrosshair : MonoBehaviour
 
 	void OnGUI()
 	{
-		if(cameraController.aiming == true && bow.gameObject.activeInHierarchy == true)
+		if(DataHolder.playerState_Aiming == true && bow.gameObject.activeInHierarchy == true)
 		{
 			crosshair.SetActive(true);
 
