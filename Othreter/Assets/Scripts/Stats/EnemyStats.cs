@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
-    Rigidbody rb;
-	PlayerController playerController;
+	[Space(10)]
+
+	Rigidbody rb;
+
 	EnemyUI enemyUI;
 	[SerializeField]
-	private GameObject model;
+	private GameObject model = default;
 	[SerializeField]
-	private Material dieMaterial;
+	private Material dieMaterial = default;
 	[SerializeField]
-	private GameObject uIGameObject;
+	private GameObject uIGameObject = default;
 
 	private Renderer modelRenderer;
 
-	private Animator anim;
-
-	private void Start()
+	public override void Start()
 	{
-		playerController = ObjectsMenager.instance.player.GetComponent<PlayerController>();
-		enemyUI = GetComponent<EnemyUI>();
-		anim = GetComponent<Animator>();
+		base.Start();
 
-		StartCoroutine(CheckArmour());
+		enemyUI = GetComponent<EnemyUI>();
 
 		RefreshHealthUI();
 
@@ -34,23 +32,27 @@ public class EnemyStats : CharacterStats
 	public override void TakeDamage(int damage) //u can add more events while taking damage only for player
     {
         base.TakeDamage(damage);
-		anim.SetTrigger("GotHurt");
-		RefreshHealthUI();
 	}
 
 	public override void TakeTrueDamage(int damage) //u can add more events while taking damage only for player
 	{
 		base.TakeTrueDamage(damage);
-		anim.SetTrigger("GotHurt");
-		RefreshHealthUI();
+	}
+
+	public override void Heal(int amount)
+	{
+		base.Heal(amount);
+	}
+
+	public override void HealArmor(int amount)
+	{
+		base.HealArmor(amount);
 	}
 
 	public override void Die()
     {
         base.Die();
 
-		anim.ResetTrigger("GotHurt");
-		anim.SetTrigger("Death");
 		enemyUI.enabled = false;
 		uIGameObject.SetActive(false);
 		GetComponent<EnemyController>().enabled = false;
@@ -69,29 +71,14 @@ public class EnemyStats : CharacterStats
             }
         }
 
-		StartCoroutine(Dissolve());
-
-		/*if (playerController.swordAiming == true)
-		{
-			playerController.FindEnemy(gameObject, false);
-		}*/
+		StartCoroutine(Dissolve()); //switch to death effect
 	}
 
-	private void RefreshHealthUI()
+	public override void RefreshHealthUI()
 	{
-		enemyUI.HPChange(armor.GetValue(), maxArmor, currentHealth, maxHealth);
-	}
+		base.RefreshHealthUI();
 
-	private IEnumerator CheckArmour()
-	{
-		while (true)
-		{
-			if (armorRegenerating)
-			{
-				RefreshHealthUI();
-			}
-			yield return new WaitForSeconds(regenRatePerSecond - 0.1f);
-		}
+		enemyUI.HPChange(currentArmor.GetValue(), maxArmor.GetValue(), currentHealth.GetValue(), maxHealth.GetValue());
 	}
 
 	public IEnumerator Dissolve()

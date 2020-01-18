@@ -2,63 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class PlayerStats : CharacterStats
 {
-	private Animator anim;
 	private UIController UIController;
 
-	private void Start()
+	[Space(10)]
+
+	[SerializeField] private float waitToReloadAfterDeath = 4.0f;
+
+	public override void Start()
 	{
-		anim = GetComponent<Animator>();
+		base.Start();
 
 		UIController = ObjectsMenager.instance.UIMenager.GetComponent<UIController>();
-
-
-		StartCoroutine(CheckArmour());
 	}
 
 	public override void TakeDamage(int damage) //u can add more events while taking damage only for player
     {
-		anim.SetTrigger("GotHurt");
         base.TakeDamage(damage);
-		RefreshHealthUI();
 	}
 
 	public override void TakeTrueDamage(int damage) //u can add more events while taking damage only for player
 	{
-		anim.SetTrigger("GotHurt");
 		base.TakeTrueDamage(damage);
-		RefreshHealthUI();
+	}
+
+	public override void Heal(int amount)
+	{
+		base.Heal(amount);
+	}
+
+	public override void HealArmor(int amount)
+	{
+		base.HealArmor(amount);
 	}
 
 	public override void Die()
     {
         base.Die();
 
-		anim.ResetTrigger("GotHurt");
-		anim.SetTrigger("Death");
+		DataHolder.playerState_Controllable = false;
+		DataHolder.playerState_Dead = true;
 
-		//state death, cant control itp.
-
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);//when player dies, game reloads level //after fadee itp.
+		StartCoroutine(WaitToReloadTheLevel(waitToReloadAfterDeath));
 	}
 
-	private void RefreshHealthUI()
+	public override void RefreshHealthUI()
 	{
-		UIController.HPChange(armor.GetValue(), maxArmor, currentHealth, maxHealth);
+		base.RefreshHealthUI();
+
+		UIController.HPChange(currentArmor.GetValue(), maxArmor.GetValue(), currentHealth.GetValue(), maxHealth.GetValue());
 	}
 
-	private IEnumerator CheckArmour()
+	private IEnumerator WaitToReloadTheLevel(float waitTime)
 	{
-		while (true)
-		{
-			if(armorRegenerating)
-			{
-				RefreshHealthUI();
-			}
-			yield return new WaitForSeconds(regenRatePerSecond - 0.1f);
-		}
+		yield return new WaitForSeconds(waitTime);
+
+		DataHolder.playerState_Controllable = true;
+		DataHolder.playerState_Dead = false; //temp, do this in deathscreen
+
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name); //when player dies, game reloads level //temp, later change to deathscreen
 	}
 }

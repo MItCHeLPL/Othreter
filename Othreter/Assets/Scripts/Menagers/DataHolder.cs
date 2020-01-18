@@ -73,6 +73,7 @@ public static class DataHolder
 	public static bool playerState_Dead { get; set; } = false;
 	public static bool playerState_GotHurt { get; set; } = false;
 	public static bool playerState_Sliding { get; set; } = false;
+	public static bool playerState_InMenu { get; set; } = false;
 
 	#endregion
 

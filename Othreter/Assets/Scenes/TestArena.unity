@@ -358,7 +358,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29880
+  m_Name: pb_Mesh29786
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -751,7 +751,7 @@ PrefabInstance:
     - target: {fileID: 1960857363021571365, guid: 73660cd5f57038d4394d2aac574b48c4,
         type: 3}
       propertyPath: maxArmor
-      value: 50
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 883025685, guid: 73660cd5f57038d4394d2aac574b48c4, type: 3}
       propertyPath: m_Camera
@@ -2723,7 +2723,7 @@ PrefabInstance:
     - target: {fileID: 1960857363021571365, guid: 73660cd5f57038d4394d2aac574b48c4,
         type: 3}
       propertyPath: maxArmor
-      value: 50
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 883025685, guid: 73660cd5f57038d4394d2aac574b48c4, type: 3}
       propertyPath: m_Camera
@@ -5960,7 +5960,7 @@ PrefabInstance:
     - target: {fileID: 1960857363021571365, guid: 73660cd5f57038d4394d2aac574b48c4,
         type: 3}
       propertyPath: maxArmor
-      value: 50
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 883025685, guid: 73660cd5f57038d4394d2aac574b48c4, type: 3}
       propertyPath: m_Camera
@@ -10550,7 +10550,7 @@ PrefabInstance:
     - target: {fileID: 1960857363021571365, guid: 73660cd5f57038d4394d2aac574b48c4,
         type: 3}
       propertyPath: maxArmor
-      value: 50
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 883025685, guid: 73660cd5f57038d4394d2aac574b48c4, type: 3}
       propertyPath: m_Camera
@@ -11616,6 +11616,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952562958869354098, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5524125333605208712, guid: 89ecc204fbfd5ab4899ff2f3252b71f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89ecc204fbfd5ab4899ff2f3252b71f4, type: 3}
@@ -12830,11 +12840,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7297990534678596117, guid: 66c1e317f48e92240a5d8ec6f2830cba,
-        type: 3}
-      propertyPath: m_LookaheadTime
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66c1e317f48e92240a5d8ec6f2830cba, type: 3}
 --- !u!1 &7644185163668882873 stripped
@@ -12959,11 +12964,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1320761222}
-    - target: {fileID: 3005158670236271730, guid: 73660cd5f57038d4394d2aac574b48c4,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8bae495e53cb1d547b650ebe3587e1c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73660cd5f57038d4394d2aac574b48c4, type: 3}
 --- !u!1 &7731772985210514619 stripped

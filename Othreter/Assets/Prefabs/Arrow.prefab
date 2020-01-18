@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trail: {fileID: 7469339460139382822}
-  light: {fileID: 6543244747815600495}
+  arrowLight: {fileID: 6543244747815600495}
 --- !u!54 &4972076828174690496
 Rigidbody:
   m_ObjectHideFlags: 0

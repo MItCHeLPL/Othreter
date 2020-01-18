@@ -5,90 +5,172 @@ using System.Collections;
 
 public class CharacterStats : MonoBehaviour
 {
-    // Health
-    public int maxHealth = 100;
-	public int maxArmor = 100;
-	public int currentHealth { get; private set; }
+	//public int currentHealth { get; private set; }
 
-    public Stat damage;
-    public Stat armor;
+	private Animator anim;
+
+	[HideInInspector]
+	public Stat damage;
+
+	[Header("Settings")]
+	public Stat currentHealth;
+	public Stat maxHealth;
+
+	[Space(10)]
+
+	[SerializeField] private bool armorEnabled = true;
+
+	public Stat currentArmor;
+	public Stat maxArmor;
 
 	public int waitBeforeArmorRegen = 5;
 	public int addedArmorPerRegen = 5;
 	public int regenRatePerSecond = 1;
 
+	private IEnumerator armorRegen = null;
+
+	[HideInInspector]
+	public bool isAlive = true;
 	[HideInInspector]
 	public bool armorRegenerating = false;
 
-	// Set current health to max health
-	// when starting the game.
+	public virtual void Start()
+	{
+		anim = GetComponent<Animator>();
+	}
 
-	private IEnumerator armorRegen = null;
-
-    void Awake()
+	void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth.SetValue(maxHealth.GetValue());
+		if(currentArmor.GetValue() < maxArmor.GetValue() && armorEnabled)
+		{
+			armorRegen = ArmorRegen();
+			StartCoroutine(armorRegen);
+		}
+		else if(!armorEnabled)
+		{
+			currentArmor.SetValue(0);
+		}
     }
 
 	// Damage the character
 	public virtual void TakeDamage(int damage)
     {
-		if(armorRegenerating)
+		if(isAlive)
 		{
-			StopCoroutine(armorRegen);
+			if (armorEnabled)
+			{
+				if (armorRegenerating)
+				{
+					StopCoroutine(armorRegen);
+				}
+
+				if (currentArmor.GetValue() > 0)
+				{
+					int temp = currentArmor.GetValue();
+					currentArmor.SetValue(Mathf.Clamp(currentArmor.GetValue() - damage, 0, maxArmor.GetValue()));
+					damage -= temp;
+				}
+
+				damage = Mathf.Clamp(damage, 0, int.MaxValue);
+
+				anim.SetTrigger("GotHurt");
+
+				// Damage the character
+				currentHealth.SetValue(Mathf.Clamp(currentHealth.GetValue() - damage, 0, maxHealth.GetValue()));
+
+				// If health reaches zero
+				if (currentHealth.GetValue() <= 0)
+				{
+					Die();
+				}
+
+				armorRegen = ArmorRegen();
+				StartCoroutine(armorRegen);
+
+				RefreshHealthUI();
+			}
+			else
+			{
+				TakeTrueDamage(damage);
+			}
 		}
-		
-		if(armor.GetValue() > 0)
-		{
-			int temp = armor.GetValue();
-			armor.SetValue(Mathf.Clamp(armor.GetValue() - damage, 0, maxArmor));
-			damage -= temp;
-		}
-
-        damage = Mathf.Clamp(damage, 0, int.MaxValue);
-
-        // Damage the character
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
-
-        // If health reaches zero
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-		armorRegen = ArmorRegen();
-		StartCoroutine(armorRegen);
 	}
 
     public virtual void TakeTrueDamage(int damage) //damage that ignores armor
     {
-		// Damage the character
-		armor.SetValue(Mathf.Clamp(armor.GetValue() - damage, 0, maxArmor));
-		currentHealth -= damage;
+		if (isAlive)
+		{
+			// Damage the character
+			if (armorEnabled)
+			{
+				currentArmor.SetValue(Mathf.Clamp(currentArmor.GetValue() - damage, 0, maxArmor.GetValue()));
+			}
+			currentHealth.SetValue(Mathf.Clamp(currentHealth.GetValue() - damage, 0, maxHealth.GetValue()));
 
-        // If health reaches zero
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
+			anim.SetTrigger("GotHurt");
 
-    public virtual void Die()
+			// If health reaches zero
+			if (currentHealth.GetValue() <= 0)
+			{
+				Die();
+			}
+
+			if (armorEnabled)
+			{
+				armorRegen = ArmorRegen();
+				StartCoroutine(armorRegen);
+			}
+
+			RefreshHealthUI();
+		}
+	}
+
+	public virtual void Heal(int amount) //damage that ignores armor
+	{
+		if (isAlive)
+		{
+			currentHealth.SetValue(currentHealth.GetValue() + amount);
+
+			RefreshHealthUI();
+		}
+	}
+
+	public virtual void HealArmor(int amount) //damage that ignores armor
+	{
+		if (isAlive)
+		{
+			currentArmor.SetValue(Mathf.Clamp(currentArmor.GetValue() + amount, 0, maxArmor.GetValue()));
+
+			RefreshHealthUI();
+		}
+	}
+
+	public virtual void Die()
     {
-        // Die in some way
-        // This method is meant to be overwritten
-    }
+		isAlive = false;
+		anim.ResetTrigger("GotHurt");
+		anim.SetTrigger("Death");
+
+		// This method is meant to be overwritten
+	}
+
+	public virtual void RefreshHealthUI()
+	{
+		//To be overwritten
+	}
 
 	private IEnumerator ArmorRegen()
 	{
 		armorRegenerating = true;
-		yield return new WaitForSecondsRealtime(waitBeforeArmorRegen);
+		yield return new WaitForSeconds(waitBeforeArmorRegen);
 
-		while (armor.GetValue() < maxArmor)
+		while (currentArmor.GetValue() < maxArmor.GetValue())
 		{
-			armor.SetValue(Mathf.Clamp(armor.GetValue() + addedArmorPerRegen, 0, maxArmor));
-			yield return new WaitForSecondsRealtime(regenRatePerSecond);
+			currentArmor.SetValue(Mathf.Clamp(currentArmor.GetValue() + addedArmorPerRegen, 0, maxArmor.GetValue()));
+			RefreshHealthUI();
+			yield return new WaitForSeconds(regenRatePerSecond);
 		}
 		armorRegenerating = false;
 	}
-
 }

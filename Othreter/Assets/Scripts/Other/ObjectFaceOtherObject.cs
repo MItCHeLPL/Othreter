@@ -5,10 +5,10 @@ using UnityEngine;
 public class ObjectFaceOtherObject : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject obj;
+	private GameObject obj = default;
 
 	[SerializeField]
-	private GameObject target;
+	private GameObject target = default;
 
     void Update()
     {

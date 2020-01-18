@@ -7,14 +7,13 @@ using UnityEngine;
 [System.Serializable]
 public class Stat
 {
-
     [SerializeField]
-    private int baseValue = 0;  // Starting value
+    private int baseValue = 0;
     
 
-    public int GetValue() //returns value
+    public int GetValue()
     {
-        return baseValue; //temp while theres no perks nor items
+        return baseValue;
     }
 
 	public void SetValue(int value)

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
 
 	[HideInInspector] public Vector3 moveDirection;
-	private Quaternion modelRotation;
+	[HideInInspector] public Quaternion modelRotation;
 	private Vector3 desiredRotation;
 	private bool desiredRotated = false;
 	private Vector3 colliderHitNormal;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private bool jumpEnabled = true;
 	[SerializeField] private bool sprintEnabled = true;
 	[SerializeField] private bool crouchEnabled = true;
-	[SerializeField] private bool modelRotationEnabled = true;
+	[HideInInspector] public bool modelRotationEnabled = true;
 	[SerializeField] private bool rigidbodyForceEnabled = true;
 	[SerializeField] private bool slidingEnabled = true;
 	[SerializeField] private bool WASDEnabled = true;
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float crouchHeight = 1.5f;
 
 	[Header("Layers")]
-	[SerializeField] private LayerMask crouchWallLayer;
+	[SerializeField] private LayerMask crouchWallLayer = default;
 
 	[HideInInspector] public bool groundAngleOverLimit = false;
 	private readonly float slopeLimitCheckDistance = 5.25f; //how low should ray go to check if player is coming down the slope
@@ -266,17 +266,17 @@ public class PlayerController : MonoBehaviour
 
 		#region Model Rotation
 
-		if (modelRotationEnabled && DataHolder.playerState_Controllable)
+		if (modelRotationEnabled && DataHolder.playerState_Controllable && DataHolder.playerState_Aiming == false) //when Aiming weapon script handles model rotation
 		{
-			if (controller.velocity.magnitude > 0.25f && DataHolder.playerState_Aiming == false && DataHolder.playerState_Jump == false) //rotation when moving
+			if (controller.velocity.magnitude > 0.25f && DataHolder.playerState_Jump == false) //rotation when moving
 			{
-				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(controller.velocity.x, 0.0f, controller.velocity.z)), 7.5f * Time.deltaTime);
+				transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(controller.velocity.x, 0.0f, controller.velocity.z)), 7.5f * Time.deltaTime);
 				modelRotation = transform.rotation;
 				desiredRotation = controller.velocity;
 				desiredRotated = false;
 			}
 
-			else if ((controller.velocity == Vector3.zero || DataHolder.playerState_Jump) && DataHolder.playerState_Aiming == false && desiredRotation != Vector3.zero && modelRotation != Quaternion.identity) //rotation to desired point
+			else if ((controller.velocity == Vector3.zero || DataHolder.playerState_Jump) && desiredRotation != Vector3.zero && modelRotation != Quaternion.identity) //rotation to desired point
 			{
 				if (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(new Vector3(desiredRotation.x, 0.0f, desiredRotation.z))) < 0.1f)
 				{
@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour
 				}
 				if (desiredRotated == false)
 				{
-					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(desiredRotation.x, 0.0f, desiredRotation.z)), 7.5f * Time.deltaTime);
+					transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(new Vector3(desiredRotation.x, 0.0f, desiredRotation.z)), 7.5f * Time.deltaTime);
 					modelRotation = transform.rotation;
 				}
 				else
@@ -292,18 +292,13 @@ public class PlayerController : MonoBehaviour
 					transform.rotation = modelRotation;
 				}
 			}
-			else if (DataHolder.playerState_Aiming) //rotation when aiming, tmep, it will be in weapon script
-			{
-				transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0), 7.5f * Time.deltaTime);
-				modelRotation = transform.rotation;
-			}
 		}
 
 		#endregion
 
 		#region Slope
 
-		if(slidingEnabled && DataHolder.playerState_Controllable)
+		if (slidingEnabled && DataHolder.playerState_Controllable)
 		{ 
 			if (groundAngle > angleLimitToSlide)
 			{

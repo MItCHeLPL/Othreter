@@ -15,7 +15,7 @@ public class FootIk : MonoBehaviour
 	public bool enableFeetIk = true;
 	[Range(0, 2)] [SerializeField] private float heightFromGroundRaycast = 1.14f;
 	[Range(0, 2)] [SerializeField] private float raycastDownDistance = 0.875f;
-	[SerializeField] private LayerMask environmentLayer;
+	[SerializeField] private LayerMask environmentLayer = default;
 	[SerializeField] private float pelvisOffset = 0f;
 	[Range(0, 1)] [SerializeField] private float pelvisUpAndDownSpeed = 0.28f;
 	[Range(0, 1)] [SerializeField] private float feetToIkPositionSpeed = 0.5f;

@@ -14,7 +14,7 @@ public class FallDamage : MonoBehaviour
     [SerializeField] private float minFallDistance = 4.0f; //minimal distance that player have to fall to get damage
 	[SerializeField] private float damageMultiplier = 2.5f; //how many times you want to divide the damage from falling
 
-	[SerializeField] private GameObject trail;
+	[SerializeField] private GameObject trail = default;
 
 	[SerializeField] private float speedAfterFalling = 3.0f; //valu that speed is reduced to when falling and getting damage
 

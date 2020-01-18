@@ -65,8 +65,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Health XXX/XXX
 
 '
@@ -335,8 +333,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Texture: {fileID: 0}
   m_UVRect:
     serializedVersion: 2
@@ -1597,15 +1593,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586e8004741b7e44db7af738eb116196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxArmor: 50
   damage:
     baseValue: 0
-  armor:
+  currentHealth:
+    baseValue: 100
+  maxHealth:
+    baseValue: 100
+  armorEnabled: 1
+  currentArmor:
+    baseValue: 50
+  maxArmor:
     baseValue: 50
   waitBeforeArmorRegen: 5
   addedArmorPerRegen: 5
   regenRatePerSecond: 1
+  isAlive: 1
   armorRegenerating: 0
   model: {fileID: 8293121553648682235}
   dieMaterial: {fileID: 2100000, guid: 80cb70f1d7f97594799eb22dabd691bf, type: 2}
@@ -1672,7 +1674,6 @@ MonoBehaviour:
   rightFootAnimVariableName: RightFootCurve
   useProIkFeature: 0
   showSolverDebug: 0
-  distance: 0
 --- !u!1 &6012788822924133167
 GameObject:
   m_ObjectHideFlags: 0

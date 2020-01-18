@@ -9,11 +9,14 @@ public class Bow : Weapon
 	private UIController UIController;
 	private SkinnedMeshRenderer meshRenderer;
 
+	private PlayerController playerController;
+	private Animator anim;
+
 	[Header("Arrow")]
 	[SerializeField]
-	private GameObject ArrowPrefab;
+	private GameObject ArrowPrefab = default;
 	[SerializeField]
-	private Transform ArrowSpawn;
+	private Transform ArrowSpawn = default;
 
 	[Header("Cooldowns")]
 	[SerializeField]
@@ -28,14 +31,11 @@ public class Bow : Weapon
 	private int maxAmmo = 25;
 	public int currentAmmo;
 
-    private PlayerController playerController;
-	private Animator anim;
-
 	[Header("Raycast")]
 	[SerializeField]
 	private float aimDistance = 1000.0f;
 	[SerializeField]
-	private LayerMask LayersForArrow;
+	private LayerMask LayersForArrow = default;
 
 	private Rigidbody arrowRB; //Arrow's rigidbody
 	private GameObject arrow; //Arrow
@@ -46,9 +46,9 @@ public class Bow : Weapon
 	[Header("Shoot Force")]
 	[SerializeField]
 	private float lerpSpeed = 25f;
-	private float currentLerpTime;
+	private float currentLerpTime = 0.0f;
 
-	public float shootForce;
+	public float shootForce = 0.0f;
 	[SerializeField]
 	private float baseShootForce = 5.0f;
 	public float maxShootForce = 75.0f;
@@ -65,7 +65,7 @@ public class Bow : Weapon
 	private Transform chest;
 	private Transform head;
 	[SerializeField]
-	private Vector3 boneAimOffset;
+	private Vector3 boneAimOffset = new Vector3(0,0,0);
 
 
 	public override void Start()
@@ -92,7 +92,7 @@ public class Bow : Weapon
 
 		if (arrowInstantiated == false && currentAmmo > 0) //instantiate arrow when picking up a bow
 		{
-			InstantiateArrow();
+			InstantiateArrow(); // add as a trigger in animation
 		}
 
 		StartCoroutine(DataHolder.SetAnimLayer(anim, DataHolder.BowEquippedLayerId, 1, 10.0f));
@@ -215,6 +215,8 @@ public class Bow : Weapon
 
 					arrowReleased = true;
 
+					arrow.GetComponent<Arrow>().speed = shootForce;
+
 					if (arrowInstantiated == false && currentAmmo > 0)
 					{
 						InstantiateArrow();
@@ -292,6 +294,13 @@ public class Bow : Weapon
 		base.Aim();
 
 		anim.SetLayerWeight(DataHolder.BowAimLayerId, 1);
+
+		//playermodel rotation
+		if(playerController.modelRotationEnabled)
+		{
+			playerController.transform.rotation = Quaternion.Lerp(playerController.transform.rotation, Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0), 7.5f * Time.deltaTime);
+			playerController.modelRotation = playerController.transform.rotation;
+		}	
 	}
 
 	public override void StopAim()

@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5602a361c5f07b449bf7c3d26669e053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AimCameraEnabled: 1
   AimCameraId: 0
   activeWeaponSpeedSub: 0.5
   coolDown: 1
@@ -1665,6 +1666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bba5174717e5dc49b439de0673cb530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AimCameraEnabled: 1
   AimCameraId: 0
   activeWeaponSpeedSub: 0
 --- !u!1 &4894227224852816982
@@ -2971,16 +2973,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2f83e1c288c22409c2c66ce1fa7144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxArmor: 100
   damage:
     baseValue: 0
-  armor:
+  currentHealth:
+    baseValue: 100
+  maxHealth:
+    baseValue: 100
+  armorEnabled: 1
+  currentArmor:
+    baseValue: 100
+  maxArmor:
     baseValue: 100
   waitBeforeArmorRegen: 5
   addedArmorPerRegen: 5
   regenRatePerSecond: 1
+  isAlive: 1
   armorRegenerating: 0
+  waitToReloadAfterDeath: 4
 --- !u!114 &1777049166057040888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3385,6 +3394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65b1b29a8a5fa647ad280ff3ffd001e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AimCameraEnabled: 1
   AimCameraId: 1
   activeWeaponSpeedSub: 0.5
   ArrowPrefab: {fileID: 4972076828174690498, guid: a1c85700ce0e49a4d8fec2b51fac676c,

@@ -4,44 +4,48 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    Rigidbody myBody;
-    private bool hitSomething = false;
+	private Rigidbody myBody;
+	private bool hitSomething = false;
 
-    Collision _collider;
+	private Collision _collider;
 
-    BoxCollider arrowCollider;
+	private BoxCollider arrowCollider;
 
-    EnemyStats enemy;
+	private EnemyStats enemy;
 
-    Bow bow;
+	private Bow bow;
+
 	private bool enemyHit = false;
 
-	public GameObject trail;
-	public GameObject light;
+	[SerializeField] private GameObject trail = default;
+	[SerializeField] private GameObject arrowLight = default;
 
 	private bool released = false;
 
+	[HideInInspector]
+	public float speed = 0.0f;
+
 	void Start()
-    {
-        myBody = GetComponent<Rigidbody>();
+	{
+		myBody = GetComponent<Rigidbody>();
 
 		myBody.velocity = Vector3.zero;
 
 		arrowCollider = GetComponent<BoxCollider>();
 
-        bow = ObjectsMenager.instance.bow.GetComponent<Bow>();
+		bow = ObjectsMenager.instance.bow.GetComponent<Bow>();
 
-        Physics.IgnoreCollision(GetComponent<BoxCollider>(), ObjectsMenager.instance.player.GetComponent<CapsuleCollider>());
+		Physics.IgnoreCollision(GetComponent<BoxCollider>(), ObjectsMenager.instance.player.GetComponent<CapsuleCollider>());
 
 		arrowCollider.enabled = false;
 		trail.SetActive(false);
-		light.SetActive(false);
+		arrowLight.SetActive(false);
 	}
 
-    void Update()
-    {
-        if (!hitSomething && myBody.velocity != Vector3.zero)
-        {
+	void Update()
+	{
+		if (!hitSomething && myBody.velocity != Vector3.zero)
+		{
 			arrowCollider.enabled = true;
 			//arrowCollider.center = new Vector3(arrowCollider.center.x, arrowCollider.center.y, (bow.shootForce + 0.35f) * -0.004f);
 			transform.rotation = Quaternion.LookRotation(myBody.velocity);
@@ -49,33 +53,33 @@ public class Arrow : MonoBehaviour
 			trail.SetActive(true);
 
 			released = true;
-        }
+		}
 
-        /*if(bow.arrowsOnGround > 25)
+		/*if(bow.arrowsOnGround > 25)
         {
             StartCoroutine(Destroy());
 			bow.currentAmmo++;
 		}*/
-    }
+	}
 
-    IEnumerator Destroy()
-    {
-        yield return new WaitForSeconds(3);
-        Destroy(gameObject);
-    }
+	IEnumerator Destroy()
+	{
+		yield return new WaitForSeconds(3);
+		Destroy(gameObject);
+	}
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.CompareTag("Player") && enemyHit == false)
-        {
+	private void OnTriggerEnter(Collider col)
+	{
+		if (col.gameObject.CompareTag("Player") && enemyHit == false)
+		{
 			bow.AddAmmo();
 			Destroy(gameObject);
 		}
-    }
+	}
 
-    private void OnCollisionEnter(Collision col)
-    {
-		if(released == true)
+	private void OnCollisionEnter(Collision col)
+	{
+		if (released == true)
 		{
 			_collider = col;
 
@@ -90,7 +94,7 @@ public class Arrow : MonoBehaviour
 				gameObject.transform.parent = _collider.transform;
 				afterCollision();
 				enemy = col.gameObject.GetComponent<EnemyStats>();
-				enemy.TakeDamage((int)bow.shootForce / 3);
+				enemy.TakeDamage((int)speed / 3);
 			}
 			else if (col.gameObject.CompareTag("Headshot"))
 			{
@@ -98,13 +102,13 @@ public class Arrow : MonoBehaviour
 				gameObject.transform.parent = _collider.transform.parent;
 				afterCollision();
 				enemy = col.transform.parent.gameObject.GetComponent<EnemyStats>();
-				if(bow.maxShootForceAchieved == true)
+				if (bow.maxShootForce <= speed)
 				{
-					enemy.TakeTrueDamage(enemy.currentHealth);
+					enemy.TakeTrueDamage(enemy.currentHealth.GetValue());
 				}
 				else
 				{
-					enemy.TakeTrueDamage((int)(bow.shootForce / 3) * 2);
+					enemy.TakeTrueDamage((int)(speed / 3) * 2);
 				}
 			}
 
@@ -119,19 +123,19 @@ public class Arrow : MonoBehaviour
 				afterCollision();
 			}
 		}
-    }
+	}
 
-    private void afterCollision()
-    {
+	private void afterCollision()
+	{
 		trail.GetComponent<TrailRenderer>().time = 0.3f;
-		light.SetActive(true);
+		arrowLight.SetActive(true);
 		hitSomething = true;
 		myBody.constraints = RigidbodyConstraints.FreezeAll;
 		myBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		arrowCollider.isTrigger = true;
 		myBody.isKinematic = true;
-        arrowCollider.size = new Vector3(5.0f, 5.0f, 50.0f);
-        arrowCollider.center = new Vector3(0f, 0f, 15.0f);
+		arrowCollider.size = new Vector3(5.0f, 5.0f, 50.0f);
+		arrowCollider.center = new Vector3(0f, 0f, 15.0f);
 		trail.transform.SetParent(null);
 	}
 }
