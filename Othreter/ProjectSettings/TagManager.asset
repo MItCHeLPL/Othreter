@@ -22,8 +22,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Wall
-  - Climb
+  - IgnoreShooting
+  - 
   - Enemy
   - 
   - Player

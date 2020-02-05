@@ -9,7 +9,7 @@ public static class DataHolder
 	#endregion
 
 	#region Video Settings
-	public static bool DoFEnabled { get; set; } = false;
+	public static bool DoFEnabled { get; set; } = true;
 	#endregion
 
 	#region Input Settings

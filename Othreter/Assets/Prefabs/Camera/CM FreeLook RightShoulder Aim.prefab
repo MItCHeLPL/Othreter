@@ -217,9 +217,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7297990535400542513}
   - component: {fileID: 7297990535400542514}
-  - component: {fileID: 7297990535400542515}
   - component: {fileID: 7297990535400542516}
   - component: {fileID: 7297990535400542517}
+  - component: {fileID: 712975181}
   m_Layer: 0
   m_Name: CM FreeLook RightShoulder Aim
   m_TagString: Untagged
@@ -352,36 +352,6 @@ MonoBehaviour:
   - {fileID: 7297990536177868511}
   - {fileID: 7297990534552761831}
   - {fileID: 7297990536212404552}
---- !u!114 &7297990535400542515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7297990535400542518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CollideAgainst:
-    serializedVersion: 2
-    m_Bits: 1537
-  m_IgnoreTag: Player
-  m_TransparentLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_MinimumDistanceFromTarget: 0.1
-  m_AvoidObstacles: 1
-  m_DistanceLimit: 0
-  m_MinimumOcclusionTime: 0
-  m_CameraRadius: 0.15
-  m_Strategy: 0
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0
-  m_Damping: 0.3
-  m_DampingWhenOccluded: 0.3
-  m_OptimalTargetDistance: 0
 --- !u!114 &7297990535400542516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +387,24 @@ MonoBehaviour:
   camShakeEnabled: 0
   WaitToShake: 1.5
   maxShakeAmplitude: 1
+--- !u!114 &712975181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297990535400542518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbac43766a1b30c4eb2763b7431be884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceToPlayer: 1.5
+  transparentMaterial: {fileID: 2100000, guid: ec39e2f0a32dd8848b123386b268edcd, type: 2}
+  antiShootLayer: 9
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2561
 --- !u!1 &7297990535532347006
 GameObject:
   m_ObjectHideFlags: 0

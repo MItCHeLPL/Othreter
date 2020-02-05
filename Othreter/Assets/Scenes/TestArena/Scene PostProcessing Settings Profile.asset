@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   m_AdvancedMode: 1
+  quality:
+    m_OverrideState: 1
+    m_Value: 1
   focusMode:
     m_OverrideState: 1
     m_Value: 1
@@ -22,45 +25,45 @@ MonoBehaviour:
     m_Value: 10
     min: 0.1
   nearFocusStart:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
     min: 0
   nearFocusEnd:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 4
     min: 0
   farFocusStart:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 10
     min: 0
   farFocusEnd:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 20
     min: 0
-  nearSampleCount:
+  m_NearSampleCount:
     m_OverrideState: 1
     m_Value: 3
     min: 3
     max: 8
-  nearMaxBlur:
+  m_NearMaxBlur:
     m_OverrideState: 1
     m_Value: 4
     min: 0
     max: 8
-  farSampleCount:
+  m_FarSampleCount:
     m_OverrideState: 1
     m_Value: 3
     min: 3
     max: 16
-  farMaxBlur:
+  m_FarMaxBlur:
     m_OverrideState: 1
     m_Value: 8
     min: 0
     max: 16
-  highQualityFiltering:
+  m_HighQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
-  resolution:
+  m_Resolution:
     m_OverrideState: 1
     m_Value: 2
 --- !u!114 &-790497061973546039
@@ -77,6 +80,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   m_AdvancedMode: 1
+  quality:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.1
@@ -100,16 +110,13 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
     min: 0
-  highQualityFiltering:
+  anamorphic:
     m_OverrideState: 1
     m_Value: 1
-  resolution:
+  m_Resolution:
     m_OverrideState: 1
     m_Value: 2
-  prefilter:
-    m_OverrideState: 1
-    m_Value: 0
-  anamorphic:
+  m_HighQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
 --- !u!114 &11400000
@@ -324,3 +331,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
     min: 0.001
+  lutTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  lutContribution:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1

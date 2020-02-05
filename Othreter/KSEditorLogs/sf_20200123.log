@@ -1,0 +1,16 @@
+2020-01-23 16:44:13.6889 [DEBUG] Scene Fusion version 1.8.5-0
+2020-01-23 16:45:46.3543 [DEBUG] Scene Fusion version 1.8.5-0
+2020-01-23 16:45:46.5920 [DEBUG] Play mode: True, sync in play mode: True
+2020-01-23 16:46:02.4517 [ERROR] NullReferenceException: Object reference not set to an instance of an object
+DataHolder+<SetAnimLayer>d__181.MoveNext () (at Assets/Scripts/Menagers/DataHolder.cs:84)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at C:/buildslave/unity/build/Runtime/Export/Scripting/Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+Bow:OnEnable() (at Assets/Scripts/Weapons/Bow.cs:98)
+
+2020-01-23 16:46:06.8142 [ERROR] NullReferenceException: Object reference not set to an instance of an object
+DataHolder+<SetAnimLayer>d__181.MoveNext () (at Assets/Scripts/Menagers/DataHolder.cs:84)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at C:/buildslave/unity/build/Runtime/Export/Scripting/Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+Bow:OnEnable() (at Assets/Scripts/Weapons/Bow.cs:98)
+
+2020-01-23 16:48:56.9982 [DEBUG] Play mode: False

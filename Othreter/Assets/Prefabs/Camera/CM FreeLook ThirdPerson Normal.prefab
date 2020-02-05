@@ -116,7 +116,7 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 3
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
+  m_HorizontalDamping: 1.5
   m_VerticalDamping: 0.5
   m_ScreenX: 0.3
   m_ScreenY: 0.5
@@ -336,8 +336,8 @@ MonoBehaviour:
   sprintFov: 65
   normalFov: 60
   camShakeEnabled: 1
-  WaitToShake: 2
-  maxShakeAmplitude: 1
+  WaitToShake: 2.5
+  maxShakeAmplitude: 0.25
 --- !u!1 &8336068756341511952
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 3
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
+  m_HorizontalDamping: 1.5
   m_VerticalDamping: 0.5
   m_ScreenX: 0.3
   m_ScreenY: 0.5
@@ -506,7 +506,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8336068757026555343}
-  m_LocalRotation: {x: 0.023622263, y: 0.17187, z: -0.0041225036, w: 0.9848278}
+  m_LocalRotation: {x: 0.023622261, y: 0.17187, z: -0.004122503, w: 0.9848278}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -679,12 +679,12 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 3
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
+  m_HorizontalDamping: 1.5
   m_VerticalDamping: 0.5
   m_ScreenX: 0.3
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0.1
-  m_DeadZoneHeight: 0.1
+  m_DeadZoneWidth: 0.2
+  m_DeadZoneHeight: 0.2
   m_SoftZoneWidth: 0.8
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
