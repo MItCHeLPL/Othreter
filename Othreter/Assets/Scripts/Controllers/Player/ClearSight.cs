@@ -10,11 +10,19 @@ public class ClearSight : MonoBehaviour
 	private CinemachineCollider col;
 	private CinemachineVirtualCameraBase _middleRig;
 
+	private GameObject player;
+
+
+	[SerializeField] private float distance = 2.5f;
+
 	[SerializeField] private GameObject[] objects;
+
 	[SerializeField] private Material transparentMaterial;
 
 	void Start()
 	{
+		player = ObjectsMenager.instance.player;
+
 		col = this.GetComponent<CinemachineCollider>();
 		if (col != null)
 		{
@@ -31,7 +39,7 @@ public class ClearSight : MonoBehaviour
 			CameraWasDisplaced = col.CameraWasDisplaced(_middleRig);
 		}
 
-		if(CameraWasDisplaced)
+		if (CameraWasDisplaced && Vector3.Distance(col.transform.position, player.transform.position) < distance)
 		{
 			foreach (GameObject obj in objects)
 			{

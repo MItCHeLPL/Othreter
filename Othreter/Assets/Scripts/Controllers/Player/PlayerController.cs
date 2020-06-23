@@ -95,7 +95,6 @@ public class PlayerController : MonoBehaviour
 		{
 			if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0) && sprintSpeedReached == false) && DataHolder.playerState_Crouch == false && DataHolder.playerState_Fallen == false && DataHolder.playerState_Aiming == false && DataHolder.playerState_Sliding == false)
 			{
-				DataHolder.playerState_Sprint = true;
 				anim.SetBool("Sprint", true);
 				speed = Mathf.Lerp(speed, sprintSpeed - DataHolder.activeWeaponSpeedSub, Time.deltaTime * 2.0f);
 				if(Mathf.Abs((sprintSpeed - DataHolder.activeWeaponSpeedSub) - speed) < 0.25f)
