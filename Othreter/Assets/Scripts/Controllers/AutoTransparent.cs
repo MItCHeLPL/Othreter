@@ -7,11 +7,9 @@ public class AutoTransparent : MonoBehaviour
 	private Material[] oldMaterials = null;
 
 	public Material TransparentMaterial { get; set; }
-	public int newLayer { get; set; }
 
 	private bool shouldBeTransparent = true;
 
-	private int oldLayer;
 
 	public void BeTransparent()
 	{
@@ -25,8 +23,6 @@ public class AutoTransparent : MonoBehaviour
 			// Save the current materials
 			oldMaterials = GetComponent<Renderer>().materials;
 
-			oldLayer = gameObject.layer;
-			gameObject.layer = newLayer;
 
 			Material[] materialsList = new Material[oldMaterials.Length];
 
@@ -63,6 +59,5 @@ public class AutoTransparent : MonoBehaviour
 	{
 		// restore old materials
 		GetComponent<Renderer>().materials = oldMaterials;
-		gameObject.layer = oldLayer;
 	}
 }

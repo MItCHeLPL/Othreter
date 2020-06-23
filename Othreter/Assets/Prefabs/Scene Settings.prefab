@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerModel: {fileID: 0}
   cam: {fileID: 0}
   weaponHolder: {fileID: 0}
   bow: {fileID: 0}
@@ -87,7 +86,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: b7af0768e54a1604b88026c4ac39412c, type: 2}
+  sharedProfile: {fileID: 11400000, guid: efcd6effb7b9d3d4394fef09f8a4479b, type: 2}
 --- !u!114 &2140199622608083254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,4 +103,4 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 09781c2a4d0c698439fd87c38f9e5474, type: 2}
+  sharedProfile: {fileID: 11400000, guid: d7156962743896c4c94d8604c2da4b29, type: 2}

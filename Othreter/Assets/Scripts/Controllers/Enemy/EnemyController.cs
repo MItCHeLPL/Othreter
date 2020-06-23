@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
     Transform target;   // Reference to the player
@@ -41,7 +43,7 @@ public class EnemyController : MonoBehaviour
         target = ObjectsMenager.instance.player.transform; //player gameobject
         playerController = target.GetComponent<PlayerController>(); //player controller script
 		playerStats = target.GetComponent<PlayerStats>();
-		agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); //nav mesh
+		agent = GetComponent<NavMeshAgent>(); //nav mesh
 
         lastPlayerPosition = transform.position; //last player position
 
