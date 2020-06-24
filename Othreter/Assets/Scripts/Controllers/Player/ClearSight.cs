@@ -6,12 +6,10 @@ using Cinemachine;
 [RequireComponent(typeof(CinemachineCollider))]
 public class ClearSight : MonoBehaviour
 {
-	private bool CameraWasDisplaced;
 	private CinemachineCollider col;
 	private CinemachineVirtualCameraBase _middleRig;
 
 	private GameObject player;
-
 
 	[SerializeField] private float distance = 2.5f;
 
@@ -19,7 +17,7 @@ public class ClearSight : MonoBehaviour
 
 	[SerializeField] private Material transparentMaterial;
 
-	void Start()
+	private void Start()
 	{
 		player = ObjectsMenager.instance.player;
 
@@ -32,29 +30,33 @@ public class ClearSight : MonoBehaviour
 		}
 	}
 
-	void Update()
+	private void Update()
 	{
-		if (_middleRig != null)
+		if (_middleRig != null && (col.CameraWasDisplaced(_middleRig) || col.IsTargetObscured(_middleRig)) && distance != 0 && Vector3.Distance(col.transform.position, player.transform.position) < distance)
 		{
-			CameraWasDisplaced = col.CameraWasDisplaced(_middleRig);
+			ChangeMaterial();
 		}
-
-		if (CameraWasDisplaced && Vector3.Distance(col.transform.position, player.transform.position) < distance)
+		else if(_middleRig != null && (col.CameraWasDisplaced(_middleRig) || col.IsTargetObscured(_middleRig)) && distance == 0)
 		{
-			foreach (GameObject obj in objects)
+			ChangeMaterial();
+		}
+	}
+
+	private void ChangeMaterial()
+	{
+		foreach (GameObject obj in objects)
+		{
+			Renderer objectRenderer = obj.GetComponent<Renderer>();
+
+			if (objectRenderer != null)
 			{
-				Renderer objectRenderer = obj.GetComponent<Renderer>();
-				
-				if (objectRenderer != null)
+				AutoTransparent AT = objectRenderer.GetComponent<AutoTransparent>();
+				if (AT == null) // if no script is attached, attach one
 				{
-					AutoTransparent AT = objectRenderer.GetComponent<AutoTransparent>();
-					if (AT == null) // if no script is attached, attach one
-					{
-						AT = objectRenderer.gameObject.AddComponent<AutoTransparent>();
-						AT.TransparentMaterial = transparentMaterial;
-					}
-					AT.BeTransparent(); // get called every frame to reset the falloff
+					AT = objectRenderer.gameObject.AddComponent<AutoTransparent>();
+					AT.TransparentMaterial = transparentMaterial;
 				}
+				AT.BeTransparent(); // get called every frame to reset the falloff
 			}
 		}
 	}

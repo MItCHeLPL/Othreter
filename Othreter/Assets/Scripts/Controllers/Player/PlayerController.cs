@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
 	private bool sprintSpeedReached = false;
 	private bool crouchSpeedReached = false;
 
+	private bool allowToSlide = false;
+
 	[Header("Speed")]
 	public float speed = 6.0f;
 
@@ -217,6 +219,7 @@ public class PlayerController : MonoBehaviour
 		anim.SetFloat("InputHorizontal", Input.GetAxis("Horizontal"));
 		anim.SetFloat("Velocity", controller.velocity.magnitude);
 		anim.SetFloat("VelocityXZ", (controller.velocity.x * controller.velocity.x) + (controller.velocity.z * controller.velocity.z));
+
 		if (controller.velocity != Vector3.zero)
 		{
 			DataHolder.playerState_Idle = false;
@@ -302,40 +305,45 @@ public class PlayerController : MonoBehaviour
 		{ 
 			if (groundAngle > angleLimitToSlide)
 			{
-				groundAngleOverLimit = true;
+				StartCoroutine(SlopeStartCoroutine()); //wait before sliding to prevent working on bumbs in ground
 
-				DataHolder.playerState_Sliding = true;
-
-				jumpVelocity = Vector3.zero;
-
-				Vector3 c = Vector3.Cross(colliderHitNormal, Vector3.up);
-				slideDirection = -Vector3.Cross(c, colliderHitNormal);
-
-				slideSpeed = Mathf.Lerp(slideSpeed, maxSlideSpeed, Mathf.Abs(groundAngle * 0.025f) * Time.deltaTime);
-				if (Mathf.Abs(maxSlideSpeed - slideSpeed) <= 1.0f)
+				if(allowToSlide)
 				{
-					slideSpeed = maxSlideSpeed;
-				}
+					groundAngleOverLimit = true;
 
-				if(controller.velocity.y < 0)
-				{
-					horizontalMovementOnlyEnabled = true;
-				}
-				else
-				{
-					horizontalMovementOnlyEnabled = false;
-				}
+					DataHolder.playerState_Sliding = true;
 
-				slideDirection *= slideSpeed; //add sliding speed
+					jumpVelocity = Vector3.zero;
 
-				if (slideSpeed >= maxSlideSpeed * 0.15f)
-				{
-					anim.SetBool("Sliding", true);
+					Vector3 c = Vector3.Cross(colliderHitNormal, Vector3.up);
+					slideDirection = -Vector3.Cross(c, colliderHitNormal);
+
+					slideSpeed = Mathf.Lerp(slideSpeed, maxSlideSpeed, Mathf.Abs(groundAngle * 0.025f) * Time.deltaTime);
+					if (Mathf.Abs(maxSlideSpeed - slideSpeed) <= 1.0f)
+					{
+						slideSpeed = maxSlideSpeed;
+					}
+
+					if (controller.velocity.y < 0)
+					{
+						horizontalMovementOnlyEnabled = true;
+					}
+					else
+					{
+						horizontalMovementOnlyEnabled = false;
+					}
+
+					slideDirection *= slideSpeed; //add sliding speed
+
+					if (slideSpeed >= maxSlideSpeed * 0.15f)
+					{
+						anim.SetBool("Sliding", true);
+					}
 				}
 			}
 			else
 			{
-				if (DataHolder.playerState_Sliding)
+				if (DataHolder.playerState_Sliding) //disable sliding
 				{
 					slideSpeed = 0;
 					slideDirection = Vector3.zero;
@@ -343,7 +351,7 @@ public class PlayerController : MonoBehaviour
 					anim.SetBool("Sliding", false);
 					DataHolder.playerState_Sliding = false;
 				}
-
+				allowToSlide = false;
 				groundAngleOverLimit = false;
 			}
 		}
@@ -412,9 +420,16 @@ public class PlayerController : MonoBehaviour
 		return false;
 	}
 
-	public void RefreshSpeed()
+	public void RefreshSpeed() //update player speed to held weapon
 	{
 		speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
+	}
+
+	private IEnumerator SlopeStartCoroutine()
+	{
+		yield return new WaitForSeconds(0.3f);
+
+		allowToSlide = true;
 	}
 
 	#endregion
