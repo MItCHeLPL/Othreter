@@ -43,10 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fbb15bf92b84f40a1eb030765b5afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Version: 2
   parameters:
     albedo: {r: 1, g: 1, b: 1, a: 1}
-    meanFreePath: 25
-    asymmetry: 0
+    meanFreePath: 20
+    anisotropy: 0
     volumeMask: {fileID: 0}
     textureScrollingSpeed: {x: 0, y: 0, z: 0}
     textureTiling: {x: 1, y: 1, z: 1}
@@ -58,7 +59,7 @@ MonoBehaviour:
     m_EditorAdvancedFade: 1
     size: {x: 1000, y: 50, z: 1000}
     invertFade: 0
-    distanceFadeStart: 1000
-    distanceFadeEnd: 10000
+    distanceFadeStart: 1
+    distanceFadeEnd: 5000
     textureIndex: -1
-  m_Version: 2
+    textureOffset: {x: 0, y: 0, z: 0}

@@ -10,6 +10,7 @@ public class ClearSight : MonoBehaviour
 	private CinemachineVirtualCameraBase _middleRig;
 
 	private GameObject player;
+	private GameObject cam;
 
 	[SerializeField] private float distance = 2.5f;
 
@@ -17,26 +18,32 @@ public class ClearSight : MonoBehaviour
 
 	[SerializeField] private Material transparentMaterial;
 
+	private bool cameraWasDisplaced;
+
 	private void Start()
 	{
 		player = ObjectsMenager.instance.player;
+		cam = ObjectsMenager.instance.cam.gameObject;
 
-		col = this.GetComponent<CinemachineCollider>();
+		col = this.GetComponent<CinemachineCollider>(); //get collider
+
 		if (col != null)
 		{
-			var freeLook = col.VirtualCamera as CinemachineFreeLook;
+			var freeLook = col.VirtualCamera as CinemachineFreeLook; //get VCAM
 			if (freeLook != null)
-				_middleRig = freeLook.GetRig(1);
+				_middleRig = freeLook.GetRig(1); //Get rig required to detect collision
+			else
+				_middleRig = col.VirtualCamera;
 		}
 	}
 
 	private void Update()
 	{
-		if (_middleRig != null && (col.CameraWasDisplaced(_middleRig) || col.IsTargetObscured(_middleRig)) && distance != 0 && Vector3.Distance(col.transform.position, player.transform.position) < distance)
+		if (_middleRig != null)
 		{
-			ChangeMaterial();
+			cameraWasDisplaced = col.CameraWasDisplaced(_middleRig);
 		}
-		else if(_middleRig != null && (col.CameraWasDisplaced(_middleRig) || col.IsTargetObscured(_middleRig)) && distance == 0)
+		if (cameraWasDisplaced && (cam.transform.position - player.transform.position).magnitude < distance) //if camera is displaced and is colse enogh to player change materials
 		{
 			ChangeMaterial();
 		}
