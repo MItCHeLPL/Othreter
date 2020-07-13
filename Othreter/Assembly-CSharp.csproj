@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Arrow.cs" />
     <Compile Include="Assets\Scripts\Weapons\Bow.cs" />
+    <Compile Include="Assets\Scripts\Weapons\HandTorch.cs" />
     <Compile Include="Assets\Scripts\Weapons\Hands.cs" />
     <Compile Include="Assets\Scripts\Weapons\Sword.cs" />
     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />

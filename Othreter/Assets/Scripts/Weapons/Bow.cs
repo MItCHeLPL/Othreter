@@ -90,10 +90,7 @@ public class Bow : Weapon
 	{
 		base.OnEnable();
 
-		if (arrowInstantiated == false && currentAmmo > 0) //instantiate arrow when picking up a bow
-		{
-			InstantiateArrow(); // add as a trigger in animation
-		}
+		InstantiateArrow(); // add as a trigger in animation
 
 		StartCoroutine(DataHolder.SetAnimLayer(anim, DataHolder.BowEquippedLayerId, 1, 10.0f));
 	}
@@ -248,16 +245,19 @@ public class Bow : Weapon
 
 	public void InstantiateArrow() 
 	{
-		arrow = Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.LookRotation(transform.forward), transform);
-		arrowInstantiated = true;
-		arrowRB = arrow.GetComponent<Rigidbody>();
-		arrowRB.constraints = RigidbodyConstraints.FreezePosition;
-		arrowReleased = false;
-		startedToPull = false;
-		arrowCoolDown = baseArrowCoolDown;
-		maxShootForceAchieved = false;
-		shootForce = baseShootForce;
-		currentLerpTime = 0f;
+		if (arrowInstantiated == false && currentAmmo > 0) //instantiate arrow when picking up a bow
+		{
+			arrow = Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.LookRotation(transform.forward), transform);
+			arrowInstantiated = true;
+			arrowRB = arrow.GetComponent<Rigidbody>();
+			arrowRB.constraints = RigidbodyConstraints.FreezePosition;
+			arrowReleased = false;
+			startedToPull = false;
+			arrowCoolDown = baseArrowCoolDown;
+			maxShootForceAchieved = false;
+			shootForce = baseShootForce;
+			currentLerpTime = 0f;
+		}
 	}
 
 	public void ResetValues()
@@ -278,8 +278,8 @@ public class Bow : Weapon
 
 		StartCoroutine(DataHolder.SetAnimLayer(anim, DataHolder.BowArrowLayerId, 0, 10.0f));
 
-		meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(arrow.GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(0), 0.0f, 2*Time.deltaTime)); //smooth arrow back to 0 place
-		arrow.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, Mathf.Lerp(arrow.GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(0), 0.0f, 2*Time.deltaTime));
+		meshRenderer.SetBlendShapeWeight(0, Mathf.Lerp(arrow.GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(0), 0.0f, 2 * Time.deltaTime)); //smooth arrow back to 0 place
+		arrow.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, Mathf.Lerp(arrow.GetComponent<SkinnedMeshRenderer>().GetBlendShapeWeight(0), 0.0f, 2 * Time.deltaTime));
 	}
 
 	public void AddAmmo()
@@ -296,18 +296,18 @@ public class Bow : Weapon
 		anim.SetLayerWeight(DataHolder.BowAimLayerId, 1);
 
 		//playermodel rotation
-		if(playerController.modelRotationEnabled)
+		if (playerController.modelRotationEnabled)
 		{
-			playerController.transform.rotation = Quaternion.Lerp(playerController.transform.rotation, Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0), 7.5f * Time.deltaTime);
+			playerController.transform.rotation = Quaternion.Lerp(playerController.transform.rotation, Quaternion.Euler(0, cam.transform.eulerAngles.y, 0), 7.5f * Time.deltaTime);
 			playerController.modelRotation = playerController.transform.rotation;
-		}	
+		}
 	}
 
 	public override void StopAim()
 	{
 		base.StopAim();
 
-		StartCoroutine(DataHolder.SetAnimLayer(anim, DataHolder.BowAimLayerId, 0, 10.0f));
+		anim.SetLayerWeight(DataHolder.BowAimLayerId, 0);
 	}
 }
 

@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
 	private bool crouchSpeedReached = false;
 
 	private bool allowToSlide = false;
+	private IEnumerator waitToSlide;
 
 	[Header("Speed")]
 	public float speed = 6.0f;
@@ -87,6 +88,8 @@ public class PlayerController : MonoBehaviour
 		speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
 
 		modelRotation = transform.rotation;
+
+		waitToSlide = SlopeStartCoroutine();
 	}
 
 	private void Update()
@@ -97,6 +100,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0) && sprintSpeedReached == false) && DataHolder.playerState_Crouch == false && DataHolder.playerState_Fallen == false && DataHolder.playerState_Aiming == false && DataHolder.playerState_Sliding == false)
 			{
+				DataHolder.playerState_Sprint = true;
 				anim.SetBool("Sprint", true);
 				speed = Mathf.Lerp(speed, sprintSpeed - DataHolder.activeWeaponSpeedSub, Time.deltaTime * 2.0f);
 				if(Mathf.Abs((sprintSpeed - DataHolder.activeWeaponSpeedSub) - speed) < 0.25f)
@@ -121,6 +125,13 @@ public class PlayerController : MonoBehaviour
 			{
 				DataHolder.playerState_Sprint = false;
 				anim.SetBool("Sprint", false);
+
+				speed = Mathf.Lerp(speed, defaultSpeed - DataHolder.activeWeaponSpeedSub, Time.deltaTime * 2.0f);
+				if (Mathf.Abs(speed - (defaultSpeed - DataHolder.activeWeaponSpeedSub)) < 0.25f)
+				{
+					speed = defaultSpeed - DataHolder.activeWeaponSpeedSub;
+					sprintSpeedReached = false;
+				}
 			}
 		}
 
@@ -305,7 +316,7 @@ public class PlayerController : MonoBehaviour
 		{ 
 			if (groundAngle > angleLimitToSlide)
 			{
-				StartCoroutine(SlopeStartCoroutine()); //wait before sliding to prevent working on bumbs in ground
+				StartCoroutine(waitToSlide); //wait before sliding to prevent working on bumbs in ground
 
 				if(allowToSlide)
 				{
@@ -343,6 +354,9 @@ public class PlayerController : MonoBehaviour
 			}
 			else
 			{
+				StopCoroutine(waitToSlide);
+				allowToSlide = false;
+				groundAngleOverLimit = false;
 				if (DataHolder.playerState_Sliding) //disable sliding
 				{
 					slideSpeed = 0;
@@ -351,14 +365,13 @@ public class PlayerController : MonoBehaviour
 					anim.SetBool("Sliding", false);
 					DataHolder.playerState_Sliding = false;
 				}
-				allowToSlide = false;
-				groundAngleOverLimit = false;
+				waitToSlide = SlopeStartCoroutine();
 			}
-		}
 
-		if (SlopeCheck() && DataHolder.playerState_Jump == false && DataHolder.playerState_Idle == false) //detects if player is moving on the slope and isnt jumping
-		{
-			moveDirection = new Vector3(moveDirection.x, moveDirection.y - (playerHeight * slopeLimitCheckDistance), moveDirection.z); //moves player to the slope
+			if (SlopeCheck() && DataHolder.playerState_Jump == false && DataHolder.playerState_Idle == false) //detects if player is moving on the slope and isnt jumping
+			{
+				moveDirection = new Vector3(moveDirection.x, moveDirection.y - (playerHeight * slopeLimitCheckDistance), moveDirection.z); //moves player to the slope
+			}
 		}
 
 		#endregion
@@ -409,7 +422,8 @@ public class PlayerController : MonoBehaviour
 
 	private bool SlopeCheck() //detects if player is on the slope
 	{
-		if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitSlope, controller.height / 2 * 1.5f))
+		//Debug.DrawLine(transform.position + new Vector3(0, 0.25f, 0), transform.position + Vector3.down * 2.0f, new Color(255,0,0,255));
+		if (Physics.Raycast(transform.position + new Vector3(0, 0.25f, 0), Vector3.down, out RaycastHit hitSlope, 2.0f))
 		{
 			groundAngle = Vector3.Angle(Vector3.up, hitSlope.normal); //checks ground angle
 			if (hitSlope.normal != Vector3.up)
@@ -429,7 +443,10 @@ public class PlayerController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.3f);
 
-		allowToSlide = true;
+		if (groundAngle > angleLimitToSlide)
+		{
+			allowToSlide = true;
+		}
 	}
 
 	#endregion

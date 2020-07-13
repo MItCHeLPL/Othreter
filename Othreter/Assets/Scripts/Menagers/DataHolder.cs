@@ -5,11 +5,15 @@ using UnityEngine;
 public static class DataHolder
 {
 	#region Game Settings
+
 	public static float activeWeaponSpeedSub = 0;
+
 	#endregion
 
 	#region Video Settings
+
 	public static bool DoFEnabled { get; set; } = true;
+
 	#endregion
 
 	#region Input Settings
@@ -77,18 +81,27 @@ public static class DataHolder
 
 	#endregion
 
+	#region Game States
+
+
+
+	#endregion
+
 	#region Methods
 
 	public static IEnumerator SetAnimLayer(Animator anim, int layerId, float value, float speed)
 	{
-		while (anim.GetLayerWeight(layerId) != value)
+		if (anim != null)
 		{
-			anim.SetLayerWeight(layerId, Mathf.Lerp(anim.GetLayerWeight(layerId), value, speed * Time.deltaTime));
-			if (Mathf.Abs(anim.GetLayerWeight(layerId) - value) < 0.025f)
+			while (anim.GetLayerWeight(layerId) != value)
 			{
-				anim.SetLayerWeight(layerId, value);
+				anim.SetLayerWeight(layerId, Mathf.Lerp(anim.GetLayerWeight(layerId), value, speed * Time.deltaTime));
+				if (Mathf.Abs(anim.GetLayerWeight(layerId) - value) < 0.025f)
+				{
+					anim.SetLayerWeight(layerId, value);
+				}
+				yield return null;
 			}
-			yield return null;
 		}
 	}
 
