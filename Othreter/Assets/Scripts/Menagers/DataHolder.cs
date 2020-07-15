@@ -25,6 +25,10 @@ public static class DataHolder
 	public static KeyCode Sprint { get; set; } = KeyCode.LeftShift;
 	public static KeyCode SprintController { get; set; } = KeyCode.JoystickButton8;
 
+	//Other
+	public static KeyCode Interaction { get; set; } = KeyCode.E;
+	public static KeyCode InteractionController { get; set; } = KeyCode.JoystickButton3;
+
 	//Camera
 	public static KeyCode SwitchShoulder { get; set; } = KeyCode.C;
 	public static KeyCode SwitchShoulderController { get; set; } = KeyCode.JoystickButton3;
@@ -50,6 +54,7 @@ public static class DataHolder
 	public static KeyCode WeaponSlot2 { get; set; } = KeyCode.Alpha2;
 	public static KeyCode WeaponSlot3 { get; set; } = KeyCode.Alpha3;
 	public static KeyCode WeaponSlot4 { get; set; } = KeyCode.Alpha4;
+
 
 	public static float inputDeadzone { get; set; } = 0.01f;
 	#endregion

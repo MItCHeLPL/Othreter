@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 223336279}
   - component: {fileID: 223336278}
   - component: {fileID: 1274209871448932371}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 883025685}
   - component: {fileID: 883025684}
   - component: {fileID: 883025683}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1960608812}
   - component: {fileID: 1960608811}
   - component: {fileID: 1960608810}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: LockIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

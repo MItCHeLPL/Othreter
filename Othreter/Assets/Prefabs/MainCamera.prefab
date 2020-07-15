@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6046623800707996574}
   - component: {fileID: 179896493}
   - component: {fileID: 179896494}
+  - component: {fileID: 1471182958}
   m_Layer: 8
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -146,7 +147,7 @@ MonoBehaviour:
       enableBigTilePrepass: 0
       isFptlEnabled: 0
   clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  backgroundColorHDR: {r: 0, g: 0, b: 0, a: 0}
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
@@ -239,3 +240,19 @@ MonoBehaviour:
   cameras:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!123 &1471182958
+LensFlare:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338427233231972248}
+  m_Enabled: 1
+  m_Flare: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Brightness: 1
+  m_FadeSpeed: 3
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 6
+  m_Directional: 0

@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Menagers\ObjectsMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\PlayerPrefsMenager.cs" />
     <Compile Include="Assets\Scripts\Other\FootIk.cs" />
+    <Compile Include="Assets\Scripts\Other\Interactable.cs" />
     <Compile Include="Assets\Scripts\Other\ObjectFaceCamera.cs" />
     <Compile Include="Assets\Scripts\Other\ObjectFaceOtherObject.cs" />
     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Scripts\Teleport Scripts\VoidCollider.cs" />
     <Compile Include="Assets\Scripts\UI\BowCrosshair.cs" />
     <Compile Include="Assets\Scripts\UI\EnemyUI.cs" />
+    <Compile Include="Assets\Scripts\UI\InteractableUI.cs" />
     <Compile Include="Assets\Scripts\UI\LevelMenager.cs" />
     <Compile Include="Assets\Scripts\UI\LoadGame.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
