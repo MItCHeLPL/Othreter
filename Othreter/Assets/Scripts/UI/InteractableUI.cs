@@ -18,6 +18,9 @@ public class InteractableUI : MonoBehaviour
 	private Image holdSlider;
 	private bool holding = false;
 	private float holdMaxValue = 1.0f;
+	private float fill = 0;
+
+	[SerializeField] private AnimationCurve holdCurve;
 
 	void Start()
     {
@@ -51,7 +54,8 @@ public class InteractableUI : MonoBehaviour
 
 		if(holding)
 		{
-			holdSlider.fillAmount += (1/holdMaxValue) * Time.deltaTime; //fill slider over time
+			fill += (1 / holdMaxValue) * Time.deltaTime; //calculate fill amount over time
+			holdSlider.fillAmount = holdCurve.Evaluate(fill); //fill slider
 		}
 	}
 
@@ -88,6 +92,7 @@ public class InteractableUI : MonoBehaviour
 		if (UIWhenCloseHold != null)
 		{
 			holdSlider.fillAmount = 0;//prepare hold slider
+			fill = 0;
 
 			holdMaxValue = sec;
 
@@ -100,6 +105,8 @@ public class InteractableUI : MonoBehaviour
 		if (UIWhenCloseHold != null)
 		{
 			holdSlider.fillAmount = 0; //reset hold slider
+			fill = 0;
+
 			holding = false;
 		}
 	}
