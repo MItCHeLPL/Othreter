@@ -8,7 +8,10 @@ public class Interactable : MonoBehaviour
 {
 	[SerializeField] private GameObject ui;
 	private InteractableUI interacableUI;
-	[SerializeField] private UnityEvent OnInteraction;
+
+	[SerializeField] private UnityEvent InteractionStart;
+	[SerializeField] private UnityEvent InteractionCancel;
+	[SerializeField] private UnityEvent InteractionSuccess;
 
 	private bool InTrigger = false;
 
@@ -37,6 +40,8 @@ public class Interactable : MonoBehaviour
 		{
 			if (Input.GetKeyDown(DataHolder.Interaction) && cooldowning == false)
 			{
+				InteractionStart.Invoke();
+
 				if (holdEnabled)
 				{
 					StartCoroutine(holdCoroutine);
@@ -93,7 +98,7 @@ public class Interactable : MonoBehaviour
 
 		interacableUI.OnInteraction(); //ui on interaction
 
-		OnInteraction.Invoke(); //invoke event function
+		InteractionSuccess.Invoke(); //invoke event function
 
 		if(limitedUse)
 		{
@@ -112,6 +117,8 @@ public class Interactable : MonoBehaviour
 		holdCoroutine = Hold(holdTime);
 
 		interacableUI.StopHolding();
+
+		InteractionCancel.Invoke();
 
 		holding = false;
 	}
@@ -136,8 +143,18 @@ public class Interactable : MonoBehaviour
 		holding = false;
 	}
 
-	public void TestDebug()
+	public void TestDebugStart()
 	{
-		Debug.Log("Interacted");
+		Debug.Log("Started");
+	}
+
+	public void TestDebugCancel()
+	{
+		Debug.Log("Canceled");
+	}
+
+	public void TestDebugSuccess()
+	{
+		Debug.Log("Success");
 	}
 }

@@ -500,11 +500,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 6455132722257707273}
-  OnInteraction:
+  InteractionStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6455132723062989437}
-        m_MethodName: TestDebug
+        m_MethodName: TestDebugStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  InteractionCancel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6455132723062989437}
+        m_MethodName: TestDebugCancel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  InteractionSuccess:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6455132723062989437}
+        m_MethodName: TestDebugSuccess
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
