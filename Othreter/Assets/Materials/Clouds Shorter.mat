@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Clouds
+  m_Name: Clouds Shorter
   m_Shader: {fileID: -6465566751694194690, guid: 1317775d4f91fee49ac0978dacfd3160,
     type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _BLENDMODE_ALPHA _ENABLE_FOG_ON_TRANSPARENT _SURFACE_TYPE_TRANSPARENT
@@ -76,7 +76,7 @@ Material:
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4
     - _ZWrite: 1
-    - _alphaClipping: 0.25
+    - _alphaClipping: 0.3
     m_Colors:
     - Color_46526F59: {r: 7.3772106, g: 7.3772106, b: 7.3772106, a: 0}
     - Color_6FFCD12C: {r: 0, g: 0, b: 0, a: 0}
