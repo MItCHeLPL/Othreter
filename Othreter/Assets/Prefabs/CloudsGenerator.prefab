@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb30bff9572d072459283c894127d789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloudPrefab: {fileID: 1933198589893867860, guid: 258429bf3390e6449a24a471619389b9,
+  cloudPrefab: {fileID: 1933198589893867860, guid: 36b148c8a339b6f4bbdcdc47e55b2905,
     type: 3}
-  cloudLayersAmount: 15
-  scaleCutoff: 2
+  cloudLayersAmount: 10
+  scaleCutoff: 4
   alphaClippingCutoff: 0.5
   colorDifferenceCutoff: 0.5
