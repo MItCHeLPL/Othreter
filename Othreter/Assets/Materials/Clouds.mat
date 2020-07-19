@@ -78,9 +78,11 @@ Material:
     - _ZWrite: 1
     - _alphaClipping: 0.25
     m_Colors:
-    - Color_46526F59: {r: 7.3772106, g: 7.3772106, b: 7.3772106, a: 0}
+    - Color_46526F59: {r: 5.7608266, g: 5.7608266, b: 5.7608266, a: 0}
     - Color_6FFCD12C: {r: 0, g: 0, b: 0, a: 0}
     - Vector4_AD57B7CE: {r: 0, g: 1, b: -1, a: 1}
+    - _Color1: {r: 0, g: 0, b: 0, a: 0}
+    - _Color2: {r: 4, g: 4, b: 4, a: 0}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

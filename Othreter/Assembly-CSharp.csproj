@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Menagers\InputMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\ObjectsMenager.cs" />
     <Compile Include="Assets\Scripts\Menagers\PlayerPrefsMenager.cs" />
+    <Compile Include="Assets\Scripts\Other\CloudGenerator.cs" />
     <Compile Include="Assets\Scripts\Other\FootIk.cs" />
     <Compile Include="Assets\Scripts\Other\Interactable.cs" />
     <Compile Include="Assets\Scripts\Other\ObjectFaceCamera.cs" />
