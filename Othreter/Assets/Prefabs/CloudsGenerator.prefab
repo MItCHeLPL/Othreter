@@ -46,6 +46,6 @@ MonoBehaviour:
   cloudPrefab: {fileID: 1933198589893867860, guid: 36b148c8a339b6f4bbdcdc47e55b2905,
     type: 3}
   cloudLayersAmount: 10
-  scaleCutoff: 4
-  alphaClippingCutoff: 0.5
+  scaleCutoff: 3
+  alphaClippingCutoff: 4
   colorDifferenceCutoff: 0.5
