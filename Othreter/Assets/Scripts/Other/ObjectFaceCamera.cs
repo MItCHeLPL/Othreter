@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectFaceCamera : MonoBehaviour
 {
 	private GameObject target;
+	[SerializeField] private Vector3 rotationOffset;
 	void Start()
 	{
 		target = ObjectsMenager.instance.cam.gameObject;
@@ -12,6 +13,7 @@ public class ObjectFaceCamera : MonoBehaviour
 
     void Update()
     {
-		transform.rotation = Quaternion.LookRotation(new Vector3(target.transform.position.x, 0.0f, target.transform.position.z) - new Vector3(transform.position.x, 0.0f, transform.position.z)) * new Quaternion(0.0f, 180.0f, 0.0f, 0);
+		transform.LookAt(target.transform.position, -Vector3.up);
+		transform.rotation *= new Quaternion(rotationOffset.x, rotationOffset.y, rotationOffset.z, 0);
 	}
 }

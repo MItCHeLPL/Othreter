@@ -113,6 +113,6 @@ public class InteractableUI : MonoBehaviour
 
 	public void OnInteraction()
 	{
-		//Aniamte Interaction
+		//Animate Interaction
 	}
 }

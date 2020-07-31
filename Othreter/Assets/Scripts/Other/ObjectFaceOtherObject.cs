@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ObjectFaceOtherObject : MonoBehaviour
 {
-	[SerializeField]
-	private GameObject obj = default;
+	[SerializeField] private GameObject target = default;
+	[SerializeField] private Vector3 rotationOffset;
 
-	[SerializeField]
-	private GameObject target = default;
-
-    void Update()
+	void Update()
     {
-		obj.transform.rotation = Quaternion.LookRotation(new Vector3(target.transform.position.x, 0.0f, target.transform.position.z) - new Vector3(obj.transform.position.x, 0.0f, obj.transform.position.z)) * new Quaternion(0.0f, 180.0f, 0.0f, 0);
+		transform.LookAt(target.transform.position, -Vector3.up);
+		transform.rotation *= new Quaternion(rotationOffset.x, rotationOffset.y, rotationOffset.z, 0);
 	}
 }
