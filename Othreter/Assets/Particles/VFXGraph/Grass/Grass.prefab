@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6799765625634561568
+--- !u!1 &2984581644611273562
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6799765625634561570}
-  - component: {fileID: 6799765625634561569}
-  - component: {fileID: 6799765625634561581}
-  - component: {fileID: 6799765625634561580}
-  - component: {fileID: 6799765625634561571}
-  - component: {fileID: 6799765625634561582}
+  - component: {fileID: 2984581644611273560}
+  - component: {fileID: 2984581644611273563}
+  - component: {fileID: 2984581644611273559}
+  - component: {fileID: 2984581644611273558}
+  - component: {fileID: 2984581644611273561}
+  - component: {fileID: 2984581644611273556}
   m_Layer: 0
-  m_Name: VFX-Grass
+  m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6799765625634561570
+--- !u!4 &2984581644611273560
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6799765625634561568}
+  m_GameObject: {fileID: 2984581644611273562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!2083052967 &6799765625634561569
+--- !u!2083052967 &2984581644611273563
 VisualEffect:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6799765625634561568}
+  m_GameObject: {fileID: 2984581644611273562}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: b989ea106e41c874b81d33733e63311f, type: 3}
   m_InitialEventName: OnPlay
@@ -60,7 +60,7 @@ VisualEffect:
       - m_Value: 20
         m_Name: Push Speed
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: 0.5
         m_Name: Release Speed
         m_Overridden: 1
       - m_Value: 0.24
@@ -68,10 +68,10 @@ VisualEffect:
         m_Overridden: 1
     m_Vector2f:
       m_Array:
-      - m_Value: {x: 1, y: 2.5}
+      - m_Value: {x: 1, y: 1}
         m_Name: Crop Size
         m_Overridden: 1
-      - m_Value: {x: 1, y: 1}
+      - m_Value: {x: 1, y: 2}
         m_Name: FlipbookCount
         m_Overridden: 1
       - m_Value: {x: 0, y: 4}
@@ -85,7 +85,7 @@ VisualEffect:
       - m_Value: {x: 3.5, y: 0, z: 0}
         m_Name: Position
         m_Overridden: 1
-      - m_Value: {x: 60, y: 0, z: -5}
+      - m_Value: {x: -60, y: 0.1, z: -5}
         m_Name: Terrain Bounds_center
         m_Overridden: 1
       - m_Value: {x: 100, y: 16, z: 50}
@@ -103,7 +103,7 @@ VisualEffect:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 7500
+      - m_Value: 2500
         m_Name: Amount
         m_Overridden: 1
     m_Matrix4x4f:
@@ -166,7 +166,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 2800000, guid: c4a9f1a8d4a246145847465e3524fd30, type: 3}
+      - m_Value: {fileID: 2800000, guid: 3a346956c08737d4d9509347983ca6fa, type: 3}
         m_Name: BaseColorMap
         m_Overridden: 1
       - m_Value: {fileID: 2800000, guid: fede7eb01fb5b4b419cadcc7257c38d9, type: 3}
@@ -177,13 +177,13 @@ VisualEffect:
         m_Overridden: 1
     m_Bool:
       m_Array: []
---- !u!114 &6799765625634561581
+--- !u!114 &2984581644611273559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6799765625634561568}
+  m_GameObject: {fileID: 2984581644611273562}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
@@ -191,16 +191,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
   m_Bindings:
-  - {fileID: 6799765625634561571}
-  - {fileID: 6799765625634561580}
-  m_VisualEffect: {fileID: 6799765625634561569}
---- !u!114 &6799765625634561580
+  - {fileID: 2984581644611273561}
+  - {fileID: 2984581644611273558}
+  m_VisualEffect: {fileID: 2984581644611273563}
+--- !u!114 &2984581644611273558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6799765625634561568}
+  m_GameObject: {fileID: 2984581644611273562}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d80994697e576624b97a67538d27ddcd, type: 3}
@@ -209,13 +209,13 @@ MonoBehaviour:
   m_Property:
     m_Name: Velocity
   Target: {fileID: 0}
---- !u!114 &6799765625634561571
+--- !u!114 &2984581644611273561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6799765625634561568}
+  m_GameObject: {fileID: 2984581644611273562}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
@@ -224,13 +224,13 @@ MonoBehaviour:
   m_Property:
     m_Name: Position
   Target: {fileID: 0}
---- !u!73398921 &6799765625634561582
+--- !u!73398921 &2984581644611273556
 VFXRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6799765625634561568}
+  m_GameObject: {fileID: 2984581644611273562}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0

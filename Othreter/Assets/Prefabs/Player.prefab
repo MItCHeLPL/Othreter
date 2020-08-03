@@ -4229,7 +4229,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   modelRotation: {x: 0, y: 0, z: 0, w: 0}
-  jumpHeight: 9
+  jumpHeight: 7
   jumpEnabled: 1
   sprintEnabled: 1
   crouchEnabled: 1
