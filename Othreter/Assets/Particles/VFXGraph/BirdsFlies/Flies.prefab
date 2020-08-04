@@ -47,11 +47,17 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: MaximumVelocity
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 2, y: 2, z: 2}
+        m_Name: Size
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:

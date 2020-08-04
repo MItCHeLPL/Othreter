@@ -15,7 +15,7 @@ public class CloudGenerator : MonoBehaviour
 	private float alphaClippingDifference; //alpha clipping difference between layers
 
 	[Range(0.0f, 1.0f)]
-	[SerializeField] private float colorDifferenceCutoff = 0.5f; //cutsoff lowest value of color to which layers can fade
+	[SerializeField] private float colorDifferenceCutoff = 0.5f; //cutoff lowest value of color to which layers can fade
 	private float colorDifferenceR; //red color difference between layers
 	private float colorDifferenceG; //green color difference between layers
 	private float colorDifferenceB; //blue color difference between layers
