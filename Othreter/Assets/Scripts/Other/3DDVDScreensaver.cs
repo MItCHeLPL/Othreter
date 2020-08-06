@@ -9,27 +9,15 @@ public class BirdsController : MonoBehaviour
     [SerializeField] private Vector3 center;
     [SerializeField] private float speed = 1.0f;
 
-    [Space(10)]
-    private int bounces = 0;
-    [SerializeField] private bool changeAfterBounces = true;
-    [SerializeField] private int bouncesAmountToChange = 1;
-    [SerializeField] private bool countBouncesOnXAxis = true;
-    [SerializeField] private bool countBouncesOnYAxis = true;
-    [SerializeField] private bool countBouncesOnZAxis = true;  
-
     private float posX;
     private float posY;
     private float posZ;
-
-    private Vector3 targetLocation;
 
     private Vector3 minPos;
     private Vector3 middlePos;
     private Vector3 maxPos;
 
-    private Vector3 offset;
-
-    private int lastBouncedAxis; //0-X, 1-Z, Y-2
+    private Vector3 targetLocation;
 
     void Start()
     {
@@ -44,7 +32,7 @@ public class BirdsController : MonoBehaviour
         posY = transform.position.y;
         posZ = transform.position.z;
 
-        targetLocation = new Vector3(minPos.x, maxPos.y, maxPos.z / 3); //pick uneven starting target
+        targetLocation = maxPos; //pick starting target
     }
 
 	void Update()
@@ -60,12 +48,6 @@ public class BirdsController : MonoBehaviour
             {
                 targetLocation.x = maxPos.x;
             }
-
-            if(countBouncesOnXAxis)
-			{
-                lastBouncedAxis = 0;
-                bounces++; //count bounces
-            }
         }
 
         //Y
@@ -78,12 +60,6 @@ public class BirdsController : MonoBehaviour
             else
 			{
                 targetLocation.y = maxPos.y;
-            }
-
-            if (countBouncesOnYAxis)
-            {
-                lastBouncedAxis = 2;
-                bounces++; //count bounces
             }
         }
 
@@ -98,20 +74,6 @@ public class BirdsController : MonoBehaviour
             {
                 targetLocation.z = maxPos.z;
             }
-
-            if (countBouncesOnZAxis)
-            {
-                lastBouncedAxis = 1;
-                bounces++; //count bounces
-            }
-        }
-
-        //Change offset and target after set amount of bounces;
-        if (bounces >= bouncesAmountToChange && changeAfterBounces)
-        {
-            PickNewOffsetAndTarget();
-
-            bounces = 0; //reset bounces counter
         }
 
         //Calculate separate position values
@@ -121,30 +83,6 @@ public class BirdsController : MonoBehaviour
 
         //Change transform position to calculated position
         transform.position = new Vector3(posX, posY, posZ);
-    }
-
-    private void PickNewOffsetAndTarget()
-	{
-        //Pick random place in bounds
-        float x = Random.Range(minPos.x, maxPos.x);
-        float y = Random.Range(minPos.y, maxPos.y);
-        float z = Random.Range(minPos.z, maxPos.z);
-
-        offset = new Vector3(x, y, z); //offset for target position
-
-        //Change next axis to bounce from
-        if (lastBouncedAxis == 0)
-		{
-            targetLocation.z = offset.z;
-        }
-        else if(lastBouncedAxis == 1)
-		{
-            targetLocation.x = offset.x;
-        }
-        else if (lastBouncedAxis == 2)
-        {
-            targetLocation.y = offset.y;
-        }
     }
 
     //Debug boundaries in editor
