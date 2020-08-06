@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Stats\LevelStatistics.cs" />
     <Compile Include="Assets\Scripts\Teleport Scripts\VoidCollider.cs" />
     <Compile Include="Assets\ImportedPackages\Tayx\Graphy - Ultimate Stats Monitor\Scene\Color Picker\G_CUIColorPicker.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BirdsController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\ImportedPackages\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
@@ -691,6 +692,12 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Polybrush">
+      <HintPath>Library\ScriptAssemblies\Unity.Polybrush.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Polybrush.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Polybrush.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
     </Reference>
@@ -742,6 +749,9 @@
     <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Animation.Rigging.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
@@ -774,15 +784,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Polybrush">
-      <HintPath>Library\ScriptAssemblies\Unity.Polybrush.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Polybrush.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Polybrush.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Animation.Rigging.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Animation.Rigging.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
