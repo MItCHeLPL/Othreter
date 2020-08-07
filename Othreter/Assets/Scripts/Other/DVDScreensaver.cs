@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdsController : MonoBehaviour
+public class DVDScreensaver : MonoBehaviour
 {
     [SerializeField] private Vector3 bounds;
     [SerializeField] private bool showBoundriesInEditor = true;

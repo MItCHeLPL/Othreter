@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be93074ca59a9240a7f225f4aca1f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds: {x: 30, y: 10, z: 30}
+  bounds: {x: 350, y: 20, z: 300}
   showBoundriesInEditor: 1
-  center: {x: 0, y: 10, z: 0}
+  center: {x: 75, y: 15, z: 100}
   speed: 5
   changeAfterBounces: 1
   bouncesAmountToChange: 1
@@ -158,7 +158,7 @@ VisualEffect:
       - m_Value: 5
         m_Name: DragStrength
         m_Overridden: 1
-      - m_Value: 200
+      - m_Value: 250
         m_Name: Amount
         m_Overridden: 1
     m_Matrix4x4f:

@@ -60,7 +60,7 @@
     <Compile Include="Assets\Scripts\Stats\FallDamage.cs" />
     <Compile Include="Assets\Scripts\Stats\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\UI\SettingsMenu.cs" />
-    <Compile Include="Assets\Scripts\Other\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Interactable.cs" />
     <Compile Include="Assets\Scripts\UI\SetSliderValueAtStart.cs" />
     <Compile Include="Assets\Scripts\UI\LoadGame.cs" />
     <Compile Include="Assets\Scripts\Menagers\PlayerPrefsMenager.cs" />
@@ -68,8 +68,10 @@
     <Compile Include="Assets\Scripts\Stats\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\State Machine Behaviours\BowArrowLayer0.cs" />
     <Compile Include="Assets\Scripts\Controllers\Enemy\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BirdsController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Hands.cs" />
     <Compile Include="Assets\Scripts\UI\SwordCrosshair.cs" />
+    <Compile Include="Assets\Scripts\Other\DVDScreensaver.cs" />
     <Compile Include="Assets\Scripts\Menagers\InputMenager.cs" />
     <Compile Include="Assets\Scripts\Other\ObjectFaceOtherObject.cs" />
     <Compile Include="Assets\Scripts\Weapons\Arrow.cs" />
@@ -89,11 +91,11 @@
     <Compile Include="Assets\Scripts\Weapons\Bow.cs" />
     <Compile Include="Assets\Scripts\UI\Scroll.cs" />
     <Compile Include="Assets\Scripts\Teleport Scripts\Teleport.cs" />
-    <Compile Include="Assets\Scripts\Other\CloudGenerator.cs" />
+    <Compile Include="Assets\Scripts\Controllers\CloudGenerator.cs" />
     <Compile Include="Assets\Scripts\Stats\Stat.cs" />
     <Compile Include="Assets\Scripts\UI\InteractableUI.cs" />
     <Compile Include="Assets\Scripts\Controllers\Player\CameraBaseController.cs" />
-    <Compile Include="Assets\Scripts\Other\FootIk.cs" />
+    <Compile Include="Assets\Scripts\Controllers\Player\FootIk.cs" />
     <Compile Include="Assets\ImportedPackages\Tayx\Graphy - Ultimate Stats Monitor\Scene\Customization Scripts\ForceSliderToPowerOf2.cs" />
     <Compile Include="Assets\Scripts\Weapons\HandTorch.cs" />
     <Compile Include="Assets\ImportedPackages\Tayx\Graphy - Ultimate Stats Monitor\Scene\Customization Scripts\ForceSliderToMultipleOf3.cs" />
@@ -110,7 +112,7 @@
     <Compile Include="Assets\Scripts\Stats\LevelStatistics.cs" />
     <Compile Include="Assets\Scripts\Teleport Scripts\VoidCollider.cs" />
     <Compile Include="Assets\ImportedPackages\Tayx\Graphy - Ultimate Stats Monitor\Scene\Color Picker\G_CUIColorPicker.cs" />
-    <Compile Include="Assets\Scripts\Controllers\BirdsController.cs" />
+    <Compile Include="Assets\Scripts\Controllers\InteractiveFoliage.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\ImportedPackages\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
