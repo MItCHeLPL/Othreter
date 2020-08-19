@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
 	#endregion
 
-	#region Funtions
+	#region Functions
 
 	private void Start()
 	{
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 		camMain = ObjectsMenager.instance.cam;
 		anim = GetComponent<Animator>();
 
-		controller.skinWidth = 0.06f;//dont change
+		controller.skinWidth = 0.06f;//don't change
 		playerHeight = controller.height;
 		playerCenter = controller.center;
 
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
 		if (sprintEnabled && DataHolder.playerState_Controllable)
 		{
-			if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0) && sprintSpeedReached == false) && DataHolder.playerState_Crouch == false && DataHolder.playerState_Fallen == false && DataHolder.playerState_Aiming == false && DataHolder.playerState_Sliding == false)
+			if (((Input.GetKey(DataHolder.Sprint) && Input.GetKey(KeyCode.W)) || (Input.GetKey(DataHolder.SprintController) && Input.GetAxis("Horizontal") > 0) || (DataHolder.playerState_Sprint && Input.GetKey(KeyCode.W)) || (DataHolder.playerState_Sprint && Input.GetAxis("Horizontal") > 0) && sprintSpeedReached == false) && DataHolder.playerState_Crouch == false && DataHolder.playerState_Fallen == false && DataHolder.playerState_Aiming == false && DataHolder.playerState_Sliding == false)
 			{
 				DataHolder.playerState_Sprint = true;
 				anim.SetBool("Sprint", true);
@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour
 		{ 
 			if (groundAngle > angleLimitToSlide)
 			{
-				StartCoroutine(waitToSlide); //wait before sliding to prevent working on bumbs in ground
+				StartCoroutine(waitToSlide); //wait before sliding to prevent working on bumps in ground
 
 				if(allowToSlide)
 				{
@@ -368,7 +368,7 @@ public class PlayerController : MonoBehaviour
 				waitToSlide = SlopeStartCoroutine();
 			}
 
-			if (SlopeCheck() && DataHolder.playerState_Jump == false && DataHolder.playerState_Idle == false) //detects if player is moving on the slope and isnt jumping
+			if (SlopeCheck() && DataHolder.playerState_Jump == false && DataHolder.playerState_Idle == false) //detects if player is moving on the slope and isn't jumping
 			{
 				moveDirection = new Vector3(moveDirection.x, moveDirection.y - (playerHeight * slopeLimitCheckDistance), moveDirection.z); //moves player to the slope
 			}
