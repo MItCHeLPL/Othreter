@@ -1457,47 +1457,38 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Help:
+  m_text: 'Instructions:
+
 
     WSAD - Movement
 
     Space - Jump
 
-    LShift - Crouch
+    LCtrl - Crouch
 
-    LCtrl
+    LShift
     - Sprint
+
+
+    E - Interaction
 
 
     Left Mouse Button - Attack
 
-    Right Mouse Button - Aim
-
-
-    C
-    - Switch shoulder
-
-    PgUp/ PgDown / Scroll - Zoom
+    Right Mouse
+    Button - Aim
 
 
     R - Hide/Draw weapon
 
-    Q
-    - Last used weapon
+    Q - Last used weapon
 
-    1-4 - Choose weapon
-
-
-    Z - Change enemy to focus on
-    (if aiming with sword in hand)
+    1-4 -
+    Choose weapon
 
 
-    To shoot with a bow pick bow (1), hold aim
-    button to pull the arrow and release with attack button.
-
-
-    You can somehow
-    interact with orange objects on the map.
+    To shoot with a bow pick bow (1), hold aim button to pull
+    the arrow and release with attack button.
 
 '
   m_isRightToLeft: 0
