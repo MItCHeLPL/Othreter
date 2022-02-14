@@ -37,7 +37,7 @@ public class HandTorch : Weapon
 
 		if (DataHolder.playerState_Aiming && aimMode != null)
 		{
-			aimLight.transform.rotation = Quaternion.Lerp(aimLight.transform.rotation, Quaternion.Euler(0, cam.transform.eulerAngles.y, 0), 7.5f * Time.deltaTime);
+			aimLight.transform.rotation = Quaternion.Lerp(aimLight.transform.rotation, cam.transform.rotation, 7.5f * Time.deltaTime);
 		}
 	}
 

@@ -40,3 +40,6 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 Thumbs.db
+
+LightingData.asset
+*OcclusionCullingData.asset
