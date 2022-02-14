@@ -266,7 +266,7 @@ MonoBehaviour:
     m_Value: 1
   type:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   sphericalMode:
     m_OverrideState: 1
     m_Value: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   enable:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   opacity:
     m_OverrideState: 1
     m_Value: 0.75
@@ -519,10 +519,10 @@ MonoBehaviour:
     max: 4
   cascadeShadowSplit0:
     m_OverrideState: 1
-    m_Value: 0.02
+    m_Value: 0.025
   cascadeShadowSplit1:
     m_OverrideState: 1
-    m_Value: 0.07
+    m_Value: 0.157
   cascadeShadowSplit2:
     m_OverrideState: 1
     m_Value: 0.3
@@ -673,7 +673,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   enabled:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   usedAlgorithm:
     m_OverrideState: 0

@@ -31,7 +31,7 @@ public class Sword : Weapon
 
 	public override void Update()
 	{
-        if(Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") == 1 && wasHit == false))
+		if (Input.GetMouseButtonDown(0) || (Input.GetAxis("Fire1") == 1 && wasHit == false))
 		{
 			//play anim
 
