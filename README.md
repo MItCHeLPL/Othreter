@@ -23,7 +23,7 @@ Project started in 2018 and in 2020 was abandoned. In 2022 project was converted
 * Animation Rigging
 
 ## Gameplay
-[![Gameplay video](https://img.youtube.com/vi/[url]]/0.jpg)](https://www.youtube.com/watch?v=[url]])
+[![Gameplay video](https://img.youtube.com/vi/09lYgky3pwE/0.jpg)](https://www.youtube.com/watch?v=09lYgky3pwE)
 
 ## Contributions
 * [Michał Myszor](https://github.com/MItCHeLPL) - Programming, Shaders, VFX Graph, Rendering, in engine project setup
